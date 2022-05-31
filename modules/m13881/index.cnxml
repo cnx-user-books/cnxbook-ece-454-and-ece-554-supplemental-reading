@@ -1,0 +1,2343 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  <title>m10 - The Discrete Fourier Transform</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>38fb90d4-c9c5-4b7a-88a9-5662b9364d8b</md:uuid>
+</metadata>
+  <content>
+<para id="id15609992">
+   
+   
+</para>
+<section id="id15505524">
+<title>The Discrete Fourier Transform</title>
+<para id="id15616728">
+   The description of signals in terms of their sinusoidal frequency content has
+   proven to be as powerful and informative for discrete-time signals as it has
+   for continuous-time signals. It is also probably the most powerful
+   computational tool we will use. We now develop the basic discrete-time methods
+   starting with the discrete Fourier transform (DFT) applied to finite length
+   signals, followed by the discrete-time Fourier transform (DTFT) for infinitely
+   long signals, and ending with the z-transform which uses the powerful tools of
+   complex variable theory.
+</para>
+<section id="id15723785">
+<title>Definition of the DFT</title>
+<para id="id11881418">
+   It is assumed that the signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   to be analyzed is a sequence of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   real or complex values which are a function of the integer variable
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+     </m:mrow>
+   </m:math>.
+   The DFT of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   also called the spectrum of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   is a length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   sequence of complex numbers denoted
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>C</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>k</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   and defined by
+   
+<equation id="md514451daa5c7f813573b8a72a0e1cfd95">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>C</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>k</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">−</m:mo>
+                 <m:mi>j</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mfrac>
+                 <m:mrow>
+                   <m:mn>2</m:mn>
+                   <m:mo/>
+                   <m:mi>π</m:mi>
+                 </m:mrow>
+                 <m:mi>N</m:mi>
+               </m:mfrac>
+               <m:mo/>
+               <m:mi>n</m:mi>
+               <m:mo/>
+               <m:mi>k</m:mi>
+             </m:mrow>
+           </m:msup>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   using the usual engineering notation:
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>j</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:msqrt>
+         <m:mo form="prefix">−</m:mo>
+         <m:mn>1</m:mn>
+       </m:msqrt>
+     </m:mrow>
+   </m:math>.
+   The inverse transform (IDFT) which retrieves
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   from
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>C</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>k</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is given by
+   
+<equation id="md5fbfba2e45c2045dc5cab22a5afe83d9d">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>x</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mfrac>
+           <m:mn>1</m:mn>
+           <m:mi>N</m:mi>
+         </m:mfrac>
+         <m:mo/>
+         <m:mrow>
+           <m:munderover>
+             <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+             <m:mrow>
+               <m:mi>k</m:mi>
+               <m:mo form="infix">=</m:mo>
+               <m:mn>0</m:mn>
+             </m:mrow>
+             <m:mrow>
+               <m:mi>N</m:mi>
+               <m:mo form="infix">−</m:mo>
+               <m:mn>1</m:mn>
+             </m:mrow>
+           </m:munderover>
+           <m:mrow>
+             <m:mrow>
+               <m:mi>C</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mi>k</m:mi>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+             <m:mo/>
+             <m:msup>
+               <m:mi>e</m:mi>
+               <m:mrow>
+                 <m:mi>j</m:mi>
+                 <m:mo/>
+                 <m:mfrac>
+                   <m:mrow>
+                     <m:mn>2</m:mn>
+                     <m:mo/>
+                     <m:mi>π</m:mi>
+                   </m:mrow>
+                   <m:mi>N</m:mi>
+                 </m:mfrac>
+                 <m:mo/>
+                 <m:mi>n</m:mi>
+                 <m:mo/>
+                 <m:mi>k</m:mi>
+               </m:mrow>
+             </m:msup>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   which is easily verified by substitution into (1). Indeed, this verification
+   will require using the orthogonality of the basis function of the DFT which is
+   
+<equation id="md57a6f150b83091ce20c89368641f9a137">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>k</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+         </m:munderover>
+         <m:mrow>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">−</m:mo>
+                 <m:mi>j</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mfrac>
+                 <m:mrow>
+                   <m:mn>2</m:mn>
+                   <m:mo/>
+                   <m:mi>π</m:mi>
+                 </m:mrow>
+                 <m:mi>N</m:mi>
+               </m:mfrac>
+               <m:mo/>
+               <m:mi>m</m:mi>
+               <m:mo/>
+               <m:mi>k</m:mi>
+             </m:mrow>
+           </m:msup>
+           <m:mo/>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mi>j</m:mi>
+               <m:mo/>
+               <m:mfrac>
+                 <m:mrow>
+                   <m:mn>2</m:mn>
+                   <m:mo/>
+                   <m:mi>π</m:mi>
+                 </m:mrow>
+                 <m:mi>N</m:mi>
+               </m:mfrac>
+               <m:mo/>
+               <m:mi>n</m:mi>
+               <m:mo/>
+               <m:mi>k</m:mi>
+             </m:mrow>
+           </m:msup>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">{</m:mo>
+         <m:mtable align="axis" columnalign="left left">
+           <m:mtr>
+             <m:mtd>
+               <m:mi>N</m:mi>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black">if </m:mtext>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">=</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mn>0</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black">if </m:mtext>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">≠</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mtext>.</m:mtext>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true"/>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   The exponential basis functions,
+   <m:math display="inline">
+     <m:mrow>
+       <m:msup>
+         <m:mi>e</m:mi>
+         <m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">−</m:mo>
+             <m:mi>j</m:mi>
+           </m:mrow>
+           <m:mo/>
+           <m:mfrac>
+             <m:mrow>
+               <m:mn>2</m:mn>
+               <m:mo/>
+               <m:mi>π</m:mi>
+             </m:mrow>
+             <m:mi>N</m:mi>
+           </m:mfrac>
+           <m:mo/>
+           <m:mi>k</m:mi>
+         </m:mrow>
+       </m:msup>
+     </m:mrow>
+   </m:math>,
+   for
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+       <m:mo form="infix">∈</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+         <m:mrow>
+           <m:mn>0</m:mn>
+           <m:mo form="infix">,</m:mo>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+         </m:mrow>
+         <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   are the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   values of the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>th
+   roots of unity (the N zeros of the polynomial
+   <m:math display="inline">
+     <m:mrow>
+       <m:msup>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mi>s</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+         <m:mi>N</m:mi>
+       </m:msup>
+     </m:mrow>
+   </m:math>).
+   This property is what connects the DFT to convolution and allows efficient
+   algorithms for calculation to be developed
+   <cite target-id="md55cfdb867e96374c7883b31d6928cc4cb"/>. They are used
+   so often that the following notation is defined by
+   
+<equation id="md53dfe563103ab11bec75bb5081e7a1dbe">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:msub>
+         <m:mi>W</m:mi>
+         <m:mi>N</m:mi>
+       </m:msub>
+       <m:mo form="infix">=</m:mo>
+       <m:msup>
+         <m:mi>e</m:mi>
+         <m:mrow>
+           <m:mrow>
+             <m:mo form="prefix">−</m:mo>
+             <m:mi>j</m:mi>
+           </m:mrow>
+           <m:mo/>
+           <m:mfrac>
+             <m:mrow>
+               <m:mn>2</m:mn>
+               <m:mo/>
+               <m:mi>π</m:mi>
+             </m:mrow>
+             <m:mi>N</m:mi>
+           </m:mfrac>
+         </m:mrow>
+       </m:msup>
+     </m:mrow>
+   </m:math>
+</equation>
+   with the subscript being omitted if the sequence length is obvious from
+   context. Using this notation, the DFT becomes
+   
+<equation id="md52283335d8d12b21001439091e74f5028">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>C</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>k</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:msubsup>
+             <m:mi>W</m:mi>
+             <m:mi>N</m:mi>
+             <m:mrow>
+               <m:mi>n</m:mi>
+               <m:mo/>
+               <m:mi>k</m:mi>
+             </m:mrow>
+           </m:msubsup>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id14782278">
+   One should notice that with the finite summation of the DFT, there is no
+   question of convergence or of the ability to interchange the order of
+   summation. No ``delta functions'' are needed and the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   transform values can be calculated exactly (within the accuracy of the
+   computer or calculator used) from the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   signal values with a finite number of arithmetic operations.
+</para>
+</section>
+<section id="id15112397">
+<title>Matrix Formulation of the DFT</title>
+<para id="id15112405">
+   There are several advantages to using a matrix formulation of the DFT. This is
+   given by writing
+   (<link target-id="md514451daa5c7f813573b8a72a0e1cfd95"/>) or
+   (<link target-id="md52283335d8d12b21001439091e74f5028"/>) in matrix
+   operator form as
+</para>
+<para id="id15723115">
+   
+<equation id="md5528953727ef3a4e1c441c6078534c39b">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+         <m:mtable align="axis">
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>C</m:mi>
+                 <m:mn>0</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>C</m:mi>
+                 <m:mn>1</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>C</m:mi>
+                 <m:mn>2</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mtext>⋮</m:mtext>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>C</m:mi>
+                 <m:mrow>
+                   <m:mi>N</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mn>1</m:mn>
+                 </m:mrow>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>4</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msup>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:msup>
+                   <m:mi>W</m:mi>
+                   <m:mrow>
+                     <m:mrow>
+                       <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                       <m:mrow>
+                         <m:mi>N</m:mi>
+                         <m:mo form="infix">−</m:mo>
+                         <m:mn>1</m:mn>
+                       </m:mrow>
+                       <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                     </m:mrow>
+                     <m:mo/>
+                     <m:mrow>
+                       <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                       <m:mrow>
+                         <m:mi>N</m:mi>
+                         <m:mo form="infix">−</m:mo>
+                         <m:mn>1</m:mn>
+                       </m:mrow>
+                       <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                     </m:mrow>
+                   </m:mrow>
+                 </m:msup>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mrow>
+                     <m:mi>N</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   or
+   
+<equation id="md5d8708ecb9a1e7ba172c83d8360c57e7d">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mstyle>
+           <m:mi mathvariant="bold">C</m:mi>
+         </m:mstyle>
+       </m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mo form="infix" mathvariant="bold">=</m:mo>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">F</m:mi>
+           </m:mstyle>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">x</m:mi>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">.</m:mo>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id15741637">
+   The orthogonality of the basis function in
+   (<link target-id="md514451daa5c7f813573b8a72a0e1cfd95"/>) shows up in
+   this matrix formulation by the columns of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>F</m:mi>
+     </m:mrow>
+   </m:math>
+   being orthogonal to each other as are the rows. This means that
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:msup>
+           <m:mrow>
+             <m:mstyle>
+               <m:mi mathvariant="bold">F</m:mi>
+             </m:mstyle>
+           </m:mrow>
+           <m:mrow>
+             <m:mstyle>
+               <m:mi mathvariant="bold">T</m:mi>
+             </m:mstyle>
+           </m:mrow>
+         </m:msup>
+         <m:mo/>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">F</m:mi>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mo form="infix" mathvariant="bold">=</m:mo>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+       <m:mrow>
+         <m:mi>k</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">I</m:mi>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   where
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>
+   is a scalar constant, and, therefore,
+   <m:math display="inline">
+     <m:mrow>
+       <m:msup>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">F</m:mi>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">T</m:mi>
+           </m:mstyle>
+         </m:mrow>
+       </m:msup>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mo form="infix" mathvariant="bold">=</m:mo>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+       <m:mrow>
+         <m:mi>k</m:mi>
+         <m:mo/>
+         <m:msup>
+           <m:mrow>
+             <m:mstyle>
+               <m:mi mathvariant="bold">F</m:mi>
+             </m:mstyle>
+           </m:mrow>
+           <m:mrow>
+             <m:mstyle>
+               <m:mo form="prefix" mathvariant="bold">−</m:mo>
+               <m:mn mathvariant="bold">1</m:mn>
+             </m:mstyle>
+           </m:mrow>
+         </m:msup>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   This is called a unitary operator.
+</para>
+<para id="id15833241">
+   The definition of the DFT in
+   (<link target-id="md514451daa5c7f813573b8a72a0e1cfd95"/>) emphasizes the
+   fact that each of the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   DFT values are the sum of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   products. The matrix formulation in
+   (<link target-id="md5528953727ef3a4e1c441c6078534c39b"/>) has two
+   interpretations. Each
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>-th
+   DFT term is the inner product of two vectors,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>-th
+   row of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">F</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">x</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>;
+   or, the DFT vector,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">C</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   is a weighted sum of the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   columns of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">F</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   with weights being the elements of the signal vector
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">x</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>.
+   A third view of the DFT is the operator view which is simply the single matrix
+   equation (<link target-id="md5d8708ecb9a1e7ba172c83d8360c57e7d"/>).
+</para>
+<para id="id15777934">
+   It is instructive at this point to write a computer program to calculate the
+   DFT of a signal. In Matlab
+   <cite target-id="md59830e1f81f623b33106acc186b93374e"/>, there is a
+   pre-programmed function to calculate the DFT, but that hides the scalar
+   operations. One should program the transform in the scalar interpretive
+   language of Matlab or some other lower level language such as FORTRAN, C,
+   BASIC, Pascal, etc. This will illustrate how many multiplications and
+   additions and trigonometric evaluations are required and how much memory is
+   needed. Do not use a complex data type which also hides arithmetic, but use
+   Euler's relations
+   
+<equation id="md575d99404a02e2bc993a6bac34c60d679">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:msup>
+         <m:mi>e</m:mi>
+         <m:mrow>
+           <m:mi>j</m:mi>
+           <m:mo/>
+           <m:mi>x</m:mi>
+         </m:mrow>
+       </m:msup>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi mathcolor="gray">cos</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>x</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">+</m:mo>
+         <m:mrow>
+           <m:mi>j</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mi mathcolor="gray">sin</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>x</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   to explicitly calculate the real and imaginary part of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>C</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>k</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+</para>
+<para id="id15778176">
+   If Matlab is available, first program the DFT using only scalar operations. It
+   will require two nested loops and will run rather slowly because the execution
+   of loops is interpreted. Next, program it using vector inner products to
+   calculate each
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>C</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>k</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   which will require only one loop and will run faster. Finally, program it
+   using a single matrix multiplication requiring no loops and running much
+   faster. Check the memory requirements of the three approaches.
+</para>
+<para id="id15778236">
+   The DFT and IDFT are a completely well-defined, legitimate transform pair with
+   a sound theoretical basis that do not need to be derived from or interpreted
+   as an approximation to the continuous-time Fourier series or integral. The
+   discrete-time and continuous-time transforms and other tools are related and
+   have parallel properties, but neither depends on the other.
+</para>
+<para id="id15778247">
+   The notation used here is consistent with most of the literature and with the
+   standards given in
+   <cite target-id="md599bfeb10b387be1a6f6d014c27dfb6d5"/>. The independent
+   index variable
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+     </m:mrow>
+   </m:math>
+   of the signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is an integer, but it is usually interpreted as time or, occasionally, as
+   distance. The independent index variable
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>
+   of the DFT
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>C</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>k</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is also an integer, but it is generally considered as frequency. The DFT is
+   called the spectrum of the signal and the magnitude of the complex valued DFT
+   is called the magnitude of that spectrum and the angle or argument is called
+   the phase.
+</para>
+</section>
+<section id="id15778393">
+<title>Extensions of x(n)</title>
+<para id="id15778449">
+   Although the finite length signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is defined only over the interval
+   <m:math display="inline">
+     <m:mrow>
+       <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+       <m:mrow>
+         <m:mn>0</m:mn>
+         <m:mo form="infix">≤</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo form="infix">≤</m:mo>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+     </m:mrow>
+   </m:math>,
+   the IDFT of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>C</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>k</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   can be evaluated outside this interval to give well defined values. Indeed,
+   this process gives the periodic property 4. There are two ways of formulating
+   this phenomenon. One is to periodically extend
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mo form="prefix">−</m:mo>
+       <m:mi>∞</m:mi>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mo form="prefix">+</m:mo>
+       <m:mi>∞</m:mi>
+     </m:mrow>
+   </m:math>
+   and work with this new signal. A second more general way is evaluate all
+   indices
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>
+   modulo
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>.
+   Rather than considering the periodic extension of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   on the line of integers, the finite length line is formed into a circle or a
+   line around a cylinder so that after counting to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>,
+   the next number is zero, not a periodic replication of it. The periodic
+   extension is easier to visualize initially and is more commonly used for the
+   definition of the DFT, but the evaluation of the indices by residue reduction
+   modulo
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   is a more general definition and can be better utilized to develop efficient
+   algorithms for calculating the DFT
+   <cite target-id="md55cfdb867e96374c7883b31d6928cc4cb"/>.
+</para>
+<para id="id15716886">
+   Since the indices are evaluated only over the basic interval, any values could
+   be assigned
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   outside that interval. The periodic extension is the choice most consistent
+   with the other properties of the transform, however, it could be assigned to
+   zero <cite target-id="md5330695f7c0f60f05ca2369aed99034af"/>. An
+   interesting possibility is to artificially create a length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mn>2</m:mn>
+       <m:mo/>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   sequence by appending
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mrow>
+           <m:mo form="prefix">−</m:mo>
+           <m:mi>n</m:mi>
+         </m:mrow>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   to the end of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   This would remove the discontinuities of periodic extensions of this new
+   length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mn>2</m:mn>
+       <m:mo/>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   signal and perhaps give a more accurate measure of the frequency content of
+   the signal with no artifacts caused by ``end effects". Indeed, this
+   modification of the DFT gives what is called the discrete cosine transform
+   (DCT) <cite target-id="md544978a1316ed2a495d108b47badc18b9"/>. We will
+   assume the implicit periodic extensions to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   with no special notation unless this characteristic is important, then we will
+   use the notation
+   <m:math display="inline">
+     <m:mrow>
+       <m:mover accent="true">
+         <m:mi>x</m:mi>
+         <m:mo accent="true" form="postfix">˜</m:mo>
+       </m:mover>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+</para>
+</section>
+<section id="id15717230">
+<title>Convolution</title>
+<para id="id15717239">
+   Convolution is an important operation in signal processing that is in some
+   ways more complicated in discrete-time signal processing than in
+   continuous-time signal processing and in other ways easier. The basic
+   input-output relation for a discrete-time system is given by so-called linear
+   or non-cyclic convolution defined and denoted by
+   
+<equation id="md537cc8552b35560a7b91cd1f47df89cae">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>y</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>m</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>∞</m:mi>
+             </m:mrow>
+           </m:mrow>
+           <m:mi>∞</m:mi>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>h</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>m</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">−</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>h</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">*</m:mo>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   where
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is the perhaps infinitely long input discrete-time signal,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is the perhaps infinitely long impulse response of the system, and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>y</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is the output. The DFT is, however, intimately related to cyclic convolution,
+   not non-cyclic convolution. Cyclic convolution is defined and denoted by
+   
+<equation id="md5e324ad8ed03e3a7b3b98cf21cfdaadbb">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mover accent="true">
+           <m:mi>y</m:mi>
+           <m:mo accent="true" form="postfix">˜</m:mo>
+         </m:mover>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>m</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mover accent="true">
+               <m:mi>h</m:mi>
+               <m:mo accent="true" form="postfix">˜</m:mo>
+             </m:mover>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>m</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:mrow>
+             <m:mover accent="true">
+               <m:mi>x</m:mi>
+               <m:mo accent="true" form="postfix">˜</m:mo>
+             </m:mover>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">−</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>h</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">∘</m:mo>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   where either all of the indices or independent integer variables are evaluated
+   modulo
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   or all of the signals are periodically extended outside their length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   domains.
+</para>
+<para id="id15625719">
+   This cyclic (sometimes called circular) convolution can be expressed as a
+   matrix operation by converting the signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   into a matrix operator as
+   
+<equation id="md556586f52b07e8c334828aefa64ff6156">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">H</m:mi>
+           </m:mstyle>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>2</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">,</m:mo>
+     </m:mrow>
+   </m:math>
+</equation>
+   The cyclic convolution can then be written in matrix notation as
+   
+<equation id="md52afd410e2e5b23dad6f18513b2f72d0d">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mstyle>
+           <m:mi mathvariant="bold">Y</m:mi>
+         </m:mstyle>
+       </m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mo form="infix" mathvariant="bold">=</m:mo>
+           </m:mstyle>
+         </m:mrow>
+         <m:mrow>
+           <m:mstyle>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">H</m:mi>
+           </m:mstyle>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mstyle>
+             <m:mi mathvariant="bold">X</m:mi>
+           </m:mstyle>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   where
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">X</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">Y</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   are column matrices or vectors of the input and output values respectively.
+</para>
+<para id="id15626478">
+   Because non-cyclic convolution is often what you want to do and cyclic
+   convolution is what is related to the powerful DFT, we want to develop a way
+   of doing non-cyclic convolution by doing cyclic convolution.
+</para>
+<para id="id15626485">
+   The convolution of a length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   sequence with a length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>M</m:mi>
+     </m:mrow>
+   </m:math>
+   sequence yields a length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">+</m:mo>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>
+   output sequence. The calculation of non-cyclic convolution by using cyclic
+   convolution requires modifying the signals by appending zeros to them. This
+   will be developed later.
+</para>
+</section>
+<section id="id15626559">
+<title>Examples of the DFT</title>
+<para id="id15626569">
+   It is very important to develop insight and intuition into the DFT or spectral
+   characteristics of various standard signals. A few DFT's of standard signals
+   together with the above properties will give a fairly large set of results.
+   They will also aid in quickly obtaining the DFT of new signals. The
+   discrete-time impulse
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>δ</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is defined by
+   
+<equation id="md5c172a8ce69eede4a9d5041fbe039bfd8">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>δ</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">{</m:mo>
+         <m:mtable align="axis" columnalign="left left">
+           <m:mtr>
+             <m:mtd>
+               <m:mn>1</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> when </m:mtext>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">=</m:mo>
+                 <m:mn>0</m:mn>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mn>0</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> otherwise</m:mtext>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true"/>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   The discrete-time pulse
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mo form="infix">⊓</m:mo>
+         <m:mi>M</m:mi>
+       </m:msub>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is defined by
+   
+<equation id="md520e9e854760d152615078596780b9a61">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:msub>
+           <m:mo form="infix">⊓</m:mo>
+           <m:mi>M</m:mi>
+         </m:msub>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">{</m:mo>
+         <m:mtable align="axis" columnalign="left left">
+           <m:mtr>
+             <m:mtd>
+               <m:mn>1</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> when </m:mtext>
+               <m:mrow>
+                 <m:mrow>
+                   <m:mi>n</m:mi>
+                   <m:mo form="infix">=</m:mo>
+                   <m:mn>0</m:mn>
+                 </m:mrow>
+                 <m:mo form="infix">,</m:mo>
+                 <m:mn>1</m:mn>
+                 <m:mo form="infix">,</m:mo>
+                 <m:mi>⋯</m:mi>
+                 <m:mo form="infix">,</m:mo>
+                 <m:mrow>
+                   <m:mi>M</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mn>1</m:mn>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mn>0</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> otherwise</m:mtext>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true"/>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   Several examples are:
+</para>
+<list id="id15627115" list-type="bulleted">
+   <item>
+      
+         <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>D</m:mi>
+         <m:mo/>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mi>T</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+           <m:mrow>
+             <m:mi>δ</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>,
+         The DFT of an impulse is a constant.
+      
+   </item>
+   <item>
+      
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>D</m:mi>
+            <m:mo/>
+            <m:mi>F</m:mi>
+            <m:mo/>
+            <m:mi>T</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+              <m:mn>1</m:mn>
+              <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mrow>
+            <m:mi>N</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mi>δ</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mi>k</m:mi>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+          </m:mrow>
+        </m:mrow>
+      </m:math>,
+         The DFT of a constant is an impulse.
+      
+   </item>
+   <item>
+      
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>D</m:mi>
+            <m:mo/>
+            <m:mi>F</m:mi>
+            <m:mo/>
+            <m:mi>T</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+              <m:msup>
+                <m:mi>e</m:mi>
+                <m:mrow>
+                  <m:mi>j</m:mi>
+                  <m:mo/>
+                  <m:mn>2</m:mn>
+                  <m:mo/>
+                  <m:mi>π</m:mi>
+                  <m:mo/>
+                  <m:mi>K</m:mi>
+                  <m:mo/>
+                  <m:mrow>
+                    <m:mi>n</m:mi>
+                    <m:mo form="infix">/</m:mo>
+                    <m:mi>N</m:mi>
+                  </m:mrow>
+                </m:mrow>
+              </m:msup>
+              <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mrow>
+            <m:mi>N</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mi>δ</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mrow>
+                  <m:mi>k</m:mi>
+                  <m:mo form="infix">−</m:mo>
+                  <m:mi>K</m:mi>
+                </m:mrow>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+          </m:mrow>
+        </m:mrow>
+      </m:math>
+      
+   </item>
+   <item>
+      
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>D</m:mi>
+            <m:mo/>
+            <m:mi>F</m:mi>
+            <m:mo/>
+            <m:mi>T</m:mi>
+          </m:mrow>
+          <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+          <m:mrow>
+            <m:mrow>
+              <m:mi mathcolor="gray">cos</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mrow>
+                  <m:mn>2</m:mn>
+                  <m:mo/>
+                  <m:mi>π</m:mi>
+                  <m:mo/>
+                  <m:mi>M</m:mi>
+                  <m:mo/>
+                  <m:mrow>
+                    <m:mi>n</m:mi>
+                    <m:mo form="infix">/</m:mo>
+                    <m:mi>N</m:mi>
+                  </m:mrow>
+                </m:mrow>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+            <m:mo form="infix">=</m:mo>
+            <m:mfrac>
+              <m:mi>N</m:mi>
+              <m:mn>2</m:mn>
+            </m:mfrac>
+          </m:mrow>
+          <m:mo/>
+          <m:mrow>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">[</m:mo>
+              <m:mrow>
+                <m:mi>δ</m:mi>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mrow>
+                  <m:mi>k</m:mi>
+                  <m:mo form="infix">−</m:mo>
+                  <m:mi>M</m:mi>
+                </m:mrow>
+              </m:mrow>
+              <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+            </m:mrow>
+            <m:mo form="infix">+</m:mo>
+            <m:mrow>
+              <m:mi>δ</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mrow>
+                  <m:mi>k</m:mi>
+                  <m:mo form="infix">+</m:mo>
+                  <m:mi>M</m:mi>
+                </m:mrow>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+          </m:mrow>
+          <m:mo fence="true" form="postfix" stretchy="false">]</m:mo>
+        </m:mrow>
+      </m:math>
+      
+   </item>
+   <item>
+      
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>D</m:mi>
+            <m:mo/>
+            <m:mi>F</m:mi>
+            <m:mo/>
+            <m:mi>T</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+              <m:mrow>
+                <m:msub>
+                  <m:mo form="infix">⊓</m:mo>
+                  <m:mi>M</m:mi>
+                </m:msub>
+                <m:mrow>
+                  <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                  <m:mi>n</m:mi>
+                  <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                </m:mrow>
+              </m:mrow>
+              <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mfrac>
+            <m:mrow>
+              <m:mi mathcolor="gray">sin</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mrow>
+                  <m:mfrac>
+                    <m:mi>π</m:mi>
+                    <m:mi>N</m:mi>
+                  </m:mfrac>
+                  <m:mo/>
+                  <m:mi>M</m:mi>
+                  <m:mo/>
+                  <m:mi>k</m:mi>
+                </m:mrow>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+            <m:mrow>
+              <m:mi mathcolor="gray">sin</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mrow>
+                  <m:mfrac>
+                    <m:mi>π</m:mi>
+                    <m:mi>N</m:mi>
+                  </m:mfrac>
+                  <m:mo/>
+                  <m:mi>k</m:mi>
+                </m:mrow>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+          </m:mfrac>
+        </m:mrow>
+      </m:math>
+      
+   </item>
+</list>
+<para id="id15493186">
+   These examples together with the properties can generate a still larger set of
+   interesting and enlightening examples. Matlab can be used to experiment with
+   these results and to gain insight and intuition.
+</para>
+<para id="id15493194">
+   
+   
+</para>
+</section>
+</section>
+</content>
+<bib:file><bib:entry id="md55cfdb867e96374c7883b31d6928cc4cb">
+<bib:book><bib:author>C. S. Burrus and T. W. Parks</bib:author>
+<bib:title>DFT/FFT and Convolution Algorithms</bib:title>
+<bib:publisher>John Wiley &amp; Sons</bib:publisher>
+<bib:year>1985</bib:year>
+<bib:address>New York</bib:address>
+<!--bibtex:support = u'TI'
+-->
+</bib:book>
+</bib:entry><bib:entry id="md59830e1f81f623b33106acc186b93374e">
+<bib:book><bib:author>Cleve Moler, John Little and Steve Bangert</bib:author>
+<bib:title>Matlab User's Guide</bib:title>
+<bib:publisher>The MathWorks, Inc.</bib:publisher>
+<bib:year>1989</bib:year>
+<bib:address>South Natick, MA</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md599bfeb10b387be1a6f6d014c27dfb6d5">
+<bib:book><bib:editor>DSP Committee</bib:editor>
+<bib:title>Digital Signal Processing II, selected reprints</bib:title>
+<bib:publisher>IEEE Press</bib:publisher>
+<bib:year>1979</bib:year>
+<bib:address>New York</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md5330695f7c0f60f05ca2369aed99034af">
+<bib:book><bib:author>A. V. Oppenheim and R. W. Schafer</bib:author>
+<bib:title>Discrete-Time Signal Processing</bib:title>
+<bib:publisher>Prentice-Hall</bib:publisher>
+<bib:year>1989</bib:year>
+<bib:address>Englewood Cliffs, NJ</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md544978a1316ed2a495d108b47badc18b9">
+<bib:book><bib:author>D. F. Elliott and K. F. Rao</bib:author>
+<bib:title>Fast Transforms: Algorithms, Analyses and Applications</bib:title>
+<bib:publisher>Academic Press</bib:publisher>
+<bib:year>1982</bib:year>
+<bib:address>New York</bib:address>
+</bib:book>
+</bib:entry></bib:file></document>

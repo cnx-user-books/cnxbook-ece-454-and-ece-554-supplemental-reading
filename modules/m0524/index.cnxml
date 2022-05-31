@@ -1,0 +1,1005 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  
+  <title>DTFT Examples</title>
+
+  <metadata>
+  <md:content-id>m0524</md:content-id><md:title>DTFT Examples</md:title>
+  <md:abstract>How to compute discrete-time Fourier transforms for decaying sequences.
+</md:abstract>
+  <md:uuid>525538d5-c876-45c0-ae6d-3b2138950cdf</md:uuid>
+</metadata>
+
+<content>
+
+    <example id="ex2001"> 
+      <para id="p1">
+	Let's compute the discrete-time Fourier transform of the
+	exponentially decaying sequence
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">s</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>a</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">u</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	, where 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">u</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	</m:math> is the unit-step sequence.  Simply plugging the
+	signal's expression into the Fourier transform formula,
+      </para>
+      
+      <equation id="eqn0004">
+	<title>Fourier Transform Formula</title>
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">S</m:ci>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:cn>2</m:cn>
+		  <m:pi/>
+		  <m:ci>f</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:uplimit><m:infinity/></m:uplimit>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:power/>
+		  <m:ci>a</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:ci type="fn">u</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>f</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:uplimit><m:infinity/></m:uplimit>
+	      <m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+	      <m:apply>
+		<m:power/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>a</m:ci>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+			<m:ci>f</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <para id="p2">
+	This sum is a special case of the <term>geometric
+	series</term>.  
+
+	<equation id="eqn0005">
+	  <title>Geometric Series</title>
+	  <m:math>
+	    <m:apply>
+	      <m:forall/>
+	      <m:bvar>
+		<m:ci>α</m:ci>
+	      </m:bvar>
+	      <m:condition>
+		<m:apply>
+		  <m:lt/>
+		  <m:apply>
+		    <m:abs/>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:condition>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar><m:ci>n</m:ci></m:bvar>
+		  <m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+		  <m:uplimit><m:infinity/></m:uplimit>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>α</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		  <m:minus/>
+		    <m:cn>1</m:cn>
+		    <m:ci>α</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	
+	Thus, as long as 
+	<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:ci>a</m:ci>
+	    </m:apply>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math>
+	, we have our Fourier transform.
+	
+	<equation id="eqn0006">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn">S</m:ci>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:minus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>a</m:ci>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			  <m:ci>f</m:ci>
+			</m:apply>
+		    </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> 
+	</equation>
+      </para>
+
+      <para id="p4">
+	Using Euler's relation, we can express the magnitude and phase
+	of this spectrum.
+
+	<equation id="eqn0007a">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:abs/>
+		<m:apply>
+		  <m:ci type="fn">S</m:ci>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>f</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:root/>
+		  <m:apply>
+		    <m:plus/>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:minus/>
+			<m:cn>1</m:cn>
+			<m:apply>
+			  <m:times/>
+			  <m:ci>a</m:ci>
+			  <m:apply>
+			    <m:cos/>
+			    <m:apply>
+			      <m:times/>
+			      <m:cn>2</m:cn>
+			      <m:pi/>
+			      <m:ci>f</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:power/>
+			<m:ci>a</m:ci>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		      <m:apply>
+			<m:power/>
+			<m:apply>
+			  <m:sin/>
+			  <m:apply>
+			    <m:times/>
+			    <m:cn>2</m:cn>
+			    <m:pi/>
+			    <m:ci>f</m:ci>
+			  </m:apply>
+			</m:apply>
+			<m:cn>2</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	<equation id="eqn0007b">
+	  <m:math>
+	  <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:arg/>
+		<m:apply>
+		  <m:ci type="fn">S</m:ci>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>f</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:arctan/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:ci>a</m:ci>
+		      <m:apply>
+			<m:sin/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			  <m:ci>f</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:minus/>
+		      <m:cn>1</m:cn>
+		      <m:apply>
+			<m:times/>
+			<m:ci>a</m:ci>
+			<m:apply>
+			  <m:cos/>
+			  <m:apply>
+			    <m:times/>
+			    <m:cn>2</m:cn>
+			    <m:pi/>
+			    <m:ci>f</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+      </para>
+
+      <para id="p5">
+	No matter what value of <m:math><m:ci>a</m:ci></m:math> we
+	choose, the above formulae clearly demonstrate the periodic
+	nature of the spectra of discrete-time signals.  <link target-id="fig1001" strength="3"/> shows indeed that the spectrum
+	is a periodic function.  We need only consider the spectrum
+	between
+	<m:math>
+	  <m:apply>
+	    <m:minus/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:apply> 
+	</m:math> 
+	and 
+	<m:math>
+	  <m:apply>
+	    <m:divide/>
+	    <m:cn>1</m:cn>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math> 
+	to unambiguously define it.  When 
+	<m:math>
+	  <m:apply> 
+	    <m:gt/>
+	    <m:ci>a</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>
+	, we have a lowpass spectrum — the spectrum diminishes as
+	frequency increases from
+	<m:math>
+	  <m:cn>0</m:cn>
+	</m:math> 
+	to
+	<m:math>
+	  <m:apply>
+	    <m:divide/>
+	    <m:cn>1</m:cn>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math>
+	— with increasing
+	<m:math>
+	  <m:ci>a</m:ci>
+	</m:math> 
+	leading to a greater low frequency content; for 
+	<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:ci>a</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>
+	, we have a highpass spectrum (<link target-id="fig1002" strength="3"/>).
+      </para>
+    </example>
+    
+    <figure id="fig1001" orient="horizontal">
+      <media id="id13303247" alt="">
+        <image src="../../media/spectrum10.png" mime-type="image/png"/>
+        <image for="pdf" src="../../media/spectrum10.eps" mime-type="application/postscript"/>
+      </media> 
+      <caption> 
+	The spectrum of the exponential signal
+	(<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>a</m:ci>
+	    <m:cn>0.5</m:cn>
+	  </m:apply> 
+	</m:math>) is shown over the frequency range
+	<m:math>
+	  <m:interval>
+	    <m:cn>-2</m:cn>
+	    <m:cn>2</m:cn>
+	  </m:interval>
+	</m:math>, clearly demonstrating the periodicity of all
+	discrete-time spectra.  The angle has units of degrees.
+      </caption>
+    </figure>                 
+
+    <figure id="fig1002" orient="horizontal">
+      <media id="id13002708" alt="">
+        <image src="../../media/spectrum11.png" mime-type="image/png"/>
+        <image for="pdf" src="../../media/spectrum11.eps" mime-type="application/postscript"/>
+      </media> 
+      <caption>
+	The spectra of several exponential signals are shown.  What is
+	the apparent relationship between the spectra for
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>a</m:ci>
+	    <m:cn>0.5</m:cn>
+	  </m:apply>
+	</m:math> 
+	and 
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>a</m:ci>
+	    <m:cn>-0.5</m:cn>
+	  </m:apply>
+	</m:math>
+	?
+      </caption>
+    </figure>
+
+    <example id="ex2002">
+
+      <para id="p6">
+	Analogous to the analog pulse signal, let's find the spectrum
+	of the length-
+	<m:math>
+	  <m:ci>N</m:ci>
+	</m:math> 
+	pulse sequence.
+      </para>
+
+      <equation id="eqn0008">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">s</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:piecewise>
+	      <m:piece>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:leq/>
+		  <m:cn>0</m:cn>
+		  <m:ci>n</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>N</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:piece>
+	      <m:otherwise>
+		<m:cn>0</m:cn>
+	      </m:otherwise>
+	    </m:piecewise>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <para id="p7">
+	The Fourier transform of this sequence has the form of a
+	truncated geometric series.
+      </para>
+
+      <equation id="eqn0009">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">S</m:ci>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:cn>2</m:cn>
+		  <m:pi/>
+		  <m:ci>f</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+
+      <para id="p8">
+	For the so-called finite geometric series, we know that
+
+      <equation id="eqn0010">
+	<title>Finite Geometric Series</title>
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci></m:bvar>
+	      <m:lowlimit>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:ci> 
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci>N</m:ci>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>n</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:power/>
+		<m:ci>α</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:power/>
+		<m:ci>α</m:ci>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>n</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:divide/>
+		<m:apply>
+		  <m:minus/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>α</m:ci>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:cn>1</m:cn>
+		  <m:ci>α</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+	
+	for <emphasis>all</emphasis> values of 
+	<m:math>
+	  <m:ci>α</m:ci>
+	</m:math>
+	.  
+      </para>
+    </example>
+
+    <exercise id="exer1">
+      <problem id="id17740025">
+	<para id="prob1">
+	  Derive this formula for the finite geometric series sum.
+	  The "trick" is to consider the difference between the
+	  series'; sum and the sum of the series multiplied by
+	  <m:math>
+	    <m:ci>α</m:ci>
+	  </m:math>
+	  .
+	</para>
+      </problem>
+
+      <solution id="id13945589">
+	<para id="sol1">
+	  <equation id="eqnsol1">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>α</m:ci>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar><m:ci>n</m:ci></m:bvar>
+		      <m:lowlimit>
+			<m:ci>
+			  <m:msub>
+			    <m:mi>n</m:mi>
+			    <m:mn>0</m:mn>
+			  </m:msub>
+			</m:ci> 
+		      </m:lowlimit>
+		      <m:uplimit>
+			<m:apply>
+			  <m:plus/>
+			  <m:ci>N</m:ci>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>
+			      <m:msub>
+				<m:mi>n</m:mi>
+				<m:mn>0</m:mn>
+			      </m:msub>
+			    </m:ci>
+			    <m:cn>1</m:cn>
+			  </m:apply>
+			</m:apply>
+		      </m:uplimit>
+		      <m:apply>
+			<m:power/>
+			<m:ci>α</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar><m:ci>n</m:ci></m:bvar>
+		    <m:lowlimit>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>n</m:mi>
+			  <m:mn>0</m:mn>
+			</m:msub>
+		      </m:ci> 
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:apply>
+			<m:plus/>
+			<m:ci>N</m:ci>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>
+			    <m:msub>
+			      <m:mi>n</m:mi>
+			      <m:mn>0</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+		      </m:apply>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>α</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>  
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>α</m:ci>
+		    <m:apply>
+		      <m:plus/>
+		      <m:ci>N</m:ci>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>n</m:mi>
+			  <m:mn>0</m:mn>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>α</m:ci>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>n</m:mi>
+			<m:mn>0</m:mn>
+		      </m:msub>
+		    </m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>      
+	    </m:math>
+	  </equation> 
+
+	  which, after manipulation, yields the geometric sum formula.
+	</para>
+      </solution>
+    </exercise>
+    
+    <para id="p10">
+      Applying this result yields (<link target-id="fig1003" strength="3"/>.)
+    </para>
+
+    <equation id="eqn0011">
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">S</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+		<m:ci>f</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:divide/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:minus/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:sin/>
+		<m:apply>
+		  <m:times/>
+		  <m:pi/>
+		  <m:ci>f</m:ci>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:sin/>
+		<m:apply>
+		  <m:times/>
+		  <m:pi/>
+		  <m:ci>f</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math> 
+    </equation>
+
+    <para id="p11"> 
+      The ratio of sine functions has the generic form of 
+      <m:math>
+	<m:apply>
+	  <m:divide/>
+	  <m:apply>
+	    <m:sin/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci>N</m:ci>
+	      <m:ci>x</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:sin/>
+	    <m:ci>x</m:ci>
+	  </m:apply>
+	</m:apply> 
+      </m:math>
+      , which is known as the <term>discrete-time sinc function</term>, 
+      <m:math>
+	<m:apply>
+	  <m:ci type="fn">dsinc</m:ci>
+	  <m:ci>x</m:ci>
+	</m:apply>
+      </m:math>
+      .  Thus, our transform can be concisely expressed as 
+      <m:math>
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn">S</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:cn>2</m:cn>
+		<m:pi/>
+		<m:ci>f</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		  </m:apply>
+		</m:apply> 
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:ci type="fn">dsinc</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:pi/>
+		<m:ci>f</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      .  The discrete-time pulse's spectrum contains many ripples, the
+      number of which increase with
+      <m:math>
+	<m:ci>N</m:ci>
+      </m:math>
+      , the pulse's duration.
+    </para>
+    
+    <figure id="fig1003" orient="horizontal">
+      <media id="id12698465" alt="">
+        <image src="../../media/spectrum12.png" mime-type="image/png"/>
+        <image for="pdf" src="../../media/spectrum12-8916.eps" mime-type="application/postscript"/>
+      </media>  
+      <caption>
+	The spectrum of a length-ten pulse is shown. Can you explain
+	the rather complicated appearance of the phase?
+      </caption>
+    </figure>
+
+  </content>
+</document>

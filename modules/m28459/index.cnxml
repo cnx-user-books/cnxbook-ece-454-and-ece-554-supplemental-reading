@@ -1,0 +1,1689 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>INTRODUCTORY DISCRETE FOURIER TRANSFORM (DFT)</title>
+  <metadata>
+  <md:content-id>m28459</md:content-id><md:title>INTRODUCTORY DISCRETE FOURIER TRANSFORM (DFT)</md:title>
+  <md:abstract/>
+  <md:uuid>2de1af2e-f687-4aa4-95bf-3c3bd9308234</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-618585876041">
+      <title>INTRODUCTORY DISCRETE FOURIER TRANSFORM (DFT)</title>
+      <para id="id17489305">In this chapter we have seen that the Continuous-Time Fourier Series (CTFS) relates the continuous periodic time to the discrete frequencies, and the Continuous-Time Fourier transform (CTFT) relates the continuous time to the continuous frequency, then the Discrete Time Fourier Series (DTFS) relates the discrete periodic time to the discrete frequencies, and, finally, the Discrete Time Fourier Transform (DTFT) relates the discrete time to the continuous frequency. The two latter representations differ from the two former in that they are 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2π} {}</m:annotation></m:semantics></m:math> - periodic in the frequency domain due to the effect of the sampling in the time domain.</para>
+      <para id="id17803563">Although the DTFT is very useful for examing the frequency characteristic of discrete – time signals and systems, but there is a computational problem with it, i.e. its frequency representation is continuous. The Discrete Fourier Transform (DFT) fills up the time-frequency picture, it relates the discrete time to the discrete frequency. There is still the Fast Fourier Transform (FFT) which is the algorithm to compute the DFT. Both the DFT and FFT are really important tools to tackle many problems is DSP(DTSP). In this last section we present just a brief introduction to the DFT. They will be presented more fully in chapter 8.</para>
+    </section>
+    <section id="id-156713437108">
+      <title>From the DTFT to the DFT</title>
+      <para id="id17803571">While the discrete sequence x(n) is discrete in time , its DTFT 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) } {}</m:annotation></m:semantics></m:math>is continuous and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2π} {}</m:annotation></m:semantics></m:math>-periodic in frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>ω</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω} {}</m:annotation></m:semantics></m:math>, which is not convenient for computation on computers. So, the frequency variable 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>ω</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω} {}</m:annotation></m:semantics></m:math> must be discretized in one period 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">[</m:mo><m:mn>0,2</m:mn><m:mi>π</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \[ 0,2π \] } {}</m:annotation></m:semantics></m:math> and we then take the transform of these discrete frequencies. </para>
+      <para id="id8232845">First let’s repeat the DTFT pair here for comvenience ((<link document="m10840" target-id="id00339"> Equation </link>) and (<link document="m10840" target-id="id00340"> Equation </link>)):</para>
+      <equation id="element-63"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mi>ω</m:mi><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo stretchy="false">(</m:mo><m:mi>D</m:mi><m:mi>T</m:mi><m:mi>F</m:mi><m:mi>T</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqabeaabiGaciaacaqaaeaadaqaaqaaaOqaaiaadIfacaGGOaGaeqyYdCNaaiykaiabg2da9maaqahabaGaamiEaiaacIcacaWGUbGaaiykaiaadwgadaahaaWcbeqaaiabgkHiTiaadQgacqaHjpWDcaWGUbaaaaqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoakiaaywW7caaMf8UaaiikaiaadseacaWGubGaamOraiaadsfacaGGPaaaaa@53AB@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation>
+      <equation id="element-70"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mrow>
+     <m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:mrow>
+     <m:msubsup>
+      <m:mo>∫</m:mo>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>π</m:mi>
+      </m:mrow>
+      <m:mi>π</m:mi>
+     </m:msubsup>
+     <m:mrow>
+      <m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo>
+     </m:mrow>
+    </m:mrow>
+    
+   </m:mstyle><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mi>ω</m:mi><m:mi>n</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mi>d</m:mi><m:mi>ω</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqabeaabiGaciaacaqaaeaadaqaaqaaaOqaaiaadIhacaGGOaGaamOBaiaacMcacqGH9aqpdaWcaaqaaiaaigdaaeaacaaIYaGaeqiWdahaamaapedabaGaamiwaiaacIcacqaHjpWDcaGGPaaaleaacqGHsislcqaHapaCaeaacqaHapaCa0Gaey4kIipakiaadwgadaahaaWcbeqaaiaadQgacqaHjpWDcaWGUbaaaOGaamizaiabeM8a3baa@4F98@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation>
+      <para id="id18242310">For the sequence x(n) having N samples (time indices) we discretize at equal spaces the continuous frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>ω</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω} {}</m:annotation></m:semantics></m:math> into the same N points in the interval 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">[</m:mo><m:mn>0,2</m:mn><m:mi>π</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \[ 0,2π \] } {}</m:annotation></m:semantics></m:math>:</para>
+      <equation id="element-501"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>ω</m:mi>
+    <m:mi>k</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+    <m:mi>N</m:mi>
+   </m:mfrac>
+   <m:mi>k</m:mi><m:mo>,</m:mo><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn><m:mo>,</m:mo><m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaciaacaqaaeaadaqaaqaaaOqaaiabeM8a3naaBaaaleaacaWGRbaabeaakiabg2da9maalaaabaGaaGOmaiabec8aWbqaaiaad6eaaaGaam4AaiaacYcacaaMc8UaaGjbVlaaywW7caWGRbGaeyypa0JaaGimaiaacYcacaaMe8UaaGymaiaacYcacaaMe8UaaGOmaiaacYcacaGGUaGaaiOlaiaac6cacaGGSaGaamOtaiabgkHiTiaaigdaaaa@520C@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation>
+      <para id="id17584382">These are the frequency samples .We take the summation from 0 to N-1 instead of from 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ -  infinity } {}</m:annotation></m:semantics></m:math>to 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ infinity } {}</m:annotation></m:semantics></m:math> as in the DTFS, to get the DFT of x(n) : </para>
+      <equation id="element-939"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mrow>
+      <m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+      <m:mfrac>
+       <m:mrow>
+        <m:mn>2</m:mn><m:mi>π</m:mi>
+       </m:mrow>
+       <m:mi>N</m:mi>
+      </m:mfrac>
+     </m:mstyle>
+     <m:mi>k</m:mi><m:mi>n</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mtext> </m:mtext><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mtext> </m:mtext><m:mo stretchy="false">(</m:mo><m:mi>D</m:mi><m:mi>F</m:mi><m:mi>T</m:mi><m:mo stretchy="false">)</m:mo><m:mtext> </m:mtext><m:mo stretchy="false">(</m:mo><m:mi>a</m:mi><m:mi>n</m:mi><m:mi>a</m:mi><m:mi>l</m:mi><m:mi>y</m:mi><m:mi>s</m:mi><m:mi>i</m:mi><m:mi>s</m:mi><m:mtext> </m:mtext><m:mi>e</m:mi><m:mi>q</m:mi><m:mi>u</m:mi><m:mi>a</m:mi><m:mi>t</m:mi><m:mi>i</m:mi><m:mi>o</m:mi><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaciaacaqaaeaadaqaaqaaaOqaaiaadIfacaGGOaGaam4AaiaacMcacqGH9aqpdaaeWbqaaiaadIhacaGGOaGaamOBaiaacMcaaSqaaiaad6gacqGH9aqpcaaIWaaabaGaamOtaiabgkHiTiaaigdaa0GaeyyeIuoakiaadwgadaahaaWcbeqaaiabgkHiTiaadQgadaWcbaadbaGaaGOmaiabec8aWbqaaiaad6eaaaWccaWGRbGaamOBaaaakiaaywW7caGGSaGaaGzbVlaadUgacqGH9aqpcaaIWaGaaiilaiaaysW7caaIXaGaaiilaiaaysW7caaIYaGaaiilaiaac6cacaGGUaGaaiOlaiaacYcacaaMe8UaamOtaiabgkHiTiaaigdacaaMf8UaaiikaiaadseacaWGgbGaamivaiaacMcacaaMf8UaaiikaiaadggacaWGUbGaamyyaiaadYgacaWG5bGaam4CaiaadMgacaWGZbGaaGjbVlaadwgacaWGXbGaamyDaiaadggacaWG0bGaamyAaiaad+gacaWGUbGaaiykaaaa@79EF@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation>
+      <para id="id18470065">This is the N- point DFT (analysis equation). X(k) is the spectral components. Notice that we write X(k) to mean 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω rSub { size 8{k} }  \) } {}</m:annotation></m:semantics></m:math>, for short as many authors do . The exponent of the exponential is written as 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mrow><m:mn>2π</m:mn><m:mo stretchy="false">/</m:mo><m:mi>N</m:mi></m:mrow><m:mo stretchy="false">)</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kn</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ - j \( 2π/N \)  ital "kn"} {}</m:annotation></m:semantics></m:math>. Many authors write it as 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">j2π</m:mi></m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kn</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">/</m:mo><m:mi>N</m:mi></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ - j2π ital "kn"/N} {}</m:annotation></m:semantics></m:math> for convenience, but our writing is more meaningful.</para>
+      <para id="id5507157">Since X(k) is discrete we don’t have to take the integral as in <link target-id="element-501"/> to recover the time sequence x(n), but rather a summation :</para>
+      <equation id="element-651"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mtext>x(n)</m:mtext><m:mo>=</m:mo><m:mfrac>
+    <m:mtext>1</m:mtext>
+    <m:mtext>N</m:mtext>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mtext>k</m:mtext><m:mo>=</m:mo><m:mtext>0</m:mtext>
+     </m:mrow>
+     <m:mrow>
+      <m:mtext>N</m:mtext><m:mo>−</m:mo><m:mtext>1</m:mtext>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:msup>
+      <m:mrow>
+       <m:mtext>X(k)e</m:mtext>
+      </m:mrow>
+      <m:mrow>
+       <m:mtext>j</m:mtext><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mrow>
+          <m:mtext>2π</m:mtext>
+         </m:mrow>
+         <m:mtext>N</m:mtext>
+        </m:mfrac>
+       </m:mstyle>
+       <m:mtext>kn</m:mtext>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mtext> </m:mtext><m:mo stretchy="false">(</m:mo><m:mi>I</m:mi><m:mi>D</m:mi><m:mi>F</m:mi><m:mi>T</m:mi><m:mo stretchy="false">)</m:mo><m:mtext> </m:mtext><m:mo stretchy="false">(</m:mo><m:mi>s</m:mi><m:mi>y</m:mi><m:mi>n</m:mi><m:mi>t</m:mi><m:mi>h</m:mi><m:mi>e</m:mi><m:mi>s</m:mi><m:mi>i</m:mi><m:mi>s</m:mi><m:mtext> </m:mtext><m:mi>e</m:mi><m:mi>q</m:mi><m:mi>u</m:mi><m:mi>a</m:mi><m:mi>t</m:mi><m:mi>i</m:mi><m:mi>o</m:mi><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaciaacaqaaeaadaqaaqaaaOqaaiaabIhacaqGOaGaaeOBaiaabMcacqGH9aqpdaWcaaqaaiaabgdaaeaacaqGobaaamaaqahabaGaaeiwaiaabIcacaqGRbGaaeykaiaabwgadaahaaWcbeqaaiaabQgadaWcbaadbaGaaeOmaiaabc8aaeaacaqGobaaaSGaae4Aaiaab6gaaaaabaGaae4Aaiabg2da9iaabcdaaeaacaqGobGaeyOeI0IaaeymaaqdcqGHris5aOGaaGjbVlaacYcacaaMf8UaamOBaiabg2da9iaaicdacaGGSaGaaGjbVlaaigdacaGGSaGaaGjbVlaaikdacaGGSaGaaiOlaiaac6cacaGGUaGaaiilaiaaysW7caWGobGaeyOeI0IaaGymaiaaywW7caGGOaGaamysaiaadseacaWGgbGaamivaiaacMcacaaMf8UaaiikaiaadohacaWG5bGaamOBaiaadshacaWGObGaamyzaiaadohacaWGPbGaam4CaiaaysW7caWGLbGaamyCaiaadwhacaWGHbGaamiDaiaadMgacaWGVbGaamOBaiaacMcaaaa@7BB4@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation>
+      <para id="id18399748">This is the inverse DFT (IDFT) (synthesis equation). X(k) and x(n) form the transform pair </para>
+      <para id="element-768"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mover>
+    <m:mo>↔</m:mo>
+    <m:mrow>
+     <m:mi>D</m:mi><m:mi>F</m:mi><m:mi>T</m:mi>
+    </m:mrow>
+   </m:mover>
+   <m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaciaacaqaaeaadaqaaqaaaOqaaiaadIhacaGGOaGaamOBaiaacMcadaGd0aWcbaGaamiraiaadAeacaWGubaabeGccaGLugcacaWGybGaaiikaiaadUgacaGGPaaaaa@4065@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para>
+      <para id="id17277661">The transform also applies to a systems represented by their impulse responses h(n):</para>
+      <equation id="element-49"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mrow>
+      <m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mrow>
+          <m:mn>2</m:mn><m:mi>π</m:mi>
+         </m:mrow>
+         <m:mi>N</m:mi>
+        </m:mfrac>
+       </m:mstyle>
+       <m:mi>k</m:mi><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>,</m:mo><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqabeaabiGaciaacaqaaeaadaqaaqaaaOqaaiaadIeacaGGOaGaam4AaiaacMcacqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSqaaWqaaiaaikdacqaHapaCaeaacaWGobaaaSGaam4Aaiaad6gaaaaabaGaamOBaiabg2da9iaaicdaaeaacaWGobGaeyOeI0IaaGymaaqdcqGHris5aOGaaiilaiaaywW7caaMf8Uaam4Aaiabg2da9iaaicdacaGGSaGaaGjbVlaaigdacaGGSaGaaGjbVlaaikdacaGGSaGaaiOlaiaac6cacaGGUaGaaiilaiaaysW7caWGobGaeyOeI0IaaGymaaaa@60DB@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation><equation id="element-225"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mi>N</m:mi>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mrow>
+      <m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mrow>
+          <m:mn>2</m:mn><m:mi>π</m:mi>
+         </m:mrow>
+         <m:mi>N</m:mi>
+        </m:mfrac>
+       </m:mstyle>
+       <m:mi>k</m:mi><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqabeaabiGaciaacaqaaeaadaqaaqaaaOqaaiaadIgacaGGOaGaamOBaiaacMcacqGH9aqpdaWcaaqaaiaaigdaaeaacaWGobaaamaaqahabaGaamisaiaacIcacaWGRbGaaiykaiaadwgadaahaaWcbeqaaiaadQgadaWcbaadbaGaaGOmaiabec8aWbqaaiaad6eaaaWccaWGRbGaamOBaaaaaeaacaWGRbGaeyypa0JaaGimaaqaaiaad6eacqGHsislcaaIXaaaniabggHiLdGccaGGSaGaaGjbVlaad6gacqGH9aqpcaaIWaGaaiilaiaaysW7caaIXaGaaiilaiaaysW7caaIYaGaaiilaiaac6cacaGGUaGaaiOlaiaacYcacaaMe8UaamOtaiabgkHiTiaaigdaaaa@5FFD@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</equation>
+      <para id="id18757495">It is interesting to compare the above N-point DFT with the DTFS of N samples ( <link document="m10839" target-id="id00336"> Equation </link> and <link document="m10839" target-id="id00337"> Equation </link>). Besides the factor 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">/</m:mo><m:mi>N</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {1} slash {N} } {}</m:annotation></m:semantics></m:math> appended to different equations , we see that they are just the same with the coefficients 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{k} } } {}</m:annotation></m:semantics></m:math> in the place of the coefficients 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( k \) } {}</m:annotation></m:semantics></m:math>. The idea is that for a nonperiodic discrete sequence x(n) of N time samples , for which we must use the DTFT, we consider an infinitely long periodic sequence having the original x(n) as its period and then use the DTFS but with the new name DFT. If we compute the DFT equations outside the interval 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>k</m:mi></m:mrow><m:mo stretchy="false">≤</m:mo><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{0 &lt;= k &lt;= N - 1} {}</m:annotation></m:semantics></m:math>and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>n</m:mi></m:mrow><m:mo stretchy="false">≤</m:mo><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{0 &lt;= n &lt;= N - 1} {}</m:annotation></m:semantics></m:math>we will have repeated values.</para>
+      <para id="id18827381">By reason of computational convenience the number N is usually taken as the integer power of 2 (i.e. 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">=</m:mo><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{N=2 rSup { size 8{n} } } {}</m:annotation></m:semantics></m:math> with n integer). When the number of samples (data samples) is below such a number we use a technique called zero filling or zero padding , whereby we will fill up the vacant samples with zero so that the total samples will be equal to that integer power of 2.</para>
+      <para id="id7829801">Relating to the DFT we might wonder if the sampling of the frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>ω</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω} {}</m:annotation></m:semantics></m:math> at N equal-distance points represents correctly the frequency variation . In parallel to the sampling theorem in time domain ( <link document="m11325" target-id="id-706203166814"> section </link> ) , we have the sampling theorem in frequency domain which is stated as follows.</para>
+      <para id="id18482369">The continuous frequency spectrum of a signal existing in a finite time interval 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math> seconds can be represented completely by the frequency samples separated by a distance no more than 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">/</m:mo><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {1} slash {T rSub { size 8{0} } } } {}</m:annotation></m:semantics></m:math> Hertzs. The frequency sepectrum can then be recovered completely from the samples.</para>
+      <para id="id18371766">It can be checked that the previons sampling of N points does satisfy this theorem. Another way to check the legitimacy of the DFT pair is from the given transform 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( k \) } {}</m:annotation></m:semantics></m:math>we can recover 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( n \) } {}</m:annotation></m:semantics></m:math>. The problem is very similar to the case of CTFT ( <link document="m10840"> section </link>), the difference is that in this case we use the orthogonality of discrete-time exponentials.</para>
+      <example id="element-694"><para id="element-129">Find the N-point DFT of the following signal </para><para id="element-343">(a) 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>δ</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( n \) =δ \( n \) } {}</m:annotation></m:semantics></m:math></para><para id="element-611">(b) 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( n \) =1} {}</m:annotation></m:semantics></m:math></para><para id="element-717">(c) 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( n \) =a rSup { size 8{n} } } {}</m:annotation></m:semantics></m:math></para><para id="element-921">(d) 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mn>2</m:mn></m:mrow><m:mtext>cos</m:mtext><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mi>n</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( n \) =2"cos"ω rSub { size 8{0} } n} {}</m:annotation></m:semantics></m:math></para>
+</example>
+      
+      
+      
+      
+      
+      <para id="id16663482"><term> Solution </term></para>
+      <para id="id16731329">(a) 
+<m:math display="block"><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:munderover><m:mrow><m:mi>δ</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mfrac><m:mstyle fontsize="6pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="6pt"><m:mrow><m:mi>N</m:mi></m:mrow></m:mstyle></m:mfrac><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kn</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mn>1</m:mn></m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mfrac><m:mstyle fontsize="6pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="6pt"><m:mrow><m:mi>N</m:mi></m:mrow></m:mstyle></m:mfrac><m:msub><m:mi>k</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:msup></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mn>1,</m:mn></m:mrow><m:mtable><m:mtr><m:mtd><m:mrow/></m:mtd><m:mtd><m:mrow/></m:mtd></m:mtr></m:mtable><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0,1,2,</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( k \) = Sum cSub {n=0}  cSup {N - 1}  {δ \( n \) e rSup { size 8{ - j {  { size 6{2π} }  over  { size 6{N} } }  ital "kn"} } }  size 12{ {}=1e rSup { - j {  { size 6{2π} }  over  { size 6{N} } } k rSub { size 6{0} } } } size 12{ {}=1, matrix {
+ {} # {}
+} k=0,1,2, "."  "."  "." ,N - 1}} {}</m:annotation></m:semantics></m:math></para>
+      <para id="id17092541">(b) 
+<m:math display="block"><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:munderover><m:mrow><m:mn>1</m:mn><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mfrac><m:mstyle fontsize="6pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="6pt"><m:mrow><m:mi>N</m:mi></m:mrow></m:mstyle></m:mfrac><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kn</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( k \) = Sum cSub {n=0}  cSup {N - 1}  {1e rSup { size 8{ - j {  { size 6{2π} }  over  { size 6{N} } }  ital "kn"} } } } {}</m:annotation></m:semantics></m:math></para>
+      <para id="id17499739">The summation has a value of N for k=0 and of zero for 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">≠</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k &lt;&gt; 0} {}</m:annotation></m:semantics></m:math>, thus</para>
+      <para id="id17613732">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>X</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>k</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi fontstyle="italic">Nδ</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>k</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{X \( k \) =Nδ \( k \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id18817723">(c) 
+<m:math display="block"><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:munderover><m:mrow><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msup><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mfrac><m:mstyle fontsize="6pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="6pt"><m:mrow><m:mi>N</m:mi></m:mrow></m:mstyle></m:mfrac><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kn</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:munderover><m:mrow><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msup><m:mtext>ae</m:mtext><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mfrac><m:mstyle fontsize="6pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="6pt"><m:mrow><m:mi>N</m:mi></m:mrow></m:mstyle></m:mfrac><m:mi>k</m:mi></m:mrow></m:msup></m:mrow></m:mstyle><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mo stretchy="false">)</m:mo><m:mi>n</m:mi></m:msup></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( k \) = Sum cSub {n=0}  cSup {N - 1}  {a rSup { size 8{n} } e rSup { size 8{ - j {  { size 6{2π} }  over  { size 6{N} } }  ital "kn"} } }  size 12{ {}= Sum cSub {n=0}  cSup {N - 1}  { \(  ital "ae" rSup { - j {  { size 6{2π} }  over  { size 6{N} } } k}  size 12{ \)  rSup {n} }} }} {}</m:annotation></m:semantics></m:math></para>
+      <para id="id18460527">Using the formula of finite geometric series ( <link document="m10789" target-id="eq0011"> Equation </link>) we obtain</para>
+      <para id="id17472895"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>X</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>k</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mrow>
+                          <m:mn>1</m:mn>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:msup>
+                            <m:mi>b</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mrow>
+                          <m:mn>1</m:mn>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mi>b</m:mi>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:mi>,</m:mi>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                    <m:mrow>
+                      <m:mi>k</m:mi>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mn>0,1,2,</m:mn>
+                    </m:mrow>
+                    <m:mtext>.</m:mtext>
+                    <m:mtext>.</m:mtext>
+                    <m:mtext>.</m:mtext>
+                    <m:mi>,</m:mi>
+                    <m:mrow>
+                      <m:mi>N</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:mn>1</m:mn>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{X \( k \) = {  {1 - b rSup { size 8{n} } }  over  {1 - b} } , matrix {
+ {} # {}
+} k=0,1,2, "."  "."  "." ,N - 1} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id17252483">Where b stands for 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mfrac><m:mstyle fontsize="6pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="6pt"><m:mrow><m:mi>N</m:mi></m:mrow></m:mstyle></m:mfrac><m:mi>k</m:mi></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{e rSup { size 8{ - j {  { size 6{2π} }  over  { size 6{N} } } k} } } {}</m:annotation></m:semantics></m:math>.</para>
+      <para id="element-548">(d) As usual, we express the cosinusoid in terms of exponentials:</para>
+      <para id="id18561290"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>x</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>n</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mn>2</m:mn>
+                    </m:mrow>
+                    <m:mtext>cos</m:mtext>
+                    <m:msub>
+                      <m:mi>ω</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mn>0</m:mn>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mrow>
+                      <m:mi>n</m:mi>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:msub>
+                                  <m:mi fontstyle="italic">jω</m:mi>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>0</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:msub>
+                                <m:mi>ω</m:mi>
+                                <m:mstyle fontsize="6pt">
+                                  <m:mrow>
+                                    <m:mn>0</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mi>n</m:mi>
+                          </m:mrow>
+                        </m:msup>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{x \( n \) =2"cos"ω rSub { size 8{0} } n=e rSup { size 8{jω rSub { size 6{0} } n} } +e rSup { - ω rSub { size 6{0} } n} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id16691151">The DFT is </para>
+      <para id="id16691155"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>X</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>k</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mrow>
+                            <m:mi>n</m:mi>
+                            <m:mo stretchy="false">=</m:mo>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                          <m:mrow>
+                            <m:mi>N</m:mi>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>n</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:msup>
+                            <m:mi>e</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mi>j</m:mi>
+                                  </m:mrow>
+                                  <m:mfrac>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>2π</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mi>N</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mfrac>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>kn</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mrow/>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mrow>
+                            <m:munderover>
+                              <m:mo stretchy="false">∑</m:mo>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mn>0</m:mn>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mi>N</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:munderover>
+                            <m:msup>
+                              <m:mi>e</m:mi>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi>j</m:mi>
+                                </m:mrow>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mfrac>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2π</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mi>N</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mfrac>
+                                <m:mrow>
+                                  <m:mi>k</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:msub>
+                                    <m:mi>ω</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mrow>
+                            <m:munderover>
+                              <m:mo stretchy="false">∑</m:mo>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mn>0</m:mn>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mi>N</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:munderover>
+                            <m:msup>
+                              <m:mi>e</m:mi>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi>j</m:mi>
+                                </m:mrow>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mrow>
+                                  <m:mfrac>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>2π</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mi>k</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mfrac>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:msub>
+                                    <m:mi>ω</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mstyle>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{X \( k \) = Sum cSub {n=0}  cSup {N - 1}  {x \( n \) e rSup { size 8{ - j {  { size 6{2π} }  over  { size 6{N} } }  ital "kn"} } }  size 12{ {}= Sum cSub {n=0}  cSup {N - 1}  {e rSup { - j \(  {  { size 6{2π} }  over  { size 6{N} } } k - ω rSub { size 6{0} }  \) n} } } size 12{+ Sum cSub {n=0}  cSup {N - 1}  {e rSup { - j \(  {  { size 6{2π} }  over  { size 6{k} } } +ω rSub { size 6{0} }  \) n} } }} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id18418584">For convenience, let’s call a spectral coefficient 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>corresponding to the given frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>, satisfying :</para>
+      <para id="id18066320"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mfrac>
+                      <m:mn>2π</m:mn>
+                      <m:mi>N</m:mi>
+                    </m:mfrac>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>k</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:msub>
+                        <m:mi>ω</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                    </m:mrow>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:mtext>or</m:mtext>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>k</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>N</m:mi>
+                        <m:mn>2π</m:mn>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:msub>
+                      <m:mi>N</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mn>0</m:mn>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ {  {2π}  over  {N} } k rSub { size 8{0} } =ω rSub { size 8{0} }  matrix {
+ {} #  {} # {}
+}  ital "or" matrix {
+ {} #  {} # {}
+} k rSub { size 8{0} } = {  {N}  over  {2π} } N rSub { size 8{0} } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id18860614">Rewrite the transform as </para>
+      <para id="id18860618"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>X</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>k</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mrow>
+                            <m:mi>n</m:mi>
+                            <m:mo stretchy="false">=</m:mo>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                          <m:mrow>
+                            <m:mi>N</m:mi>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:munderover>
+                        <m:msup>
+                          <m:mi>e</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi>j</m:mi>
+                                </m:mrow>
+                                <m:mfrac>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2π</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mi>N</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mfrac>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mrow>
+                                  <m:mi>k</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:msub>
+                                    <m:mi>k</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mrow>
+                            <m:munderover>
+                              <m:mo stretchy="false">∑</m:mo>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mn>0</m:mn>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mi>N</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:munderover>
+                            <m:msup>
+                              <m:mi>e</m:mi>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi>j</m:mi>
+                                </m:mrow>
+                                <m:mfrac>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2π</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mi>N</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mfrac>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mrow>
+                                  <m:mi>k</m:mi>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:msub>
+                                    <m:mi>k</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mstyle>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{X \( k \) = Sum cSub {n=0}  cSup {N - 1}  {e rSup { size 8{ - j {  { size 6{2π} }  over  { size 6{N} } }  \( k - k rSub { size 6{0} }  \) n} } }  size 12{+ Sum cSub {n=0}  cSup {N - 1}  {e rSup { - j {  { size 6{2π} }  over  { size 6{N} } }  \( k+k rSub { size 6{0} }  \) n} } }} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id8237334">The first summation equals to N when 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k=k rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>, and to zero when 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">≠</m:mo><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k &lt;&gt; k rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>. The second summation equals to N when 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k=N - k rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>, and to zero when 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">≠</m:mo><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k &lt;&gt; N - k rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>. Thus</para>
+      <para id="id17228252"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mi>N</m:mi><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>k</m:mi><m:mo>=</m:mo><m:msub>
+      <m:mi>k</m:mi>
+      <m:mn>0</m:mn>
+     </m:msub>
+     <m:mtext> </m:mtext><m:mi>a</m:mi><m:mi>n</m:mi><m:mi>d</m:mi><m:mtext> </m:mtext><m:mi>k</m:mi><m:mo>=</m:mo><m:mi>N</m:mi><m:mo>−</m:mo><m:msub>
+      <m:mi>k</m:mi>
+      <m:mn>0</m:mn>
+     </m:msub>
+     
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>o</m:mi><m:mi>t</m:mi><m:mi>h</m:mi><m:mi>e</m:mi><m:mi>r</m:mi><m:mi>w</m:mi><m:mi>i</m:mi><m:mi>s</m:mi><m:mi>e</m:mi>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqabeaabiGaciaacaqaaeaadaqaaqaaaOabaeqabaGaamiwaiaacIcacaWGRbGaaiykaiabg2da9iaad6eacaGGSaGaaGzbVlaadUgacqGH9aqpcaWGRbWaaSbaaSqaaiaaicdaaeqaaOGaaGzbVlaadggacaWGUbGaamizaiaaywW7caWGRbGaeyypa0JaamOtaiabgkHiTiaadUgadaWgaaWcbaGaaGimaaqabaaakeaacaaMf8UaaGzbVlaaysW7cqGH9aqpcaaIWaGaaiilaiaaywW7caWGVbGaamiDaiaadIgacaWGLbGaamOCaiaadEhacaWGPbGaam4Caiaadwgaaaaa@5D9E@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para>
+      
+      <para id="id17993609">For example with 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mi>π</m:mi><m:mo stretchy="false">/</m:mo><m:mn>4</m:mn></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω rSub { size 8{0} } = {π} slash {4} } {}</m:annotation></m:semantics></m:math> radians/sample then </para>
+      <para id="id16945396"><m:math display="block"> 
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>k</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>N</m:mi>
+                        <m:mn>2π</m:mn>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mfrac>
+                        <m:mi>π</m:mi>
+                        <m:mn>4</m:mn>
+                      </m:mfrac>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>N</m:mi>
+                        <m:mn>8</m:mn>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:mi>,</m:mi>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mi>N</m:mi>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msub>
+                          <m:mi>k</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>0</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mn>7N</m:mn>
+                        <m:mn>8</m:mn>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{k rSub { size 8{0} } = {  {N}  over  {2π} }  {  {π}  over  {4} } = {  {N}  over  {8} } , matrix {
+ {} #  {} # {}
+} N - k rSub { size 8{0} } = {  {7N}  over  {8} } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <example id="element-666"><para id="element-494">A causal filter has impulse response as </para><para id="element-392"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>3</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>0</m:mn><m:mtext> </m:mtext><m:mi>o</m:mi><m:mi>t</m:mi><m:mi>h</m:mi><m:mi>e</m:mi><m:mi>r</m:mi><m:mi>w</m:mi><m:mi>i</m:mi><m:mi>s</m:mi><m:mi>e</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIgacaGGOaGaaGimaiaacMcacqGH9aqpcaaIZaGaaiilaiaaywW7caWGObGaaiikaiaaigdacaGGPaGaeyypa0JaaGOmaiaacYcacaaMf8UaamiAaiaacIcacaaIYaGaaiykaiabg2da9iaaigdacaGGSaGaaGzbVlaadIgacaGGOaGaaG4maiaacMcacqGH9aqpcaaIWaGaaiilaiaaywW7caWGObGaaiikaiaad6gacaGGPaGaeyypa0JaaGimaiaaywW7caWGVbGaamiDaiaadIgacaWGLbGaamOCaiaadEhacaWGPbGaam4Caiaadwgaaaa@60F4@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para><para id="element-780">(a) Find the 4-point DFT of the impulse response.</para><para id="element-366">(b) Taking the inverse DFT to see if we can recover the impulse response.</para>
+</example>
+      
+      
+      
+      <para id="id17664207"><term> Solution </term></para>
+      <para id="element-907">(a) The 4-point DFT of the impulse response is </para>
+      
+      <para id="element-742"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mrow>
+          <m:mn>2</m:mn><m:mi>π</m:mi>
+         </m:mrow>
+         <m:mn>4</m:mn>
+        </m:mfrac>
+       </m:mstyle>
+       <m:mi>k</m:mi><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mi>π</m:mi>
+         <m:mn>2</m:mn>
+        </m:mfrac>
+       </m:mstyle>
+       <m:mi>k</m:mi><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>,</m:mo><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>3</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaam4AaiaacMcacqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSqaaWqaaiaaikdacqaHapaCaeaacaaI0aaaaSGaam4Aaiaad6gaaaaabaGaamOBaiabg2da9iaaicdaaeaacaaIZaaaniabggHiLdGccqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSqaaWqaaiabec8aWbqaaiaaikdaaaWccaWGRbGaamOBaaaaaeaacaWGUbGaeyypa0JaaGimaaqaaiaaiodaa0GaeyyeIuoakiaacYcacaaMf8UaaGzbVlaadUgacqGH9aqpcaaIWaGaaiilaiaaigdacaGGSaGaaGOmaiaacYcacaaIZaaaaa@6744@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para><para id="id17327942">The computation is proceeded as follows.</para>
+      <para id="element-237"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mn>0</m:mn><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>=</m:mo><m:mn>3</m:mn><m:mo>+</m:mo><m:mn>2</m:mn><m:mo>+</m:mo><m:mn>1</m:mn><m:mo>+</m:mo><m:mn>0</m:mn><m:mo>=</m:mo><m:mn>6</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaaGimaiaacMcacqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSaaaeaacqaHapaCaeaacaaIYaaaaiaaicdacaWGUbaaaaqaaiaad6gacqGH9aqpcaaIWaaabaGaaG4maaqdcqGHris5aOGaeyypa0JaaG4maiabgUcaRiaaikdacqGHRaWkcaaIXaGaey4kaSIaaGimaiabg2da9iaaiAdaaaa@523B@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para>
+      
+      
+      
+      <para id="element-735"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mn>1</m:mn><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>=</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mfrac>
+      <m:mi>π</m:mi>
+      <m:mn>2</m:mn>
+     </m:mfrac>
+     
+    </m:mrow>
+   </m:msup>
+   <m:mo>+</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mi>π</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mo>+</m:mo><m:mn>0</m:mn><m:mo>=</m:mo><m:mn>2</m:mn><m:mo>−</m:mo><m:mi>j</m:mi><m:mn>2</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaaGymaiaacMcacqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSaaaeaacqaHapaCaeaacaaIYaaaaiaaigdacaWGUbaaaaqaaiaad6gacqGH9aqpcaaIWaaabaGaaG4maaqdcqGHris5aOGaeyypa0JaamiAaiaacIcacaaIWaGaaiykaiabgUcaRiaadIgacaGGOaGaaGymaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSaaaeaacqaHapaCaeaacaaIYaaaaaaakiabgUcaRiaadIgacaGGOaGaaGOmaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbGaeqiWdahaaOGaey4kaSIaaGimaiabg2da9iaaikdacqGHsislcaWGQbGaaGOmaaaa@65E0@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para><para id="element-622"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mn>2</m:mn><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>=</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mi>π</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mo>+</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mo>+</m:mo><m:mn>0</m:mn><m:mo>=</m:mo><m:mn>2</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaaGOmaiaacMcacqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSaaaeaacqaHapaCaeaacaaIYaaaaiaaikdacaWGUbaaaaqaaiaad6gacqGH9aqpcaaIWaaabaGaaG4maaqdcqGHris5aOGaeyypa0JaamiAaiaacIcacaaIWaGaaiykaiabgUcaRiaadIgacaGGOaGaaGymaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbGaeqiWdahaaOGaey4kaSIaamiAaiaacIcacaaIYaGaaiykaiaadwgadaahaaWcbeqaaiabgkHiTiaadQgacaaIYaGaeqiWdahaaOGaey4kaSIaaGimaiabg2da9iaaikdaaaa@633A@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para><para id="element-847"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mn>3</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mo>−</m:mo><m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mn>3</m:mn><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mo>=</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+      <m:mfrac>
+       <m:mrow>
+        <m:mn>3</m:mn><m:mi>π</m:mi>
+       </m:mrow>
+       <m:mn>2</m:mn>
+      </m:mfrac>
+     </m:mstyle>
+     
+    </m:mrow>
+   </m:msup>
+   <m:mo>+</m:mo><m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+      <m:mfrac>
+       <m:mrow>
+        <m:mn>6</m:mn><m:mi>π</m:mi>
+       </m:mrow>
+       <m:mn>2</m:mn>
+      </m:mfrac>
+     </m:mstyle>
+     
+    </m:mrow>
+   </m:msup>
+   <m:mo>+</m:mo><m:mn>0</m:mn><m:mo>=</m:mo><m:mn>2</m:mn><m:mo>+</m:mo><m:mi>j</m:mi><m:mn>2</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaaG4maiaacMcacqGH9aqpdaaeWbqaaiaadIgacaGGOaGaamOBaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSaaaeaacqaHapaCaeaacaaIYaaaaiaaiodacaWGUbaaaaqaaiaad6gacqGH9aqpcaaIWaaabaGaaG4maaqdcqGHris5aOGaeyypa0JaamiAaiaacIcacaaIWaGaaiykaiabgUcaRiaadIgacaGGOaGaaGymaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSqaaWqaaiaaiodacqaHapaCaeaacaaIYaaaaaaakiabgUcaRiaadIgacaGGOaGaaGOmaiaacMcacaWGLbWaaWbaaSqabeaacqGHsislcaWGQbWaaSqaaWqaaiaaiAdacqaHapaCaeaacaaIYaaaaaaakiabgUcaRiaaicdacqGH9aqpcaaIYaGaey4kaSIaamOAaiaaikdaaaa@683C@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para><para id="id18783350">Remember H(k) is 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:msub>
+    <m:mi>ω</m:mi>
+    <m:mi>k</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaeqyYdC3aaSbaaSqaaiaadUgaaeqaaOGaaiykaaaa@3AFC@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       with 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>ω</m:mi>
+    <m:mi>k</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+    <m:mi>N</m:mi>
+   </m:mfrac>
+   <m:mi>k</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiabeM8a3naaBaaaleaacaWGRbaabeaakiabg2da9maalaaabaGaaGOmaiabec8aWbqaaiaad6eaaaGaam4Aaaaa@3E28@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       hence H(0) is H(0) , H(1) is 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+    <m:mn>4</m:mn>
+   </m:mfrac>
+   <m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaWaaSaaaeaacaaIYaGaeqiWdahabaGaaGinaaaacaGGPaaaaa@3B50@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+      or 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mfrac>
+    <m:mi>π</m:mi>
+    <m:mn>2</m:mn>
+   </m:mfrac>
+   <m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaWaaSaaaeaacqaHapaCaeaacaaIYaaaaiaacMcaaaa@3A92@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+      , H(2) is 
+       
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+    <m:mn>4</m:mn>
+   </m:mfrac>
+   <m:mn>2</m:mn><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaWaaSaaaeaacaaIYaGaeqiWdahabaGaaGinaaaacaaIYaGaaiykaaaa@3C0C@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       or 
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>π</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaeqiWdaNaaiykaaaa@39C5@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+      , H(3) is 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mn>2</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+    <m:mn>4</m:mn>
+   </m:mfrac>
+   <m:mn>3</m:mn><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaWaaSaaaeaacaaIYaGaeqiWdahabaGaaGinaaaacaaIZaGaaiykaaaa@3C0D@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       or 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mtext>H</m:mtext><m:mo stretchy="false">(</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mn>3</m:mn><m:mi>π</m:mi>
+    </m:mrow>
+    <m:mn>2</m:mn>
+   </m:mfrac>
+   <m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaabIeacaGGOaWaaSaaaeaacaaIZaGaeqiWdahabaGaaGOmaaaacaGGPaaaaa@3B4D@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       . The result is depicted in <link target-id="element-239"/>. The four values of DFT are the samples of the corresponding continuous-frequency frequency response 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{H \( ω \) } {}</m:annotation></m:semantics></m:math>given by the DTFT of the impulse response.</para>
+      <figure id="element-239"><media id="id14765385" alt=""><image src="../../media/hv38-c571.jpg" mime-type="image/jpeg" height="212" width="460"/></media>
+<caption> <link target-id="element-666" strength="3"/> (4-point DFT of the impulse response) </caption></figure><para id="id17981004">(b) Suppose now the continuous frequency response 
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIeacaGGOaGaeqyYdCNaaiykaaaa@39D6@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+ is given and we sample it at 4 frequencies 
+       
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>ω</m:mi>
+    <m:mi>k</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mrow><m:mi>π</m:mi><m:mo>/</m:mo><m:mrow>
+    <m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>π</m:mi><m:mo>,</m:mo>
+   </m:mrow></m:mrow>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiabeM8a3naaBaaaleaacaWGRbaabeaakiabg2da9iaaicdacaGGSaGaaGjbVpaalyaabaGaeqiWdahabaGaaGOmaiaacYcacaaMe8UaeqiWdaNaaiilaaaaaaa@440C@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       and 
+        
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mrow><m:mrow>
+    <m:mn>3</m:mn><m:mi>π</m:mi>
+   </m:mrow><m:mo>/</m:mo><m:mn>2</m:mn></m:mrow>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aqatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaamaalyaabaGaaG4maiabec8aWbqaaiaaikdaaaaaaa@392F@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+
+       to get 4 values , respectively, 6, 2 – j2, 2 , and 2 + j2. From these values we take the inverse DFT to find the impluse response:</para>
+      <para id="element-388"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mn>4</m:mn>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mn>3</m:mn>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mi>k</m:mi><m:mi>n</m:mi>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>3</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOqaaiaadIgacaGGOaGaaGimaiaacMcacqGH9aqpdaWcaaqaaiaaigdaaeaacaaI0aaaamaaqahabaGaamisaiaacIcacaWGRbGaaiykaiaadwgadaahaaWcbeqaaiaadQgadaWcaaqaaiabec8aWbqaaiaaikdaaaGaam4Aaiaad6gaaaaabaGaam4Aaiabg2da9iaaicdaaeaacaaIZaaaniabggHiLdGccaaMe8UaaGzbVlaaywW7caWGUbGaeyypa0JaaGimaiaacYcacaaMe8UaaGymaiaacYcacaaMe8UaaGOmaiaacYcacaaMe8UaaG4maaaa@5AEE@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para>
+      <para id="id18892517">Thus </para>
+      <para id="element-527"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mn>4</m:mn>
+     </m:mfrac>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mn>3</m:mn>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mi>k</m:mi><m:mn>0</m:mn>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mn>4</m:mn>
+     </m:mfrac>
+     <m:mo stretchy="false">[</m:mo><m:mn>6</m:mn><m:mo>+</m:mo><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo>−</m:mo><m:mi>j</m:mi><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mn>2</m:mn><m:mo>+</m:mo><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo>+</m:mo><m:mi>j</m:mi><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">]</m:mo><m:mo>=</m:mo><m:mn>3</m:mn>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOabaeqabaGaamiAaiaacIcacaaIWaGaaiykaiabg2da9maalaaabaGaaGymaaqaaiaaisdaaaWaaabCaeaacaWGibGaaiikaiaadUgacaGGPaaaleaacaWGRbGaeyypa0JaaGimaaqaaiaaiodaa0GaeyyeIuoakiaadwgadaahaaWcbeqaaiaadQgadaWcaaqaaiabec8aWbqaaiaaikdaaaGaam4AaiaaicdaaaaakeaacaaMf8UaaGzbVlabg2da9maalaaabaGaaGymaaqaaiaaisdaaaGaai4waiaaiAdacqGHRaWkcaGGOaGaaGOmaiabgkHiTiaadQgacaaIYaGaaiykaiabgUcaRiaaikdacqGHRaWkcaGGOaGaaGOmaiabgUcaRiaadQgacaaIYaGaaiykaiaac2facqGH9aqpcaaIZaaaaaa@6129@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para>
+      
+      <para id="element-204"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:mi>h</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mn>4</m:mn>
+     </m:mfrac>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mn>3</m:mn>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>H</m:mi><m:mo stretchy="false">(</m:mo><m:mi>k</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mfrac>
+        <m:mi>π</m:mi>
+        <m:mn>2</m:mn>
+       </m:mfrac>
+       <m:mi>k</m:mi><m:mn>1</m:mn>
+      </m:mrow>
+     </m:msup>
+     
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mn>4</m:mn>
+     </m:mfrac>
+     <m:mo stretchy="false">[</m:mo><m:mn>6</m:mn><m:mo>+</m:mo><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo>−</m:mo><m:mi>j</m:mi><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mi>π</m:mi>
+         <m:mn>2</m:mn>
+        </m:mfrac>
+       </m:mstyle>
+       
+      </m:mrow>
+     </m:msup>
+     <m:mo>+</m:mo><m:mn>2</m:mn><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mi>π</m:mi>
+      </m:mrow>
+     </m:msup>
+     <m:mo>+</m:mo><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo>+</m:mo><m:mi>j</m:mi><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:msup>
+      <m:mi>e</m:mi>
+      <m:mrow>
+       <m:mi>j</m:mi><m:mstyle scriptlevel="+1">
+        <m:mfrac>
+         <m:mrow>
+          <m:mn>3</m:mn><m:mi>π</m:mi>
+         </m:mrow>
+         <m:mn>2</m:mn>
+        </m:mfrac>
+       </m:mstyle>
+       
+      </m:mrow>
+     </m:msup>
+     <m:mo stretchy="false">]</m:mo><m:mo>=</m:mo><m:mn>2</m:mn>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabiGaciaacaqabeaadaqaaqaaaOabaeqabaGaamiAaiaacIcacaaIXaGaaiykaiabg2da9maalaaabaGaaGymaaqaaiaaisdaaaWaaabCaeaacaWGibGaaiikaiaadUgacaGGPaaaleaacaWGRbGaeyypa0JaaGimaaqaaiaaiodaa0GaeyyeIuoakiaadwgadaahaaWcbeqaaiaadQgadaWcaaqaaiabec8aWbqaaiaaikdaaaGaam4AaiaaigdaaaaakeaacaaMf8UaaGzbVlabg2da9maalaaabaGaaGymaaqaaiaaisdaaaGaai4waiaaiAdacqGHRaWkcaGGOaGaaGOmaiabgkHiTiaadQgacaaIYaGaaiykaiaadwgadaahaaWcbeqaaiaadQgadaWcbaadbaGaeqiWdahabaGaaGOmaaaaaaGccqGHRaWkcaaIYaGaamyzamaaCaaaleqabaGaamOAaiabec8aWbaakiabgUcaRiaacIcacaaIYaGaey4kaSIaamOAaiaaikdacaGGPaGaamyzamaaCaaaleqabaGaamOAamaaleaameaacaaIZaGaeqiWdahabaGaaGOmaaaaaaGccaGGDbGaeyypa0JaaGOmaaaaaa@6F00@</m:annotation>
+ </m:semantics>
+</m:math>
+<!-- MathType@End@5@5@ -->
+</para>
+      
+      <para id="id18586378">Continuing we will get back h(2) and h(3) as expected.</para>
+      <para id="id18586383">In part (a) if we evalue H(4) we will see it is equal to H(1), and in part (b) if we evaluate h(4) we will see it is equal to h(1). The reason is that H(k) is periodic and h(n) is assumed periodic. This example illustrates the frequency sampling method of FIR filter design (<link document="m11287"> sectionn </link>).</para>
+    </section>
+    <section id="id-71722016135">
+      <title>Properties of the DFT</title>
+      <para id="id18315161">The discrete Fourier transform DFT has many properties similar to those of the discrete-time Fourier transform DTFT but with one basic difference as follows. Since the sequence x(n) is assumed to repeat itself indefinitely (this long sequence is periodic with x(n) its period) and the frequency sampling points in a frequency interval 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">[</m:mo><m:mn>0,2</m:mn><m:mi>π</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \[ 0,2π \] } {}</m:annotation></m:semantics></m:math> are repeated in other 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2π} {}</m:annotation></m:semantics></m:math>-intervals, we will be concerned with circular shift instead of linear shift , and circular convolution instead of linear convolution. The properties and other aspects of the DFT , and the related FFT algorithm will be elaborated in chapter 8. </para>
+    </section>
+  </content>
+</document>

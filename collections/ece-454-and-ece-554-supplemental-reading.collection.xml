@@ -1,0 +1,132 @@
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <md:content-id>col11416</md:content-id>
+    <md:title>ECE 454 and ECE 554 Supplemental reading</md:title>
+    <md:language>en</md:language>
+    <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</md:license>
+    <md:uuid>868380c3-3230-4a76-91f9-2d942b479385</md:uuid>
+<md:slug>ece-454-and-ece-554-supplemental-reading</md:slug>
+</metadata>
+  <col:content>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 1</md:title>
+      <col:content>
+        <col:module document="m10781"/>
+        <col:module document="m13673"/>
+        <col:module document="m13880"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 2</md:title>
+      <col:content>
+        <col:module document="m10161"/>
+        <col:module document="m10251"/>
+        <col:module document="m0001"/>
+        <col:module document="m0005"/>
+        <col:module document="m10342"/>
+        <col:module document="m0508"/>
+        <col:module document="m10676"/>
+        <col:module document="m28268"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 3</md:title>
+      <col:content>
+        <col:module document="m0524"/>
+        <col:module document="m10247"/>
+        <col:module document="m10098"/>
+        <col:module document="m10108"/>
+        <col:module document="m19833"/>
+        <col:module document="m11419"/>
+        <col:module document="m11423"/>
+        <col:module document="m11443"/>
+        <col:module document="m11549"/>
+        <col:module document="m11465"/>
+        <col:module document="m10994"/>
+        <col:module document="m28684"/>
+        <col:module document="m10992"/>
+        <col:module document="m10791"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 4</md:title>
+      <col:content>
+        <col:module document="m10253"/>
+        <col:module document="m10993"/>
+        <col:module document="m16883"/>
+        <col:module document="m34026"/>
+        <col:module document="m12043"/>
+        <col:module document="m26857"/>
+        <col:module document="m34614"/>
+        <col:module document="m28410"/>
+        <col:module document="m10087"/>
+        <col:module document="m10705"/>
+        <col:module document="m13893"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 5</md:title>
+      <col:content>
+        <col:module document="m10962"/>
+        <col:module document="m11022"/>
+        <col:module document="m13881"/>
+        <col:module document="m12105"/>
+        <col:module document="m28459"/>
+        <col:module document="m16881"/>
+        <col:module document="m10279"/>
+        <col:module document="m16340"/>
+        <col:module document="m16334"/>
+        <col:module document="m12085"/>
+        <col:module document="m10570"/>
+        <col:module document="m0505"/>
+        <col:module document="m13890"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 6</md:title>
+      <col:content>
+        <col:module document="m0009"/>
+        <col:module document="m10595"/>
+        <col:module document="m10549"/>
+        <col:module document="m10119"/>
+        <col:module document="m10556"/>
+        <col:module document="m13886"/>
+        <col:module document="m34510"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 7</md:title>
+      <col:content>
+        <col:module document="m10257"/>
+        <col:module document="m28306"/>
+        <col:module document="m28300"/>
+        <col:module document="m10025"/>
+        <col:module document="m0534"/>
+        <col:module document="m0536"/>
+        <col:module document="m12776"/>
+        <col:module document="m12790"/>
+        <col:module document="m12789"/>
+        <col:module document="m12799"/>
+        <col:module document="m12758"/>
+        <col:module document="m16898"/>
+        <col:module document="m16889"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 8</md:title>
+      <col:content>
+        <col:module document="m11917"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>ECE 454/ECE554 Supplemental reading for Chapter 11</md:title>
+      <col:content>
+        <col:module document="m12107"/>
+        <col:module document="m10783"/>
+        <col:module document="m10964"/>
+        <col:module document="m12026"/>
+        <col:module document="m16339"/>
+      </col:content>
+    </col:subcollection>
+  </col:content>
+</col:collection>

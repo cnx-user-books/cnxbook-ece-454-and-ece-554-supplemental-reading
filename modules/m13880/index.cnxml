@@ -1,0 +1,87 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  <title>m09 - An Overview of Discrete-Time Signals</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>34bbe6eb-e7e7-4325-a87b-bb7dd239ebba</md:uuid>
+</metadata>
+  <content>
+<para id="id15637055">
+   
+   
+</para>
+<section id="id11571701">
+<title>[Discrete-Time Signals]Discrete-Time Signals</title>
+<para id="id15642381">
+   
+</para>
+<para id="id15707490">Although the discrete-time signal x(n) could be any ordered
+sequence of numbers, they are usually samples of a continuous-time
+signal.  In this case, the real or imaginary valued mathematical
+function x(n) of the integer n is not used as an analogy of a
+physical signal, but as some representation of it (such as samples).
+In some cases, the term digital signal is used
+interchangeably with discrete-time signal, or the label digital
+signal may be use if the function is not real valued but takes
+values consistent with some hardware system.
+</para>
+<para id="id14574237">Indeed, our very use of the term ``discrete-time" indicates the
+probable origin of the signals when, in fact, the independent
+variable could be length or any other variable or simply an ordering
+index. The term ``digital" indicates the signal is probably going to
+be created, processed, or stored using digital hardware.  As in the
+continuous-time case, the Fourier transform will again be our
+primary tool.
+
+</para>
+<para id="id15709836">Notation has been an important element in mathematics.  In some
+cases, discrete-time signals are best denoted as a sequence of
+values, in other cases, a vector is created with elements which are
+the sequence values.  In still other cases, a polynomial is formed
+with the sequence values as coefficients for a complex variable. The
+vector formulation allows the use of linear algebra and the
+polynomial formulation allows the use of complex variable theory.
+</para>
+<para id="id15795308">
+   
+   
+</para>
+</section>
+</content>
+<bib:file><bib:entry id="md51d902a2e0a226b6ab2d4e91cabf89d94">
+<bib:book><bib:author>Barbara Burke Hubbard</bib:author>
+<bib:title>The World According to Wavelets</bib:title>
+<bib:publisher>A K Peters</bib:publisher>
+<bib:year>1996</bib:year>
+<bib:address>Wellesley, MA</bib:address>
+<bib:note>Second Edition 1998</bib:note>
+</bib:book>
+</bib:entry><bib:entry id="md5c058d94e0f59018ace29a809a2f50747">
+<bib:book><bib:author>C. Sidney Burrus, Ramesh A. Gopinath and Haitao Guo</bib:author>
+<bib:title>Introduction to Wavelets and the Wavelet Transform</bib:title>
+<bib:publisher>Prentice Hall</bib:publisher>
+<bib:year>1998</bib:year>
+<bib:address>Upper Saddle River, NJ</bib:address>
+<!--bibtex:support = u'AFOSR-DARPA,NSF,BNR,TI,Aware'
+-->
+</bib:book>
+</bib:entry><bib:entry id="md5fafe1b60c24107ccd8f4562213e44849">
+<bib:book><bib:author>Ingrid Daubechies</bib:author>
+<bib:title>Ten Lectures on Wavelets</bib:title>
+<bib:publisher>SIAM</bib:publisher>
+<bib:year>1992</bib:year>
+<bib:address>Philadelphia, PA</bib:address>
+<bib:note>Notes from the 1990 CBMS-NSF Conference on Wavelets and Applications at Lowell, MA</bib:note>
+</bib:book>
+</bib:entry><bib:entry id="md5153b1a4ba93f1facb16facdf8c9fcc93">
+<bib:book><bib:author>Martin Vetterli and Jelena Kova\vcević</bib:author>
+<bib:title>Wavelets and Subband Coding</bib:title>
+<bib:publisher>Prentice-Hall</bib:publisher>
+<bib:year>1995</bib:year>
+<bib:address>Upper Saddle River, NJ</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md5390eae1af4170f7ddfb1e5010a6ff7dd">
+<bib:book><bib:author>Gilbert Strang and T. Nguyen</bib:author>
+<bib:title>Wavelets and Filter Banks</bib:title>
+<bib:publisher>Wellesley-Cambridge Press</bib:publisher>
+<bib:year>1996</bib:year>
+<bib:address>Wellesley, MA</bib:address>
+</bib:book>
+</bib:entry></bib:file></document>

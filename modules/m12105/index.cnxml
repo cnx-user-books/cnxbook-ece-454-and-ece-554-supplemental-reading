@@ -1,0 +1,2682 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>DFT Basis</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>9ff990a1-9fee-42f9-9597-4d0b8896c990</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      <list id="topics">
+	<item>
+	  Summary of the basis points.
+	</item>
+	<item>
+	  An ONB for
+	  <m:math>
+	    <m:apply>
+	      <m:power/>
+	      <m:complexes/>
+	      <m:ci>N</m:ci>
+	    </m:apply>
+	  </m:math>
+	  signals constructed from:
+	  <list id="nested">
+	    <item>
+	      complex sinusoids
+	    </item>
+	    <item>
+	      that are all N-periodic when considered as
+	      ∞-length signals.
+	      <note id="idm231392">
+		There are only N unique sinusoids like this in
+		<m:math>
+		  <m:apply>
+		    <m:power/>
+		    <m:complexes/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:math>.
+	      </note>
+	    </item>
+	  </list>
+	</item>
+      </list>
+
+      General formula:
+
+      <equation id="eq1">
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>n</m:ci>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:leq/>
+		<m:cn>0</m:cn>
+		<m:ci>n</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:msub>
+		</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:degree/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+    </para>   
+
+    <example id="exam1">
+      <para id="exam1para1">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>k</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>:
+	DC component
+
+	<figure id="fig1">
+	  <media id="idp1302400" alt=""><image src="../../media/DFT1.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>0</m:mn>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:cn>1</m:cn>
+		  <m:apply>
+		    <m:root/>
+		    <m:degree/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+	
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>k</m:ci>
+	    <m:cn>0</m:cn>
+	  </m:apply>
+	</m:math>:
+	1 cycle
+	
+	<figure id="fig2">
+	  <media id="idm5437904" alt=""><image src="../../media/DFT2.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:real/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">
+		      <m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:cos/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		      <m:ci>k</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:root/>
+		    <m:degree/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+	<figure id="fig3">
+	  <media id="idm7133264" alt=""><image src="../../media/DFT3.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:imaginary/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">
+		      <m:msub>
+			<m:mi>b</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		      <m:ci>k</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:root/>
+		    <m:degree/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>k</m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math>:
+	2 cycles
+
+	<figure id="fig4">
+	  <media id="idp1018128" alt=""><image src="../../media/DFT4.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:real/>
+		<m:ci type="vector">
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+	<figure id="fig5">
+	  <media id="idp2819600" alt=""><image src="../../media/DFT5.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:imaginary/>
+		<m:ci type="vector">
+		  <m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+      </para>
+    </example>
+
+    <example id="exam2">
+      <para id="exam2para1">
+	What is the highest frequency of oscillation (the most wiggles)?
+      </para>
+      <para id="exam2para2">
+	<m:math>
+	  <m:ci type="vector">
+	    <m:msub>
+	      <m:mi>b</m:mi>
+	      <m:mrow>
+		<m:mi>N</m:mi>
+		<m:mo>/</m:mo>
+		<m:mn>2</m:mn>
+	      </m:mrow>
+	    </m:msub>
+	  </m:ci>
+	</m:math>:
+	<m:math>
+	  <m:apply>
+	    <m:divide/>
+	    <m:ci>N</m:ci>
+	    <m:cn>2</m:cn>
+	  </m:apply>
+	</m:math>
+	cycles
+
+	<figure id="fig6">
+	  <media id="idp2642512" alt=""><image src="../../media/DFT6.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:real/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">
+		      <m:msub>
+			<m:mi>b</m:mi>
+			<m:mrow>
+			  <m:mi>N</m:mi>
+			  <m:mo>/</m:mo>
+			  <m:mn>2</m:mn>
+			</m:mrow>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:root/>
+		      <m:degree/>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:cos/>
+		    <m:apply>
+		      <m:times/>
+		      <m:pi/>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+	<figure id="fig7">
+	  <media id="idp185824" alt=""><image src="../../media/DFT7.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:imaginary/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">
+		      <m:msub>
+			<m:mi>b</m:mi>
+			<m:mrow>
+			  <m:mi>N</m:mi>
+			  <m:mo>/</m:mo>
+			  <m:mn>2</m:mn>
+			</m:mrow>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:root/>
+		      <m:degree/>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:sin/>
+		    <m:apply>
+		      <m:times/>
+		      <m:pi/>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:cn>0</m:cn>
+	      </m:apply>
+	    </m:math>
+	  </caption>
+	</figure>
+
+	What happens for
+	<m:math>
+	  <m:apply>
+	    <m:lt/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:ci>N</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	    <m:ci>k</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>N</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>?
+      </para>
+      <para id="exam2para3">
+	The number of wiggles starts decreasing!
+	
+	<figure id="fig8">
+	  <media id="idp2698816" alt=""><image src="../../media/DFT8.png" mime-type="image/png"/></media>
+	</figure>
+
+	<note id="idp888704">
+	  <m:math>
+	    <m:apply>
+	      <m:ci><m:mo>⊥</m:mo></m:ci>
+	      <m:ci type="vector">
+		<m:mi>b</m:mi>
+		<m:mi>k</m:mi>
+	      </m:ci>
+	      <m:ci type="vector">
+		<m:mi>b</m:mi>
+		<m:mi>r</m:mi>
+	      </m:ci>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:neq/>
+	      <m:ci>r</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	  </m:math>,
+	  <m:math>
+	    <m:apply>
+	      <m:forall/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:condition/>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+		  <m:domainofapplication>
+		    <m:cn>2</m:cn>
+		  </m:domainofapplication>
+		  <m:ci type="vector">
+		    <m:mi>b</m:mi>
+		    <m:mi>k</m:mi>
+		  </m:ci>
+		</m:apply>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</note>
+      </para>
+    </example>
+    
+    <para id="para4">
+      In other words,
+      <m:math>
+	<m:set>
+	  <m:ci type="vector">
+	    <m:mi>b</m:mi>
+	    <m:mi>k</m:mi>
+	  </m:ci>
+	</m:set>
+      </m:math>
+      forms an ONB for
+      <m:math>
+	<m:apply>
+	  <m:power/>
+	  <m:complexes/>
+	  <m:ci>N</m:ci>
+	</m:apply>
+      </m:math>
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci type="vector">x</m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:ci type="matrix">B</m:ci>
+	    <m:ci type="vector">α</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:ci type="vector">α</m:ci>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+	      <m:ci type="matrix">B</m:ci>
+	    </m:apply>
+	    <m:ci type="vector">x</m:ci>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">x</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:root/>
+		<m:degree/>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">α</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">α</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:apply>
+		<m:root/>
+		<m:degree/>
+		<m:ci>N</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:apply>
+			<m:divide/>
+			<m:apply>
+			  <m:times/>
+			  <m:cn>2</m:cn>
+			  <m:pi/>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		      <m:ci>k</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <note id="idm5512176">
+	Most DSP texts (as well as matlab) work with unormalized DFT
+	basis vectors:
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">
+		<m:msub>
+		  <m:msup>
+		    <m:mi>b</m:mi>
+		    <m:mi>'</m:mi>
+		  </m:msup>
+		  <m:mi>k</m:mi>
+		</m:msub>
+	      </m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:ci>k</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>. 
+	Notice that there is not a
+	<m:math>
+	  <m:apply>
+	    <m:divide/>
+	    <m:cn>1</m:cn>
+	    <m:apply>
+	      <m:root/>
+	      <m:degree/>
+	      <m:ci>N</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	factor.
+      </note>
+      
+      The formulas change as follows:
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">x</m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:times/>
+	    <m:apply>
+	      <m:divide/>
+	      <m:cn>1</m:cn>
+	      <m:ci>N</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar>
+		<m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:cn>0</m:cn>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">
+		    <m:msup>
+		      <m:mi>α</m:mi>
+		      <m:mi>'</m:mi>
+		    </m:msup>
+		  </m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+
+      <m:math display="block">
+	<m:apply>
+	  <m:eq/>
+	  <m:apply>
+	    <m:ci type="fn" class="discrete">
+	      <m:msup>
+		<m:mi>α</m:mi>
+		<m:mi>'</m:mi>
+	      </m:msup>
+	    </m:ci>
+	    <m:ci>n</m:ci>
+	  </m:apply>
+	  <m:apply>
+	    <m:sum/>
+	    <m:bvar>
+	      <m:ci>k</m:ci>
+	    </m:bvar>
+	    <m:lowlimit>
+	      <m:cn>0</m:cn>
+	    </m:lowlimit>
+	    <m:uplimit>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>N</m:ci>
+		<m:cn>1</m:cn>
+	      </m:apply>
+	    </m:uplimit>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">x</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+    </para>
+
+    <exercise id="exer1">
+      <problem id="idp609232">
+	<para id="exer1para1">
+	  How do the Parseval and Plancharel formulaii change?
+	</para>
+      </problem>
+    </exercise>
+
+    <section id="dftprop">
+      <title>DFT Properties</title>
+      <para id="dftprop1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="vector">x</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="matrix">B</m:ci>
+	      <m:ci type="vector">X</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="vector">X</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		<m:ci type="matrix">B</m:ci>
+	      </m:apply>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<table frame="all" id="dfts" summary="">
+	  <title>DFT Properties</title>
+	  <tgroup cols="2" colsep="1" rowsep="1">
+	    <thead>
+	      <row>
+		<entry>Finite-length Sequences (Length N)</entry>
+		<entry>N-Point DFT (Length N)</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>
+		  1.
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">X</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  2.
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">
+			<m:msub>
+			  <m:mi>x</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:math>,
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">
+			<m:msub>
+			  <m:mi>x</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">
+			<m:msub>
+			  <m:mi>X</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:math>,
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">
+			<m:msub>
+			  <m:mi>X</m:mi>
+			  <m:mn>2</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  3.
+		  <m:math>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:times/>
+			<m:ci>a</m:ci>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">
+			    <m:msub>
+			      <m:mi>x</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:ci>b</m:ci>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">
+			    <m:msub>
+			      <m:mi>x</m:mi>
+			      <m:mn>2</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:plus/>
+		      <m:apply>
+			<m:times/>
+			<m:ci>a</m:ci>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">
+			    <m:msub>
+			      <m:mi>X</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:ci>b</m:ci>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">
+			    <m:msub>
+			      <m:mi>X</m:mi>
+			      <m:mn>2</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  4.
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">X</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>k</m:ci>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  5.
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			  <m:ci>m</m:ci>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">X</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:apply>
+			    <m:divide/>
+			    <m:apply>
+			      <m:times/>
+			      <m:cn>2</m:cn>
+			      <m:pi/>
+			    </m:apply>
+			    <m:ci>N</m:ci>
+			  </m:apply>
+			  <m:ci>k</m:ci>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  6.
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:power/>
+			<m:apply>
+			  <m:rem/>
+			  <m:ci>W</m:ci>
+			  <m:ci>N</m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:ci>l</m:ci>
+			    <m:ci>n</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">x</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">X</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>k</m:ci>
+			  <m:ci>l</m:ci>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  7.
+		  <m:math>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar>
+			<m:ci>m</m:ci>
+		      </m:bvar>
+		      <m:lowlimit>
+			<m:cn>0</m:cn>
+		      </m:lowlimit>
+		      <m:uplimit>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>N</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+		      </m:uplimit>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:ci type="fn">
+			    <m:msub>
+			      <m:mi>x</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>m</m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">
+			    <m:msub>
+			      <m:mi>x</m:mi>
+			      <m:mn>2</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:apply>
+			    <m:rem/>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>n</m:ci>
+			      <m:ci>m</m:ci>
+			    </m:apply>
+			    <m:ci>N</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>X</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub>
+			</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>X</m:mi>
+			    <m:mn>2</m:mn>
+			  </m:msub>
+			</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  8.
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>x</m:mi>
+			    <m:mn>1</m:mn>
+			  </m:msub>
+			</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>x</m:mi>
+			    <m:mn>2</m:mn>
+			  </m:msub>
+			</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:sum/>
+		      <m:bvar>
+			<m:ci>m</m:ci>
+		      </m:bvar>
+		      <m:lowlimit>
+			<m:cn>0</m:cn>
+		      </m:lowlimit>
+		      <m:uplimit>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>N</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+		      </m:uplimit>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:ci type="fn">
+			    <m:msub>
+			      <m:mi>X</m:mi>
+			      <m:mn>1</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:ci>l</m:ci>
+			</m:apply>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">
+			    <m:msub>
+			      <m:mi>X</m:mi>
+			      <m:mn>2</m:mn>
+			    </m:msub>
+			  </m:ci>
+			  <m:apply>
+			    <m:rem/>
+			    <m:apply>
+			      <m:minus/>
+			      <m:ci>k</m:ci>
+			      <m:ci>l</m:ci>
+			    </m:apply>
+			    <m:ci>N</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  9.
+		  <m:math>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">x</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">X</m:ci>
+			<m:apply>
+			  <m:rem/>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>k</m:ci>
+			  </m:apply>
+			  <m:ci>N</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  10.
+		  <m:math>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">x</m:ci>
+			<m:apply>
+			  <m:rem/>
+			  <m:apply>
+			    <m:minus/>
+			    <m:ci>n</m:ci>
+			  </m:apply>
+			  <m:ci>N</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:conjugate/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">X</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  11.
+		  <m:math>
+		    <m:apply>
+		      <m:real/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">x</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>X</m:mi>
+			    <m:mi>ep</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">X</m:ci>
+			    <m:apply>
+			      <m:rem/>
+			      <m:ci>k</m:ci>
+			      <m:ci>N</m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:apply>
+			    <m:conjugate/>
+			    <m:apply>
+			      <m:ci type="fn" class="discrete">X</m:ci>
+			      <m:apply>
+				<m:rem/>
+				<m:apply>
+				  <m:minus/>
+				  <m:ci>k</m:ci>
+				</m:apply>
+				<m:ci>N</m:ci>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  12.
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:apply>
+			<m:imaginary/>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">x</m:ci>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>X</m:mi>
+			    <m:mi>op</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">X</m:ci>
+			    <m:apply>
+			      <m:rem/>
+			      <m:ci>k</m:ci>
+			      <m:ci>N</m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:apply>
+			    <m:conjugate/>
+			    <m:apply>
+			      <m:ci type="fn" class="discrete">X</m:ci>
+			      <m:apply>
+				<m:rem/>
+				<m:apply>
+				  <m:minus/>
+				  <m:ci>k</m:ci>
+				</m:apply>
+				<m:ci>N</m:ci>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  13.
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>x</m:mi>
+			    <m:mi>ep</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">x</m:ci>
+			    <m:apply>
+			      <m:rem/>
+			      <m:ci>n</m:ci>
+			      <m:ci>N</m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:apply>
+			    <m:conjugate/>
+			    <m:apply>
+			      <m:ci type="fn" class="discrete">x</m:ci>
+			      <m:apply>
+				<m:rem/>
+				<m:apply>
+				  <m:minus/>
+				  <m:ci>n</m:ci>
+				</m:apply>
+				<m:ci>N</m:ci>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:real/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">X</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  14.
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>x</m:mi>
+			    <m:mi>op</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">X</m:ci>
+			    <m:apply>
+			      <m:rem/>
+			      <m:ci>n</m:ci>
+			      <m:ci>N</m:ci>
+			    </m:apply>
+			  </m:apply>
+			  <m:apply>
+			    <m:conjugate/>
+			    <m:apply>
+			      <m:ci type="fn" class="discrete">x</m:ci>
+			      <m:apply>
+				<m:rem/>
+				<m:apply>
+				  <m:minus/>
+				  <m:ci>n</m:ci>
+				</m:apply>
+				<m:ci>N</m:ci>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:apply>
+			<m:imaginary/>
+			<m:apply>
+			  <m:ci type="fn" class="discrete">X</m:ci>
+			  <m:ci>k</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  15. Symmetry Properties
+		</entry>
+		<entrytbl cols="1">
+		  <tbody>
+		    <row>
+		      <entry>
+			<m:math>
+			  <m:apply>
+			    <m:eq/>
+			    <m:apply>
+			      <m:ci type="fn" class="discrete">X</m:ci> 
+			      <m:ci>k</m:ci>
+			    </m:apply>
+			    <m:apply>
+			      <m:conjugate/>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci> 
+				<m:apply>
+				  <m:rem/>
+				  <m:apply>
+				    <m:minus/>
+				    <m:ci>k</m:ci>
+				  </m:apply>
+				  <m:ci>N</m:ci>
+				</m:apply>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:math>
+		      </entry>
+		    </row>
+		    <row>
+		      <entry>
+			<m:math>
+			  <m:apply>
+			    <m:eq/>
+			    <m:apply>
+			      <m:real/>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci> 
+				<m:ci>k</m:ci>
+			      </m:apply>
+			    </m:apply>
+			    <m:apply>
+			      <m:real/>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci>
+				<m:apply>
+				  <m:rem/>
+				  <m:apply>
+				    <m:minus/>
+				    <m:ci>k</m:ci>
+				  </m:apply>
+				  <m:ci>N</m:ci>
+				</m:apply>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:math>
+		      </entry>
+		    </row>
+		    <row>
+		      <entry>
+			<m:math>
+			  <m:apply>
+			    <m:eq/>
+			    <m:apply>
+			      <m:imaginary/>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci> 
+				<m:ci>k</m:ci>
+			      </m:apply>
+			    </m:apply>
+			    <m:apply>
+			      <m:minus/>
+			      <m:apply>
+				<m:imaginary/>
+				<m:apply>
+				  <m:ci type="fn" class="discrete">X</m:ci>
+				  <m:apply>
+				    <m:rem/>
+				    <m:apply>
+				      <m:minus/>
+				      <m:ci>k</m:ci>
+				    </m:apply>
+				    <m:ci>N</m:ci>
+				  </m:apply>
+				</m:apply>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:math>
+		      </entry>
+		    </row>
+		    <row>
+		      <entry>
+			<m:math>
+			  <m:apply>
+			    <m:eq/>
+			    <m:apply>
+			      <m:abs/>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci> 
+				<m:ci>k</m:ci>
+			      </m:apply>
+			    </m:apply>
+			    <m:apply>
+			      <m:abs/>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci>
+				<m:apply>
+				  <m:rem/>
+				  <m:apply>
+				    <m:minus/>
+				    <m:ci>k</m:ci>
+				  </m:apply>
+				  <m:ci>N</m:ci>
+				</m:apply>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:math>
+		      </entry>
+		    </row>
+		    <row>
+		      <entry>
+			<m:math>
+			  <m:apply>
+			    <m:eq/>
+			    <m:apply>
+			      <m:ci><m:mo>∡</m:mo></m:ci>
+			      <m:apply>
+				<m:ci type="fn" class="discrete">X</m:ci> 
+				<m:ci>k</m:ci>
+			      </m:apply>
+			    </m:apply>
+			    <m:apply>
+			      <m:minus/>
+			      <m:apply>
+				<m:ci><m:mo>∡</m:mo></m:ci>
+				<m:apply>
+				  <m:ci type="fn" class="discrete">X</m:ci>
+				  <m:apply>
+				    <m:rem/>
+				    <m:apply>
+				      <m:minus/>
+				      <m:ci>k</m:ci>
+				    </m:apply>
+				    <m:ci>N</m:ci>
+				  </m:apply>
+				</m:apply>
+			      </m:apply>
+			    </m:apply>
+			  </m:apply>
+			</m:math>
+		      </entry>
+		    </row>
+		  </tbody>
+		</entrytbl>
+	      </row>
+	      <row>
+		<entry>
+		  16.
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>x</m:mi>
+			    <m:mi>ep</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:plus/>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">x</m:ci>
+			    <m:ci>n</m:ci>
+			  </m:apply>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">x</m:ci>
+			    <m:apply>
+			      <m:rem/>
+			      <m:apply>
+				<m:minus/>
+				<m:ci>n</m:ci>
+			      </m:apply>
+			      <m:ci>N</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:real/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">X</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	      <row>
+		<entry>
+		  17.
+		  <m:math>
+		    <m:apply>
+		      <m:eq/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">
+			  <m:msub>
+			    <m:mi>x</m:mi>
+			    <m:mi>op</m:mi>
+			  </m:msub>
+			</m:ci>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:times/>
+			<m:apply>
+			  <m:divide/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">x</m:ci>
+			    <m:ci>n</m:ci>
+			  </m:apply>
+			  <m:apply>
+			    <m:ci type="fn" class="discrete">x</m:ci>
+			    <m:apply>
+			      <m:rem/>
+			      <m:apply>
+				<m:minus/>
+				<m:ci>n</m:ci>
+			      </m:apply>
+			      <m:ci>N</m:ci>
+			    </m:apply>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+		<entry>
+		  <m:math>
+		    <m:apply>
+		      <m:imaginary/>
+		      <m:apply>
+			<m:ci type="fn" class="discrete">X</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:math>
+		</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</table>
+
+	<note id="idp1126416">
+	  Properties 15-17 apply only when
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">x</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math>
+	  is real.
+	</note>
+      </para>
+    </section>
+
+    <section id="compsin">
+      <title>Complex Sinusoids in a nutshell</title>
+      <para id="compsin1">
+	A complex sinusoid is denoted as
+	<m:math display="block">
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>n,k</m:ci>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:leq/>
+		<m:cn>0</m:cn>
+		<m:ci>n,k</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>N</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:ci>k</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	where <m:math><m:ci>n</m:ci></m:math> is the time index and
+	<m:math><m:ci>k</m:ci></m:math> is the frequency index. The
+	same equation with frequency,
+	<m:math>
+	  <m:apply>
+	    <m:forall/>
+	    <m:bvar>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:ci>k</m:ci>
+		</m:msub>
+	      </m:ci>
+	    </m:bvar>
+	    <m:condition>
+	      <m:apply>
+		<m:leq/>
+		<m:cn>0</m:cn>
+		<m:ci>
+		<m:msub>
+		    <m:mi>ω</m:mi>
+		    <m:ci>k</m:ci>
+		  </m:msub>
+		</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:pi/>
+		</m:apply>
+	      </m:apply>
+	    </m:condition>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:ci>k</m:ci>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, 
+	is written as:
+	<m:math display="block">
+	  <m:apply>
+	    <m:exp/>
+	    <m:apply>
+	      <m:times/>
+	      <m:imaginaryi/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:ci>k</m:ci>
+		</m:msub>
+	      </m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<m:math>
+	  <m:complexes/>
+	</m:math>
+	sinusoid proceeds CCW around the unit circle (because
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:abs/>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>ω</m:mi>
+		      <m:ci>k</m:ci>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:cn>1</m:cn>
+	  </m:apply>
+	</m:math>)
+	with step size (in angle)
+	<m:math>
+	  <m:ci>
+	    <m:msub>
+	      <m:mi>ω</m:mi>
+	      <m:mi>k</m:mi>
+	    </m:msub>
+	  </m:ci>
+	</m:math>.
+      </para>
+      
+      <example id="exam3">
+	<para id="exam3para1">
+	  <figure id="fig9">
+	    <media id="idp7221872" alt=""><image src="../../media/DFT9.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>k</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>N</m:ci>
+		  <m:cn>16</m:cn>
+		</m:apply>
+	      </m:math>
+	    </caption>
+	  </figure>
+	  
+	  <m:math>
+	    <m:complexes/>
+	  </m:math>
+	  sinusoid makes exactly <m:math><m:ci>k</m:ci></m:math>
+	  revolutions of the circle and repeats when
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>n</m:ci>
+	      <m:ci>N</m:ci>
+	    </m:apply>
+	  </m:math>
+	  at the
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>n</m:ci>
+	      <m:cn>0</m:cn>
+	    </m:apply>
+	  </m:math>
+	  spot.
+	  
+	  <figure id="fig10">
+	    <media id="idp3205712" alt=""><image src="../../media/DFT10.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>N</m:ci>
+		  <m:cn>16</m:cn>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>k</m:ci>
+		  <m:cn>2</m:cn>
+		</m:apply>
+	      </m:math> times around.
+	    </caption>
+	  </figure>
+	</para>
+      </example>
+
+      <para id="compsin2">
+	Read off real and imaginary parts:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>
+		  <m:msub>
+		    <m:mi>ω</m:mi>
+		    <m:ci>k</m:ci>
+		  </m:msub>
+		</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:cos/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>ω</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:apply>
+		  <m:sin/>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci>
+		      <m:msub>
+			<m:mi>ω</m:mi>
+			<m:mi>k</m:mi>
+		      </m:msub>
+		    </m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	by motion along real and imaginary axes.
+	
+	<figure id="fig11">
+	  <media id="idp2386240" alt=""><image src="../../media/DFT11.png" mime-type="image/png"/></media>
+	  <caption>
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>k</m:ci>
+		<m:cn>2</m:cn>
+	      </m:apply>
+	    </m:math>,
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci>N</m:ci>
+		<m:cn>16</m:cn>
+	      </m:apply>
+	    </m:math>:
+	    note that there are 2 cycles
+	  </caption>
+	</figure>
+
+	Consider the following examples:
+      </para>
+      
+      <example id="exam4">
+	<para id="exam4para1">
+	  <figure id="fig12">
+	    <media id="idp1120768" alt=""><image src="../../media/DFT12.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>N</m:ci>
+		  <m:cn>8</m:cn>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>k</m:ci>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>ω</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:cn>8</m:cn>
+		    </m:apply>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:pi/>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </caption>
+	  </figure>
+	</para>
+      </example>
+
+      <example id="exam5">
+	<para id="exam5para1">
+	  <figure id="fig13">
+	    <media id="idm5678016" alt=""><image src="../../media/DFT13.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>N</m:ci>
+		  <m:cn>8</m:cn>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>k</m:ci>
+		  <m:cn>7</m:cn>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>ω</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:cn>8</m:cn>
+		    </m:apply>
+		    <m:cn>7</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>7</m:cn>
+		      <m:pi/>
+		    </m:apply>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </caption>
+	  </figure>
+
+	  Notice that for
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>n</m:ci>
+	      <m:cn>3</m:cn>
+	    </m:apply>
+	  </m:math>,
+	  the plot is exactly like the one for
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>k</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math> in <link target-id="exam4"/>,
+	  but moves backwards (CW) around the circle.
+
+	  <figure id="fig14">
+	    <media id="idm6157392" alt=""><image src="../../media/DFT14.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>
+		    <m:msub>
+		      <m:mi>ω</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub>
+		  </m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:pi/>
+		    </m:apply>
+		    <m:cn>4</m:cn>
+		  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </caption>
+	  </figure>
+	</para>
+      </example>
+
+      <para id="compsin3">
+	Negative frequency is nothing bizarre; it just means that we
+	move around the circle CW rather than CCW. <link target-id="fig15"/> shows how to do this for
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>N</m:ci>
+	    <m:cn>8</m:cn>
+	  </m:apply>
+	</m:math>.
+
+	<figure id="fig15">
+	  <media id="idp2505120" alt=""><image src="../../media/DFT15.png" mime-type="image/png"/></media>
+	</figure>
+
+	In general, this is  easy to show:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:ci>k</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		<m:times/>
+		  <m:imaginaryi/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		    </m:apply>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		  <m:ci>k</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		    </m:apply>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:ci>k</m:ci>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	For example, for
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>N</m:ci>
+	    <m:cn>8</m:cn>
+	  </m:apply>
+	</m:math>,
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>k</m:ci>
+	    <m:cn>-1</m:cn>
+	  </m:apply>
+	</m:math>
+	and
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>k</m:ci>
+	    <m:apply>
+	      <m:plus/>
+	      <m:cn>-1</m:cn>
+	      <m:cn>8</m:cn>
+	    </m:apply>
+	    <m:cn>7</m:cn>
+	  </m:apply>
+	</m:math>
+	yield the same sinusoid.
+      </para>
+
+      <section id="summary">
+	<title>Summary: Frequency</title>
+	<para id="summary1">
+	  <equation id="eq2">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		    <m:ci>k</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:apply>
+		      <m:ci>
+			<m:msub>
+			  <m:mi>ω</m:mi>
+			  <m:mi>k</m:mi>
+			</m:msub>
+		      </m:ci>
+		    </m:apply>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:mi>k</m:mi>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <figure id="fig16">
+	    <media id="idp959536" alt=""><image src="../../media/DFT16.png" mime-type="image/png"/></media>
+	  </figure>
+	</para>
+      </section>
+      
+      <section id="impact">
+	<title>Impact on DFT</title>
+	<para id="impact1">
+	  <figure id="fig17">
+	    <media id="idm6024528" alt=""><image src="../../media/DFT17.png" mime-type="image/png"/></media>
+	  </figure>
+	  
+	  Matlab's <code>fftshift</code> command swaps left and right
+	  halfs of a vector:
+
+	  <figure id="fig18">
+	    <media id="idp1332464" alt=""><image src="../../media/DFT18.png" mime-type="image/png"/></media>
+	  </figure>
+	</para>
+      </section>
+      
+      <section id="notation">
+	<title>DFT Notation</title>
+	<para id="notation1">
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci type="matrix">B</m:ci>
+		<m:ci type="vector">α</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector">α</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		  <m:ci type="matrix">B</m:ci>
+		</m:apply>
+		<m:ci type="vector">x</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  Now replace <m:math><m:ci type="vector">α</m:ci></m:math> by capital
+	  <m:math><m:ci type="vector">X</m:ci></m:math>:
+	  
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci type="matrix">B</m:ci>
+		<m:ci type="vector">X</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector">X</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#adjoint"/>
+		  <m:ci type="matrix">B</m:ci>
+		</m:apply>
+		<m:ci type="vector">x</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">x</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:ci>
+	      <m:mover accent="true">
+		<m:mi>↔</m:mi>
+		<m:mo>DFT</m:mo>
+	      </m:mover>
+	    </m:ci>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">X</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	  </m:math>
+	</para>
+      </section>
+    </section>
+  </content>
+  
+</document>

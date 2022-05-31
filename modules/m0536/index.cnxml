@@ -1,0 +1,216 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+
+  <title>FIR Filter Example</title>
+
+  <metadata>
+  <md:content-id>m0536</md:content-id><md:title>FIR Filter Example</md:title>
+  <md:abstract>An example of using a Finite Impulse Response filter.
+</md:abstract>
+  <md:uuid>e421eaba-517b-4a90-8756-995b8c60cdf1</md:uuid>
+</metadata>
+
+<content>
+
+    <example id="exa2000">
+      <para id="para1">
+	We want to lowpass filter a signal that contains a sinusoid
+	and a significant amount of noise.  <link target-id="fig1003" strength="3"/> shows a portion of this signal's waveform.  If
+	it weren't for the overlaid sinusoid, discerning the sine wave
+	in the signal is virtually impossible.  One of the primary
+	applications of linear filters is <term>noise removal</term>:
+	preserve the signal by matching filter's passband with the
+	signal's spectrum and greatly reduce all other frequency
+	components that may be present in the noisy signal.
+      </para>
+      
+      <figure id="fig1003">
+	<media id="id14359082" alt="">
+          <image src="../../media/sig25.png" mime-type="image/png"/>
+          <image for="pdf" src="../../media/sig25.eps" mime-type="application/postscript"/>
+        </media>
+	<caption>
+	 The noisy input signal is sectioned into length-48 frames,
+	each of which is filtered using frequency-domain
+	techniques.  Each filtered section is added to other outputs
+	that overlap to create the signal equivalent to having
+	filtered the entire input.  The sinusoidal component of the
+	signal is shown as the red dashed line.
+	</caption>
+      </figure>    
+
+      <para id="para2">
+	A smart Rice engineer has selected a FIR filter having a
+	unit-sample response corresponding a period-17 sinusoid:
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:minus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:divide/>
+		  <m:apply>
+		    <m:cos/>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:apply>
+			<m:plus/>
+			<m:ci>n</m:ci>
+			<m:cn>1</m:cn>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:cn>17</m:cn>
+		</m:apply>
+	      </m:apply>
+	      <m:cn>18</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	,
+	<m:math>
+	  <m:apply>
+	    <m:in/>
+	    <m:ci>n</m:ci>
+	    <m:set>
+	      <m:cn>0</m:cn>
+	      <m:ci>…</m:ci>
+	      <m:cn>16</m:cn>
+	    </m:set>
+	  </m:apply>
+	</m:math>
+	, which makes
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>q</m:ci>
+	    <m:cn>16</m:cn>
+	  </m:apply>
+	</m:math>
+	.  Its frequency response (determined by computing the
+	discrete Fourier transform) is shown in <link target-id="fig1004" strength="3"/>.  To apply, we can select the length of each
+	section so that the frequency-domain filtering approach is
+	maximally efficient:  Choose the section length
+	<m:math>
+	  <m:ci><m:msub>
+	      <m:mi>N</m:mi>
+	      <m:mi>x</m:mi>
+	    </m:msub></m:ci>
+	</m:math>
+	so that
+	<m:math>
+	  <m:apply>
+	    <m:plus/>
+	    <m:ci><m:msub>
+		<m:mi>N</m:mi>
+		<m:mi>x</m:mi>
+	      </m:msub></m:ci>
+	    <m:ci>q</m:ci>
+	  </m:apply>
+	</m:math>
+	is a power of two.  To use a length-64 FFT, each section must
+	be 48 samples long.  Filtering with the difference equation
+	would require 33 computations per output while the frequency
+	domain requires a little over 16; this frequency-domain
+	implementation is over twice as fast!  <link target-id="fig1003" strength="3"/> shows how frequency-domain filtering works.
+      </para>
+
+      <figure id="fig1004">
+	<media id="id14364954" alt="">
+          <image src="../../media/sig24.png" mime-type="image/png"/>
+          <image for="pdf" src="../../media/sig24.eps" mime-type="application/postscript"/>
+        </media> 
+	<caption>
+	  The figure shows the unit-sample response of a length-17
+	  Hanning filter on the left and the frequency response on the
+	  right.  This filter functions as a lowpass filter having a
+	  cutoff frequency of about 0.1.
+	</caption>
+      </figure>
+
+      <para id="para3">
+	We note that the noise has been dramatically reduced, with a
+	sinusoid now clearly visible in the filtered output.  Some
+	residual noise remains because noise components within the
+	filter's passband appear in the output as well as the signal.
+      </para>
+    </example>
+
+    <exercise id="exer1">
+      <problem id="id14364999">
+	<para id="exer1a">
+	  Note that when compared to the input signal's sinusoidal
+	  component, the output's sinusoidal component seems to be
+	  delayed. What is the source of this delay?  Can it be
+	  removed?
+	</para>
+      </problem>
+      <solution id="id14365019">
+	<para id="exer1b">
+	  The delay is <emphasis>not</emphasis> computational delay
+	  here—the plot shows the first output value is aligned with
+	  the filter's first input—although in real systems this is
+	  an important consideration.  Rather, the delay is due to the
+	  filter's phase shift: A phase-shifted sinusoid is equivalent
+	  to a time-delayed one:
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:cos/>
+		<m:apply>
+		  <m:minus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:pi/>
+		    <m:ci>f</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		  <m:ci>φ</m:ci>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:cos/>
+		<m:apply>
+		  <m:times/>
+		  <m:cn>2</m:cn>
+		  <m:pi/>
+		  <m:ci>f</m:ci>
+		  <m:apply>
+		    <m:divide/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		      <m:ci>φ</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:times/>
+		      <m:cn>2</m:cn>
+		      <m:pi/>
+		      <m:ci>f</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  .  All filters have phase shifts.  This delay could be
+	  removed if the filter introduced no phase shift.  Such
+	  filters do not exist in analog form, but digital ones can be
+	  programmed, but not in real time.  Doing so would require the
+	  output to emerge before the input arrives!
+	</para>
+      </solution>
+    </exercise>
+
+  </content>
+</document>

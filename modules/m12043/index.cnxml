@@ -1,0 +1,1681 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>LSI/LTI Systems</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>13d96662-34c7-42bc-a719-98b8f55e0316</md:uuid>
+</metadata>
+
+  <content>
+    <para id="p1">
+      <definition id="lsi">
+	<term>linear shift invariant system</term>
+	<meaning id="idm9557936">
+	  A <term>linear shift invariant system</term> is one that is both:
+	  <list id="lsilist">
+	    <item>linear</item>
+	    <item>shift invariant</item>
+	  </list>
+	</meaning>
+      </definition>
+      Also known as LSI, LTI (<link target-id="fig1"/>).
+  
+      <figure id="fig1">
+	<title>All Systems</title>
+	<media id="idm8861616" alt=""><image src="../../media/systems.png" mime-type="image/png"/></media>
+      </figure>
+
+      <note id="idm2499264">LSI systems are the bread 'n' budduh of DSP 
+	(<link target-id="fig2"/>).</note>
+
+      <figure id="fig2">
+	<media id="idm8325664" alt=""><image src="../../media/bread.png" mime-type="image/png"/></media>
+      </figure>
+    </para>   
+
+    <section id="cls">
+      <title>Characterizing LSI Systems</title>
+      <section id="one">
+	<title>1.</title>
+	<para id="p2">Since the system is <emphasis>linear</emphasis>, 
+	  it can be represented as a <emphasis>matrix multiply</emphasis>
+	  (<link target-id="fig3"/>).
+
+	  <figure id="fig3">
+	    <media id="idm21232" alt=""><image src="../../media/matmult.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:in/>
+		  <m:ci type="vector">x</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:complexes/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>,
+	      <m:math>
+		<m:apply>
+		  <m:in/>
+		  <m:ci type="vector">y</m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:complexes/>
+		    <m:ci>N</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:math>, and
+	      <m:math><m:ci type="matrix">ℋ</m:ci>
+	      </m:math> is an
+	      <m:math>
+		<m:apply>
+		  <m:cartesianproduct/>
+		  <m:ci>N</m:ci>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:math> complex matrix.
+	    </caption>
+	  </figure>
+	</para>
+      </section>
+      
+      <section id="two">
+	<title>2.</title>
+	<para id="p3">Since <m:math><m:ci type="matrix">ℋ</m:ci>
+	  </m:math> is <emphasis>shift invariant</emphasis>, it cannot
+	  be just any old matrix. Its values are <emphasis>highly
+	    constrained</emphasis>.
+	</para>
+	<para id="p4">In particular we know that
+	  <equation id="eqn1">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:times/>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>C</m:mi>
+		      <m:mrow>
+			<m:mo>-</m:mo>
+			<m:mi>m</m:mi>
+		      </m:mrow>
+		    </m:msub></m:ci>
+		  <m:ci type="matrix">ℋ</m:ci>
+		  <m:ci type="matrix"><m:msub>
+		      <m:mi>C</m:mi>
+		      <m:mi>m</m:mi>
+		    </m:msub></m:ci>
+		</m:apply>
+		<m:ci type="matrix">ℋ</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  Let's understand this...
+	</para>
+      </section>
+    </section>
+  
+    <section id="understand">
+      <title>Understanding Conditions on Matrix ℋ for Shift 
+	Invariance</title>
+      <para id="p5">Recall <link target-id="fig3"/>.
+	<equation id="eqn2">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">y</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:mtext>row </m:mtext>
+		<m:mi>n</m:mi>
+		<m:mtext> of </m:mtext>
+		<m:mi>ℋ</m:mi>
+		<m:mo>|</m:mo>
+		<m:ci type="vector">x</m:ci>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	      <m:mrow>
+		<m:mo>(</m:mo>
+		<m:ci type="vector"><m:msubsup>
+		    <m:mi>h</m:mi>
+		    <m:mi>n</m:mi>
+		    <m:mi>r</m:mi>
+		  </m:msubsup></m:ci>
+		<m:mo>|</m:mo>
+		<m:ci type="vector">x</m:ci>
+		<m:mo>)</m:mo>
+	      </m:mrow>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="vector">y</m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="matrix">ℋ</m:ci>
+		<m:ci type="vector">x</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<equation id="eqn3">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:vector>
+		<m:ci/>
+		<m:ci/>
+		<m:ci>·</m:ci>
+		<m:ci/>
+		<m:ci/>
+	      </m:vector>
+	      <m:apply>
+		<m:times/>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>→</m:ci>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:vector>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>↓</m:ci>
+		</m:vector>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	where the · is in the 
+	<m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>n</m:ci>
+	    <m:ci>th</m:ci>
+	  </m:apply>
+	</m:math> row.
+      </para>
+      <para id="p5a">Now shift <m:math><m:ci type="vector">x</m:ci>
+	</m:math> down circularly <m:math><m:ci>m</m:ci>
+	</m:math> units. If the system is SI then <m:math>
+	  <m:ci type="vector">y</m:ci>
+	</m:math> will also shift down circularly <m:math><m:ci>m</m:ci>
+	</m:math> units. <foreign>i.e.</foreign>:
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>C</m:mi>
+		  <m:mi>m</m:mi>
+		</m:msub></m:ci>
+	      <m:ci type="vector">y</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="matrix">ℋ</m:ci>
+	      <m:ci type="matrix"><m:msub>
+		  <m:mi>C</m:mi>
+		  <m:mi>m</m:mi>
+		</m:msub></m:ci>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+	
+	<equation id="eqn4">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:vector>
+		<m:ci/>
+		<m:ci/>
+		<m:ci>·</m:ci>
+		<m:ci>▪</m:ci>
+		<m:ci/>
+	      </m:vector>
+	      <m:apply>
+		<m:times/>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>⋯</m:ci>
+		    <m:ci>→</m:ci>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		    <m:ci/>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:vector>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>↓</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		  <m:ci>⋮</m:ci>
+		</m:vector>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	where the · is in the 
+	<m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:ci>n</m:ci>
+	    <m:ci>th</m:ci>
+	  </m:apply>
+	</m:math> row, the ▪ is in the 
+	<m:math>
+	  <m:apply>
+	    <m:power/>
+	    <m:apply>
+	      <m:plus/>
+	      <m:ci>n</m:ci>
+	      <m:ci>m</m:ci>
+	    </m:apply>
+	    <m:ci>th</m:ci>
+	  </m:apply>
+	</m:math> row, and the ↓ has been shifted down circularly 
+	<m:math><m:ci>m</m:ci></m:math> units.
+      </para>
+      <para id="p6">Key: we want the value ▪ in 
+	<m:math>
+	  <m:apply>
+	    <m:times/>
+	    <m:ci type="matrix"><m:msub>
+		<m:mi>C</m:mi>
+		<m:mi>m</m:mi>
+	      </m:msub></m:ci>
+	    <m:ci type="vector">y</m:ci>
+	  </m:apply>
+	</m:math> to equal the · value in <m:math>
+	  <m:ci type="vector">y</m:ci></m:math>.
+      </para>
+
+      <para id="p7">This implies that the rows of <m:math>
+	  <m:ci type="matrix">ℋ</m:ci>
+	</m:math> must circularly shift as we shift 
+	<m:math><m:ci type="vector">x</m:ci></m:math> and
+	<m:math><m:ci type="vector">y</m:ci></m:math>. 
+	<foreign>i.e.</foreign>: row 
+	<m:math>
+	  <m:apply>
+	    <m:plus/>
+	    <m:ci>n</m:ci>
+	    <m:ci>m</m:ci>
+	  </m:apply>
+	</m:math> of <m:math><m:ci type="matrix">ℋ</m:ci>
+	</m:math> is equal to the circular shift right of row
+	<m:math><m:ci>n</m:ci></m:math> of <m:math>
+	  <m:ci type="matrix">ℋ</m:ci></m:math> by 
+	<m:math><m:ci>m</m:ci></m:math>. <foreign>i.e.</foreign>:
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci type="vector"><m:msubsup>
+		<m:mi>h</m:mi>
+		<m:mrow>
+		  <m:mi>n</m:mi>
+		  <m:mo>+</m:mo>
+		  <m:mi>m</m:mi>
+		</m:mrow>
+		<m:mi>r</m:mi>
+	      </m:msubsup></m:ci>
+	    <m:apply>
+	      <m:times/>
+	      <m:ci type="vector"><m:msubsup>
+		  <m:mi>h</m:mi>
+		  <m:mi>n</m:mi>
+		  <m:mi>r</m:mi>
+		</m:msubsup></m:ci>
+	      <m:apply>
+		<m:transpose/>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>C</m:mi>
+		    <m:mi>m</m:mi>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<foreign>i.e.</foreign>: all rows of <m:math>
+	  <m:ci type="matrix">ℋ</m:ci></m:math> are circular 
+	shifts of each other.
+      </para>
+
+      <example id="ex1">
+	<para id="ex1p1">
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:vector>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub>
+	      </m:vector>
+	      <m:apply>
+		<m:times/>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:cn>1</m:cn>
+		    <m:cn>4</m:cn>
+		    <m:cn>7</m:cn>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:cn>2</m:cn>
+		    <m:cn>5</m:cn>
+		    <m:cn>8</m:cn>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:cn>3</m:cn>
+		    <m:cn>6</m:cn>
+		    <m:cn>9</m:cn>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:vector>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		</m:vector>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  LSI also needs
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>m</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math>:
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:vector>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub>
+	      </m:vector>
+	      <m:apply>
+		<m:times/>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:cn>1</m:cn>
+		    <m:cn>4</m:cn>
+		    <m:cn>7</m:cn>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:cn>2</m:cn>
+		    <m:cn>5</m:cn>
+		    <m:cn>8</m:cn>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:cn>3</m:cn>
+		    <m:cn>6</m:cn>
+		    <m:cn>9</m:cn>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:vector>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		</m:vector>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  and
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>m</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:math>:
+
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:vector>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>2</m:mn>
+		</m:msub>
+		<m:msub>
+		  <m:mi>y</m:mi>
+		  <m:mn>0</m:mn>
+		</m:msub>
+	      </m:vector>
+	      <m:apply>
+		<m:times/>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:cn>1</m:cn>
+		    <m:cn>4</m:cn>
+		    <m:cn>7</m:cn>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:cn>2</m:cn>
+		    <m:cn>5</m:cn>
+		    <m:cn>8</m:cn>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:cn>3</m:cn>
+		    <m:cn>6</m:cn>
+		    <m:cn>9</m:cn>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:vector>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>1</m:mn>
+		  </m:msub>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>2</m:mn>
+		  </m:msub>
+		  <m:msub>
+		    <m:mi>x</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub>
+		</m:vector>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	  <foreign>i.e.</foreign>:
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:cn>1</m:cn>
+	      <m:cn>5</m:cn>
+	      <m:cn>9</m:cn>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:cn>2</m:cn>
+	      <m:cn>6</m:cn>
+	      <m:cn>7</m:cn>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:cn>3</m:cn>
+	      <m:cn>4</m:cn>
+	      <m:cn>8</m:cn>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="matrix">ℋ</m:ci>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		  <m:cn>2</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>3</m:cn>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		</m:matrixrow>
+	      </m:matrix>
+	    </m:apply>
+	  </m:math>
+	</para>
+      </example>
+
+      <para id="p7a">
+	<m:math><m:ci type="matrix">ℋ</m:ci>
+	</m:math> is called a <term>circulant matrix</term>.
+	<list id="circlist">
+	  <item>each row is a circulary shifted version of the row 
+	    above (right).</item>
+	  <item>each column is a circularly shifted version of the 
+	    column to the left (down).</item>
+	</list>
+	
+	<equation id="eqn5">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="matrix">ℋ</m:ci>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		  <m:cn>2</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>3</m:cn>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:vector>
+		<m:ci type="vector"><m:msubsup>
+		    <m:mi>h</m:mi>
+		    <m:mn>0</m:mn>
+		    <m:mi>r</m:mi>
+		  </m:msubsup></m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci type="vector"><m:msubsup>
+		      <m:mi>h</m:mi>
+		      <m:mn>0</m:mn>
+		      <m:mi>r</m:mi>
+		    </m:msubsup></m:ci>
+		  <m:apply>
+		    <m:transpose/>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>C</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub></m:ci>
+		  </m:apply>
+		</m:apply>
+		<m:ci>⋮</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci type="vector"><m:msubsup>
+		      <m:mi>h</m:mi>
+		      <m:mn>0</m:mn>
+		      <m:mi>r</m:mi>
+		    </m:msubsup></m:ci>
+		  <m:apply>
+		    <m:transpose/>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>C</m:mi>
+			<m:mrow>
+			  <m:mi>N</m:mi>
+			  <m:mo>-</m:mo>
+			  <m:mn>1</m:mn>
+			</m:mrow>
+		      </m:msub></m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:vector>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:ci type="vector"><m:msubsup>
+		      <m:mi>h</m:mi>
+		      <m:mn>0</m:mn>
+		      <m:mi>c</m:mi>
+		    </m:msubsup></m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>C</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub></m:ci>
+		    <m:ci type="vector"><m:msubsup>
+			<m:mi>h</m:mi>
+			<m:mn>0</m:mn>
+			<m:mi>c</m:mi>
+		      </m:msubsup></m:ci>
+		  </m:apply>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>C</m:mi>
+			<m:mrow>
+			  <m:mi>N</m:mi>
+			  <m:mo>-</m:mo>
+			  <m:mn>1</m:mn>
+			</m:mrow>
+		      </m:msub></m:ci>
+		    <m:ci type="vector"><m:msubsup>
+			<m:mi>h</m:mi>
+			<m:mn>0</m:mn>
+			<m:mi>c</m:mi>
+		      </m:msubsup></m:ci>
+		  </m:apply>
+		</m:matrixrow>
+	      </m:matrix>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	which implies that either the first row or first column 
+	are all you need to know to know <emphasis>all</emphasis> of 
+	<m:math><m:ci type="matrix">ℋ</m:ci></m:math>.
+
+	<note id="idm8214912">Circulant matrices are a special case of <term>Toeplitz
+	    matrices</term>, which are constant along diagonals.
+	  <foreign>e.g.</foreign>:
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="matrix">T</m:ci>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		  <m:mi>⋱</m:mi>
+		</m:matrixrow>
+	      </m:matrix>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		  <m:cn>5</m:cn>
+		  <m:cn>6</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		  <m:cn>5</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>4</m:cn>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		  <m:cn>3</m:cn>
+		</m:matrixrow>
+		<m:matrixrow>
+		  <m:cn>7</m:cn>
+		  <m:cn>4</m:cn>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		</m:matrixrow>
+	      </m:matrix>
+	    </m:apply>
+	  </m:math>
+	  <m:math display="block">
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:selector/>
+		<m:ci type="matrix">T</m:ci>
+		<m:ci>n</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">t</m:ci>
+		<m:apply>
+		  <m:minus/>
+		  <m:ci>n</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</note>
+      </para>
+
+      <example id="ex2">
+	<para id="p8">
+	  <link document="m12036" target-id="opex4">3-point smoother</link>
+	  <m:math><m:ci type="matrix">ℋ</m:ci></m:math>?
+	</para>
+	<para id="p8a">
+	  <link document="m12036" target-id="opex6">Edge detector</link>
+	  <m:math><m:ci type="matrix">ℋ</m:ci></m:math>?
+	</para>
+      </example>
+
+      <para id="p9">Also, row <m:math><m:ci>n</m:ci></m:math>, column
+	<m:math><m:ci>k</m:ci></m:math> element of 
+	<m:math><m:ci type="matrix">ℋ</m:ci></m:math> is
+	<equation id="eqn6">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:selector/>
+		<m:ci type="matrix">ℋ</m:ci>
+		<m:ci>n</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:apply>
+		  <m:rem/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	where
+	<m:math>
+	  <m:apply>
+	    <m:leq/>
+	    <m:cn>0</m:cn>
+	    <m:ci>n</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>N</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> and 
+	<m:math>
+	  <m:apply>
+	    <m:leq/>
+	    <m:cn>0</m:cn>
+	    <m:ci>k</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>N</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> and <m:math><m:ci type="fn" class="discrete">h</m:ci>
+	</m:math> is the signal corresponding to the first 
+	(<foreign>i.e.</foreign> the zeroth!)
+	<emphasis>column</emphasis> of <m:math>
+	  <m:ci type="matrix">ℋ</m:ci>
+	</m:math>.
+      </para>
+
+      <example id="ex3">
+	<para id="p10">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>N</m:ci>
+	      <m:cn>2</m:cn>
+	    </m:apply>
+	  </m:math>,
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector"><m:msubsup>
+		  <m:mi>h</m:mi>
+		  <m:mn>0</m:mn>
+		  <m:mi>c</m:mi>
+		</m:msubsup></m:ci>
+	      <m:vector>
+		<m:cn>-1</m:cn>
+		<m:cn>7</m:cn>
+		<m:cn>3</m:cn>
+	      </m:vector>
+	    </m:apply>
+	  </m:math>
+	  <equation id="eqn7">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="matrix">ℋ</m:ci>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>0</m:cn>
+			  <m:cn>0</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>0</m:cn>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>0</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:matrixrow>
+		    <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>1</m:cn>
+			  <m:cn>0</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>1</m:cn>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>1</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:matrixrow>
+		    <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>2</m:cn>
+			  <m:cn>0</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>2</m:cn>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:cn>2</m:cn>
+			  <m:cn>2</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:matrixrow>
+		</m:matrix>
+		<m:matrix>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>0</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>0</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		  <m:matrixrow>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:cn>0</m:cn>
+		    </m:apply>
+		  </m:matrixrow>
+		</m:matrix>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	</para>
+      </example>
+
+      <example id="ex4">
+	<para id="p11">Apply a 3-point moving average smoother to a signal
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector">x</m:ci>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:cn>-2</m:cn>
+		  <m:cn>-1</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>1</m:cn>
+		  <m:cn>2</m:cn>
+		  <m:cn>1</m:cn>
+		  <m:cn>0</m:cn>
+		  <m:cn>-1</m:cn>
+		</m:matrixrow>
+	      </m:matrix>
+	    </m:apply>
+	  </m:math>.
+
+	  <figure id="fig4">
+	    <media id="idm9359264" alt=""><image src="../../media/smoother.png" mime-type="image/png"/></media>
+	    <caption>
+	      <m:math>
+		<m:apply>
+		  <m:power/>
+		  <m:reals/>
+		  <m:cn>8</m:cn>
+		</m:apply>
+	      </m:math>.
+	    </caption>
+	  </figure>
+
+	  In <link target-id="fig4"/>,
+	  <equation id="eqn8">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">y</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>1</m:cn>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:minus/>
+			  <m:ci>n</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>3</m:cn>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:apply>
+			<m:rem/>
+			<m:apply>
+			  <m:plus/>
+			  <m:ci>n</m:ci>
+			  <m:cn>1</m:cn>
+			</m:apply>
+			<m:ci>N</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+
+	  <equation id="eqn9">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:ci type="vector">y</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:matrix>
+		    <m:matrixrow>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:matrixrow>
+		  </m:matrix>
+		  <m:vector>
+		    <m:cn>-2</m:cn>
+		    <m:cn>-1</m:cn>
+		    <m:cn>0</m:cn>
+		    <m:cn>1</m:cn>
+		    <m:cn>2</m:cn>
+		    <m:cn>1</m:cn>
+		    <m:cn>0</m:cn>
+		    <m:cn>-1</m:cn>
+		  </m:vector>
+		</m:apply>
+		<m:vector>
+		  <m:cn>-8</m:cn>
+		  <m:cn>-4</m:cn>
+		  <m:cn>2</m:cn>
+		  <m:cn>8</m:cn>
+		  <m:cn>8</m:cn>
+		  <m:cn>4</m:cn>
+		  <m:cn>-2</m:cn>
+		  <m:cn>-8</m:cn>
+		</m:vector>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	</para>
+      </example>
+
+      <para id="p12">The relationship between rows and columns of 
+	<m:math><m:ci type="matrix">ℋ</m:ci>
+	</m:math>:
+	<equation id="eqn10">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:apply>
+		<m:selector/>
+		<m:ci type="matrix">ℋ</m:ci>
+		<m:ci>n</m:ci>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn" class="discrete">h</m:ci>
+		<m:apply>
+		  <m:rem/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>n</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		  <m:ci>N</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	where <m:math><m:ci>n</m:ci></m:math> is the row, 
+	<m:math><m:ci>k</m:ci></m:math> is the column, and
+	<m:math>
+	  <m:apply>
+	    <m:leq/>
+	    <m:cn>0</m:cn>
+	    <m:ci>n</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>N</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math> and
+	<m:math>
+	  <m:apply>
+	    <m:leq/>
+	    <m:cn>0</m:cn>
+	    <m:ci>k</m:ci>
+	    <m:apply>
+	      <m:minus/>
+	      <m:ci>N</m:ci>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:apply>
+	</m:math>. 
+	<note id="idp5256896">Rows and columns run time in 
+	  <emphasis>reverse order</emphasis>!!!</note>
+      </para>
+
+      <example id="ex5">
+	<para id="p13">
+	  <m:math>
+	    <m:apply>
+	      <m:power/>
+	      <m:reals/>
+	      <m:cn>4</m:cn>
+	    </m:apply>
+	  </m:math>
+
+	  <equation id="eqn11">
+	    <m:math>
+	      <m:apply>
+		<m:eq/>
+		<m:vector>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">y</m:ci>
+		    <m:cn>0</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">y</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">y</m:ci>
+		    <m:cn>2</m:cn>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">y</m:ci>
+		    <m:cn>3</m:cn>
+		  </m:apply>
+		</m:vector>
+		<m:apply>
+		  <m:times/>
+		  <m:matrix>
+		    <m:matrixrow>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		      <m:cn>3</m:cn>
+		    </m:matrixrow>
+		    <m:matrixrow>
+		      <m:cn>3</m:cn>
+		      <m:cn>0</m:cn>
+		      <m:cn>1</m:cn>
+		      <m:cn>2</m:cn>
+		    </m:matrixrow>
+		  </m:matrix>
+		  <m:vector>
+		    <m:apply>
+		    <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:cn>0</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:cn>3</m:cn>
+		    </m:apply>
+		  </m:vector>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  where the zeroth column, 
+	  <m:math>
+	    <m:vector>
+	      <m:cn>2</m:cn>
+	      <m:cn>1</m:cn>
+	      <m:cn>0</m:cn>
+	      <m:cn>3</m:cn>
+	    </m:vector>
+	  </m:math>, is the <term>impulse response</term>,
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math> (<link target-id="fig5"/>).
+
+	  <figure id="fig5">
+	    <media id="idp4592880" alt=""><image src="../../media/impulse.png" mime-type="image/png"/></media>
+	    <caption>Reponse to impulse at
+	      <m:math>
+		<m:apply>
+		  <m:eq/>
+		  <m:ci>n</m:ci>
+		  <m:cn>0</m:cn>
+		</m:apply>
+	      </m:math>: 2 comes out, then 1, then 0, ….
+	    </caption>
+	  </figure>
+
+	  In <link target-id="eqn11"/>, the zeroth row,
+	  <m:math>
+	    <m:matrix>
+	      <m:matrixrow>
+		<m:cn>2</m:cn>
+		<m:cn>3</m:cn>
+		<m:cn>0</m:cn>
+		<m:cn>1</m:cn>
+	      </m:matrixrow>
+	    </m:matrix>
+	  </m:math>,
+	  is the <term>time-reversed impulse response</term>,
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">h</m:ci>
+	      <m:apply>
+		<m:minus/>
+		<m:ci>k</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>.
+	</para>
+      </example>
+    </section>
+  
+
+    <section id="upshot">
+      <title>Upshot for LSI Systems</title>
+
+      <para id="p14">
+	<figure id="fig6">
+	  <media id="idm611312" alt=""><image src="../../media/impulse0.png" mime-type="image/png"/></media>
+	  <caption>The impulse response; the zeroth column of
+	    <m:math>
+	      <m:ci type="matrix">ℋ</m:ci>
+	    </m:math>.
+	  </caption>
+	</figure>
+
+	<figure id="fig7">
+	  <media id="idm1121280" alt=""><image src="../../media/impulse1.png" mime-type="image/png"/></media>
+	  <caption>The shifted impulse response.
+	    Here,
+	    <m:math>
+	      <m:ci type="vector"><m:msub>
+		  <m:mi>δ</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub></m:ci>
+	    </m:math> is a shifted impulse.
+	  </caption>
+	</figure>
+
+	<figure id="fig8">
+	  <media id="idm1117712" alt=""><image src="../../media/impulsem.png" mime-type="image/png"/></media>
+	  <caption>The m-shifted impulse response.
+	    Here,
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:ci type="matrix"><m:msub>
+		    <m:mi>C</m:mi>
+		    <m:mi>m</m:mi>
+		  </m:msub></m:ci>
+		<m:ci type="vector"><m:msub>
+		    <m:mi>δ</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+	      </m:apply>
+	    </m:math> is an m-shifted impulse.
+	  </caption>
+	</figure>
+
+	<foreign>i.e.</foreign>: if we input <link target-id="fig6"/> and 
+	measure output
+	<m:math>
+	  <m:ci type="vector"><m:msubsup>
+	      <m:mi>h</m:mi>
+	      <m:mn>0</m:mn>
+	      <m:mi>c</m:mi>
+	    </m:msubsup></m:ci>
+	</m:math>, we can place it in the zeroth column of
+	<m:math><m:ci type="matrix">ℋ</m:ci></m:math> and then 
+	replicate it with circular shifts to build the entire
+	<m:math><m:ci type="matrix">ℋ</m:ci></m:math>!!
+      </para>
+    </section>
+  
+    <section id="summary">
+      <title>Summary: LSI Systems and Imuplse Response</title>
+      
+      <para id="p15">Given an LSI system (<link target-id="fig3"/>), we can 
+	characterize it by the <term>impulse response</term>, 
+	<m:math><m:ci type="fn" class="discrete">h</m:ci></m:math>
+	(<link target-id="fig9"/>).
+
+	<figure id="fig9">
+	  <media id="idp4583504" alt=""><image src="../../media/response.png" mime-type="image/png"/></media>
+	</figure>
+
+	and build up
+	<m:math><m:ci type="matrix">ℋ</m:ci></m:math> with
+	circular shifts of the zeroth column, 
+	<m:math><m:ci type="fn" class="discrete">h</m:ci></m:math>:
+	<equation id="eqn12">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="matrix">ℋ</m:ci>
+	      <m:matrix>
+		<m:matrixrow>
+		  <m:ci type="vector">h</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>C</m:mi>
+			<m:mn>1</m:mn>
+		      </m:msub></m:ci>
+		    <m:ci type="vector">h</m:ci>
+		  </m:apply>
+		  <m:ci>…</m:ci>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci type="matrix"><m:msub>
+			<m:mi>C</m:mi>
+			<m:mrow>
+			  <m:mi>N</m:mi>
+			  <m:mo>-</m:mo>
+			  <m:mn>1</m:mn>
+			</m:mrow>
+		      </m:msub></m:ci>
+		    <m:ci type="vector">h</m:ci>
+		  </m:apply>
+		</m:matrixrow>
+	      </m:matrix>
+	    </m:apply>
+	  </m:math>
+	</equation>
+	Then we can compute <m:math><m:ci type="vector">y</m:ci>
+	</m:math> for <emphasis>any</emphasis> input
+	<m:math>
+	  <m:apply>
+	    <m:in/>
+	    <m:ci type="vector">x</m:ci>
+	    <m:apply>
+	      <m:power/>
+	      <m:complexes/>
+	      <m:ci>N</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> through
+
+	<equation id="eqn13">
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci type="vector">y</m:ci>
+	      <m:apply>
+		<m:times/>
+		<m:ci type="matrix">ℋ</m:ci>
+		<m:ci type="vector">x</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:math>
+	</equation>
+      </para>
+
+      <exercise id="exer1">
+	<problem id="idm8014880">
+	  <para id="exer1p1">How to get the impulse response?</para>
+	  <para id="exer1p2">4-point edge detector for 8-point signals in
+	    complex space (<link target-id="fig10"/>).
+	    <figure id="fig10">
+	      <media id="idp133456" alt=""><image src="../../media/edge.png" mime-type="image/png"/></media>
+	    </figure>
+	  </para>
+	  <section id="exer1s1">
+	    <para id="e1s1p1">
+	      <m:math>
+		<m:ci type="vector">h</m:ci>
+	      </m:math> =
+	    </para>
+	  </section>
+	  <section id="exer1s2">
+	    <para id="e1s2p1">
+	      <m:math>
+		<m:ci type="matrix">ℋ</m:ci>
+	      </m:math> =
+	    </para>
+	  </section>
+	</problem>
+      </exercise>
+    </section>
+
+  </content>
+  
+</document>

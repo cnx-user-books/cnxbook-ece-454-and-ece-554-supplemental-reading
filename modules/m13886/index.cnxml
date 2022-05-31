@@ -1,0 +1,1047 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  <title>m15 - The Z-Transform</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>985612f5-a4bb-4067-ac8a-c1446512b862</md:uuid>
+</metadata>
+  <content>
+<para id="id13325750">
+   
+   
+</para>
+<section id="id13325753">
+<title>The Z-Transform</title>
+<para id="id13325760">
+   The z-transform is an extension of the DTFT in a way that is analogous to the
+   Laplace transform for continuous-time signals being an extension of the
+   Fourier transform. It allows the use of complex variable theory and is
+   particularly useful in analyzing and describing systems. The question of
+   convergence becomes still more complicated and depends on values of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>z</m:mi>
+     </m:mrow>
+   </m:math>
+   used in the inverse transform which must be in the ``region of convergence"
+   (ROC).
+</para>
+<section id="id13325786">
+<title>Definition of the Z-Transform</title>
+<para id="id13325794">
+   The z-transform (ZT) is defined as a polynomial in the complex variable
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>z</m:mi>
+     </m:mrow>
+   </m:math>
+   with the discrete-time signal values as its coefficients
+   <cite target-id="md56636e1322531bd6a9bf66f3c3aabd8d6"/><cite target-id="md50ecb2b966eca6994910caee2947f6679"/><cite target-id="md5330695f7c0f60f05ca2369aed99034af"/>.
+   It is given by
+   
+<equation id="md5212ff702ad6dbc299cfd0a3273661d56">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>z</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>∞</m:mi>
+             </m:mrow>
+           </m:mrow>
+           <m:mi>∞</m:mi>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>f</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:msup>
+             <m:mi>z</m:mi>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>n</m:mi>
+             </m:mrow>
+           </m:msup>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   and the inverse transform (IZT) is
+   
+<equation id="md5e5a2b2628c670cffac77291d539e2b49">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>f</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:mfrac>
+             <m:mn>1</m:mn>
+             <m:mrow>
+               <m:mn>2</m:mn>
+               <m:mo/>
+               <m:mi>π</m:mi>
+               <m:mo/>
+               <m:mi>j</m:mi>
+             </m:mrow>
+           </m:mfrac>
+           <m:mo/>
+           <m:mrow>
+             <m:msub>
+               <m:mo form="prefix" largeop="true">∮</m:mo>
+               <m:mrow>
+                 <m:mi>R</m:mi>
+                 <m:mo/>
+                 <m:mi>O</m:mi>
+                 <m:mo/>
+                 <m:mi>C</m:mi>
+               </m:mrow>
+             </m:msub>
+             <m:mrow>
+               <m:mrow>
+                 <m:mi>F</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>z</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:msup>
+                 <m:mi>z</m:mi>
+                 <m:mrow>
+                   <m:mi>n</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mn>1</m:mn>
+                 </m:mrow>
+               </m:msup>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo form="prefix">ⅆ</m:mo>
+                 <m:mi>z</m:mi>
+               </m:mrow>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">.</m:mo>
+     </m:mrow>
+   </m:math>
+</equation>
+   The inverse transform can be derived by using the residue theorem
+   <cite target-id="md5916586c8ac87cf1a18ea5d004facb87e"/><cite target-id="md56efa61ac814aaa15937e00fd4ad01f80"/>
+   from complex variable theory to find
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>f</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mn>0</m:mn>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   from
+   <m:math display="inline">
+     <m:mrow>
+       <m:msup>
+         <m:mi>z</m:mi>
+         <m:mrow>
+           <m:mo form="prefix">−</m:mo>
+           <m:mn>1</m:mn>
+         </m:mrow>
+       </m:msup>
+       <m:mo/>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>z</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>f</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mn>1</m:mn>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   from
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>F</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>z</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>f</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mn>2</m:mn>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   from
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>z</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>z</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   and in general,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>f</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   from
+   <m:math display="inline">
+     <m:mrow>
+       <m:msup>
+         <m:mi>z</m:mi>
+         <m:mrow>
+           <m:mi>n</m:mi>
+           <m:mo form="infix">−</m:mo>
+           <m:mn>1</m:mn>
+         </m:mrow>
+       </m:msup>
+       <m:mo/>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>z</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   Verification by substitution is more difficult than for the DFT or DTFT. Here
+   convergence and the interchange of order of the sum and integral is a serious
+   question that involves values of the complex variable
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>z</m:mi>
+     </m:mrow>
+   </m:math>.
+   The complex contour integral in
+   (<link target-id="md5e5a2b2628c670cffac77291d539e2b49"/>) must be taken
+   in the ROC of the z plane.
+</para>
+<para id="id13327737">
+   A unilateral z-transform is sometimes needed where the definition (2.23) uses
+   a lower limit on the transform summation of zero. This allow the
+   transformation to converge for some functions where the regular bilateral
+   transform does not, it provides a straightforward way to solve initial
+   condition difference equation problems, and it simplifies the question of
+   finding the ROC. The bilateral z-transform is used more for signal analysis
+   and the unilateral transform is used more for system description and analysis.
+   Unless stated otherwise, we will be using the bilateral z-transform.
+</para>
+</section>
+<section id="id13327752">
+<title>Examples of the Z-Transform</title>
+<para id="id13327762">
+   A few examples together with the above properties will enable one to solve and
+   understand a wide variety of problems. These use the unit step function to
+   remove the negative time part of the signal. This function is defined as
+   
+<equation id="md5214b1a9d805bb27a48380ef303c3562f">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>u</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">{</m:mo>
+         <m:mtable align="axis" columnalign="left left">
+           <m:mtr>
+             <m:mtd>
+               <m:mn>1</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> if </m:mtext>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">≥</m:mo>
+                 <m:mn>0</m:mn>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mn>0</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> if </m:mtext>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">&lt;</m:mo>
+                 <m:mn>0</m:mn>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true"/>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   and several bilateral z-transforms are given by
+</para>
+<list id="id13327976" list-type="bulleted">
+   <item>
+      
+         <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+           <m:mrow>
+             <m:mi>δ</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>
+         for all
+         <m:math display="inline">
+     <m:mrow>
+       <m:mi>z</m:mi>
+     </m:mrow>
+   </m:math>.
+      
+   </item>
+   <item>
+      
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi></m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+              <m:mrow>
+                <m:mi>u</m:mi>
+                <m:mo/>
+                <m:mrow>
+                  <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                  <m:mi>n</m:mi>
+                  <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                </m:mrow>
+              </m:mrow>
+              <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mfrac>
+            <m:mi>z</m:mi>
+            <m:mrow>
+              <m:mi>z</m:mi>
+              <m:mo form="infix">−</m:mo>
+              <m:mn>1</m:mn>
+            </m:mrow>
+          </m:mfrac>
+        </m:mrow>
+      </m:math>
+         for
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mo fence="true" form="prefix" stretchy="false">|</m:mo>
+            <m:mi>z</m:mi>
+            <m:mo fence="true" form="postfix" stretchy="false">|</m:mo>
+          </m:mrow>
+          <m:mo form="infix">&gt;</m:mo>
+          <m:mn>1</m:mn>
+        </m:mrow>
+      </m:math>.
+      
+   </item>
+   <item>
+      
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi></m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+              <m:mrow>
+                <m:mrow>
+                  <m:mi>u</m:mi>
+                  <m:mo/>
+                  <m:mrow>
+                    <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                    <m:mi>n</m:mi>
+                    <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+                <m:mo/>
+                <m:msup>
+                  <m:mi>a</m:mi>
+                  <m:mi>n</m:mi>
+                </m:msup>
+              </m:mrow>
+              <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mfrac>
+            <m:mi>z</m:mi>
+            <m:mrow>
+              <m:mi>z</m:mi>
+              <m:mo form="infix">−</m:mo>
+              <m:mi>a</m:mi>
+            </m:mrow>
+          </m:mfrac>
+        </m:mrow>
+      </m:math>
+         for
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mo fence="true" form="prefix" stretchy="false">|</m:mo>
+            <m:mi>z</m:mi>
+            <m:mo fence="true" form="postfix" stretchy="false">|</m:mo>
+          </m:mrow>
+          <m:mo form="infix">&gt;</m:mo>
+          <m:mrow>
+            <m:mo fence="true" form="prefix" stretchy="false">|</m:mo>
+            <m:mi>a</m:mi>
+            <m:mo fence="true" form="postfix" stretchy="false">|</m:mo>
+          </m:mrow>
+        </m:mrow>
+      </m:math>.
+      
+   </item>
+</list>
+<para id="id13328566">
+   Notice that these are similar to but not the same as a term of a partial
+   fraction expansion.
+</para>
+</section>
+<section id="id13328573">
+<title>Inversion of the Z-Transform</title>
+<para id="id13328583">
+   The z-transform can be inverted in three ways. The first two have similar
+   procedures with Laplace transformations and the third has no counter part.
+</para>
+<list id="id13328590" list-type="bulleted">
+   <item>
+      
+         The z-transform can be inverted by the defined contour integral in the ROC of
+         the complex
+         <m:math display="inline">
+     <m:mrow>
+       <m:mi>z</m:mi>
+     </m:mrow>
+   </m:math>
+         plane. This integral can be evaluated using the residue theorem
+         <cite target-id="md5916586c8ac87cf1a18ea5d004facb87e"/><cite target-id="md56efa61ac814aaa15937e00fd4ad01f80"/>.
+      
+   </item>
+   <item>
+      
+         The z-transform can be inverted by expanding
+         <m:math display="inline">
+        <m:mrow>
+          <m:mfrac>
+            <m:mn>1</m:mn>
+            <m:mi>z</m:mi>
+          </m:mfrac>
+          <m:mo/>
+          <m:mrow>
+            <m:mi>F</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+              <m:mi>z</m:mi>
+              <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+            </m:mrow>
+          </m:mrow>
+        </m:mrow>
+      </m:math>
+         in a partial fraction expansion followed by use of tables for the first or
+         second order terms.
+      
+   </item>
+   <item>
+      
+         The third method is not analytical but numerical. If
+         <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>F</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+              <m:mi>z</m:mi>
+              <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mfrac>
+            <m:mrow>
+              <m:mi>P</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mi>z</m:mi>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+            <m:mrow>
+              <m:mi>Q</m:mi>
+              <m:mo/>
+              <m:mrow>
+                <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                <m:mi>z</m:mi>
+                <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+              </m:mrow>
+            </m:mrow>
+          </m:mfrac>
+        </m:mrow>
+      </m:math>,
+         <m:math display="inline">
+        <m:mrow>
+          <m:mi>f</m:mi>
+          <m:mo/>
+          <m:mrow>
+            <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+            <m:mi>n</m:mi>
+            <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+          </m:mrow>
+        </m:mrow>
+      </m:math>
+         can be obtained as the coefficients of long division.
+      
+   </item>
+</list>
+<para id="id13328926">
+   For example
+   
+<equation id="md5956350bfd1852bdd1112e1dcfbfae9ee">
+<m:math display="block" mode="display">
+        <m:mrow>
+          <m:mfrac>
+            <m:mi>z</m:mi>
+            <m:mrow>
+              <m:mi>z</m:mi>
+              <m:mo form="infix">−</m:mo>
+              <m:mi>a</m:mi>
+            </m:mrow>
+          </m:mfrac>
+          <m:mo form="infix">=</m:mo>
+          <m:mrow>
+            <m:mn>1</m:mn>
+            <m:mo form="infix">+</m:mo>
+            <m:mrow>
+              <m:mi>a</m:mi>
+              <m:mo/>
+              <m:msup>
+                <m:mi>z</m:mi>
+                <m:mrow>
+                  <m:mo form="prefix">−</m:mo>
+                  <m:mn>1</m:mn>
+                </m:mrow>
+              </m:msup>
+            </m:mrow>
+            <m:mo form="infix">+</m:mo>
+            <m:mrow>
+              <m:msup>
+                <m:mi>a</m:mi>
+                <m:mn>2</m:mn>
+              </m:msup>
+              <m:mo/>
+              <m:msup>
+                <m:mi>z</m:mi>
+                <m:mrow>
+                  <m:mo form="prefix">−</m:mo>
+                  <m:mn>2</m:mn>
+                </m:mrow>
+              </m:msup>
+            </m:mrow>
+            <m:mo form="infix">+</m:mo>
+            <m:mi>⋯</m:mi>
+          </m:mrow>
+        </m:mrow>
+      </m:math>
+</equation>
+   which is
+   <m:math display="inline">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>u</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+              <m:mi>n</m:mi>
+              <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo/>
+          <m:msup>
+            <m:mi>a</m:mi>
+            <m:mi>n</m:mi>
+          </m:msup>
+        </m:mrow>
+      </m:math>
+   as used in the examples above.
+</para>
+<para id="id13329183">
+   We must understand the role of the ROC in the convergence and inversion of the
+   z-transform. We must also see the difference between the one-sided and
+   two-sided transform.
+</para>
+</section>
+<section id="id13329191">
+<title>Relation of the Z-Transform to the DTFT and the DFT</title>
+<para id="id13329201">
+   The FS coefficients are weights on the delta functions in a FT of the
+   periodically extended signal. The FT is the LT evaluated on the imaginary
+   axis:
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>s</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi>j</m:mi>
+         <m:mo/>
+         <m:mi>ω</m:mi>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+</para>
+<para id="id13329254">
+   The DFT values are samples of the DTFT of a finite length signal. The DTFT is
+   the z-transform evaluated on the unit circle in the z plane.
+   
+<equation id="md54d439535a3065efd10d37a80209d14ee">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>z</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>∞</m:mi>
+             </m:mrow>
+           </m:mrow>
+           <m:mi>∞</m:mi>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:msup>
+             <m:mi>z</m:mi>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>n</m:mi>
+             </m:mrow>
+           </m:msup>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   
+<equation id="md55edc5ce86f5f5d98d77ab1e14f40c4cd">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mi>j</m:mi>
+               <m:mo/>
+               <m:mi>ω</m:mi>
+             </m:mrow>
+           </m:msup>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>∞</m:mi>
+             </m:mrow>
+           </m:mrow>
+           <m:mi>∞</m:mi>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">−</m:mo>
+                 <m:mi>j</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mi>ω</m:mi>
+               <m:mo/>
+               <m:mi>n</m:mi>
+             </m:mrow>
+           </m:msup>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mi>ℱ</m:mi>
+         <m:mo/>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   and if
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is of length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   
+<equation id="md56045083e3a6452f9be2e1966d5851dff">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>F</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mi>j</m:mi>
+               <m:mo/>
+               <m:mfrac>
+                 <m:mrow>
+                   <m:mn>2</m:mn>
+                   <m:mo/>
+                   <m:mi>π</m:mi>
+                 </m:mrow>
+                 <m:mi>N</m:mi>
+               </m:mfrac>
+               <m:mo/>
+               <m:mi>k</m:mi>
+             </m:mrow>
+           </m:msup>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+           <m:mrow>
+             <m:mi>N</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mn>1</m:mn>
+           </m:mrow>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:msup>
+             <m:mi>e</m:mi>
+             <m:mrow>
+               <m:mrow>
+                 <m:mo form="prefix">−</m:mo>
+                 <m:mi>j</m:mi>
+               </m:mrow>
+               <m:mo/>
+               <m:mfrac>
+                 <m:mrow>
+                   <m:mn>2</m:mn>
+                   <m:mo/>
+                   <m:mi>π</m:mi>
+                 </m:mrow>
+                 <m:mi>N</m:mi>
+               </m:mfrac>
+               <m:mo/>
+               <m:mi>k</m:mi>
+               <m:mo/>
+               <m:mi>n</m:mi>
+             </m:mrow>
+           </m:msup>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mi>ℱ</m:mi>
+         <m:mo/>
+         <m:mi></m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">{</m:mo>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">}</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id13330433">
+   It is important to be able to relate the time-domain signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   its spectrum
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>X</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>ω</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   and its z-transform represented by the pole-zero locations on the z plane.
+</para>
+<para id="id13330536">
+   
+   
+</para>
+</section>
+</section>
+</content>
+<bib:file><bib:entry id="md56636e1322531bd6a9bf66f3c3aabd8d6">
+<bib:book><bib:author>H. Freeman</bib:author>
+<bib:title>Discrete Time Systems</bib:title>
+<bib:publisher>John Wiley &amp; Sons</bib:publisher>
+<bib:year>1965</bib:year>
+<bib:address>New York</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md50ecb2b966eca6994910caee2947f6679">
+<bib:book><bib:author>L. R. Rabiner and B. Gold</bib:author>
+<bib:title>Theory and Application of Digital Signal Processing</bib:title>
+<bib:publisher>Prentice-Hall</bib:publisher>
+<bib:year>1975</bib:year>
+<bib:address>Englewood Cliffs, NJ</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md5330695f7c0f60f05ca2369aed99034af">
+<bib:book><bib:author>A. V. Oppenheim and R. W. Schafer</bib:author>
+<bib:title>Discrete-Time Signal Processing</bib:title>
+<bib:publisher>Prentice-Hall</bib:publisher>
+<bib:year>1989</bib:year>
+<bib:address>Englewood Cliffs, NJ</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md5916586c8ac87cf1a18ea5d004facb87e">
+<bib:book><bib:author>R. V. Churchill and J. W. Brown</bib:author>
+<bib:title>Introduction to Complex Variables and Applications</bib:title>
+<bib:publisher>McGraw-Hill</bib:publisher>
+<bib:year>1984</bib:year>
+<bib:address>New York</bib:address>
+<bib:edition>fourth</bib:edition>
+</bib:book>
+</bib:entry><bib:entry id="md56efa61ac814aaa15937e00fd4ad01f80">
+<bib:book><bib:author>A. Papoulis</bib:author>
+<bib:title>The Fourier Integral and Its Applications</bib:title>
+<bib:publisher>McGraw-Hill</bib:publisher>
+<bib:year>1962</bib:year>
+</bib:book>
+</bib:entry></bib:file></document>

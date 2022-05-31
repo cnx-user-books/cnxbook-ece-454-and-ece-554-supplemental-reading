@@ -1,0 +1,1729 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>DIGITAL CORRELATION</title>
+  <metadata>
+  <md:content-id>m28268</md:content-id><md:title>DIGITAL CORRELATION</md:title>
+  <md:abstract/>
+  <md:uuid>0547aa5d-cdf5-4623-8519-c78c3e3b18b6</md:uuid>
+</metadata>
+
+<content>
+    <para id="id4630060">Convolution is very useful and powerful concept. It appears quite frequently in DSP discussion. It is begun with a rather twisted definition (folding before shifting), but it then becomes the representation of linear systems, and is linked to the Fourier transform and the z-transform.</para>
+    <para id="id4719855">As for convolution, correlation is defined for both analog and digital signals. <term> Correlation of two signals measure the degree of their similarity.</term> But correlation of a signal with itself also has meaning and application. The strength of convolution lies in the fact that if applies to signals as well as systems, whereas correlation only applies to signals. Correlation is used in many areas such as radar, geophysics, data communications, and, especially, random processes.</para>
+    <section id="id-391010856899">
+      <title>Cross-correlation and auto-correlation</title>
+      <para id="id4719885">Cross-correlation, or correlation for short, between two discrete-time signals x(n) and v(n), assumed real-valued, is defined as</para>
+      <para id="id4719894"><equation id="id00224a">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadAhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaabCaeaacaWG4bGaaiikaiaad6gacaGGPaGaamODaiaacIcacaWGUbGaeyOeI0IaamyBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoakiaaywW7caaMf8UaamyBaiabg2da9iaaicdacaGGSaGaaGjbVlabgglaXkaaigdacaGGSaGaaGjbVlabgglaXkaaikdacaGGSaGaaiOlaiaac6cacaGGUaaaaa@5F17@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4719909">or equivalently</para>
+      <para id="id4719916"><equation id="id00424b">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>+</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadAhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaabCaeaacaWG4bGaaiikaiaad6gacqGHRaWkcaWGTbGaaiykaiaadAhacaGGOaGaamOBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoakiaaywW7caaMf8UaamyBaiabg2da9iaaicdacaGGSaGaaGjbVlabgglaXkaaigdacaGGSaGaaGjbVlabgglaXkaaikdacaGGSaGaaiOlaiaac6cacaGGUaaaaa@5F0C@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4719930">Notice that correlation at index n is the summation of the product of one signal and other signal shifted.</para>
+      <para id="id4719939">When the signals x(n) and v(n) are interchanged, we get </para>
+      <para id="id4719948"><equation id="id00425a">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>v</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamODaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaabCaeaacaWG2bGaaiikaiaad6gacaGGPaGaamiEaiaacIcacaWGUbGaeyOeI0IaamyBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoakiaaywW7caaMf8UaamyBaiabg2da9iaaicdacaGGSaGaaGjbVlabgglaXkaaigdacaGGSaGaaGjbVlabgglaXkaaikdacaGGSaGaaiOlaiaac6cacaGGUaaaaa@5F17@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4719965">or equivalently </para>
+      <para id="id4719973"><equation id="id00425b">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>v</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>+</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamODaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaabCaeaacaWG2bGaaiikaiaad6gacqGHRaWkcaWGTbGaaiykaiaadIhacaGGOaGaamOBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoakiaaywW7caaMf8UaamyBaiabg2da9iaaicdacaGGSaGaaGjbVlabgglaXkaaigdacaGGSaGaaGjbVlabgglaXkaaikdacaGGSaGaaiOlaiaac6cacaGGUaaaaa@5F0C@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4719990">Thus</para>
+      <para id="id4719994"><equation id="id00426">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadAhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0JaamOuamaaBaaaleaacaWG4bGaamODaaqabaGccaGGOaGaeyOeI0IaamyBaiaacMcaaaa@4270@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4720009">This result shows that one correlation is the flipped version (mirror-imaged) of the other, but otherwise contains the same information.</para>
+      <para id="id4720016">The evalution of correlation is similar to that of convolution expect no signal flipping is need, hence the computing steps are <term> slide (shift) – multiply – add. </term>The <term> method of sequence (vector),</term> as for the convolution (<link document="m10834" target-id="id-844463317876"> section </link>), is one of the possible ways.</para>
+      <example id="element-677"><para id="element-860">Find the cross-correlation of the following signals
+
+	<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>5</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>4</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadIhacaGGOaGaamOBaiaacMcacqGH9aqpdaWadaqaaiaaikdacaGGSaGaaGjbVlaaiwdacaGGSaGaaGjbVlaaikdacaGGSaGaaGjbVlaaisdaaiaawUfacaGLDbaaaaa@45CA@</m:annotation>
+ </m:semantics>
+</m:math>
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadAhacaGGOaGaamOBaiaacMcacqGH9aqpdaWadaqaaiaaikdacaGGSaGaaGjbVlabgkHiTiaaiodacaGGSaGaaGjbVlaaigdaaiaawUfacaGLDbaaaaa@43B7@</m:annotation>
+ </m:semantics>
+</m:math>
+The figures in bold face are samples at origin.
+</para>
+</example>
+      
+      
+      
+      
+      <para id="id4720126"><term> Solution </term></para>
+      <para id="id4720131">First we choose the shorter sequence, in this case v(n), to be shifted, and the longer sequence, x(n), to stay stationary. Next the evaluate the correlation at m = 0 (no shifting yet), then the correlation at m = 1, 2, 3 … (shifting v(n) to the right) until v(n) has gone past x(n) completely. Next, we evaluate the correlation at = -1, -2, -3 … (shifting v(n) to the left) until v(n) has gone past x(n) completely. At each value of m, we do the multiplication and summing. The evaluation is arranged as follows. Remember to align the values of x(n) and v(n) at origin at be beginning.</para>
+      <para id="id4720330"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>5</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>4</m:mn><m:mo>,</m:mo>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>:</m:mo><m:mtext> </m:mtext><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>1</m:mn><m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:mi>R</m:mi><m:mo stretchy="false">(</m:mo><m:mn>0</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>8</m:mn>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>m</m:mi><m:mo>=</m:mo><m:mn>1</m:mn><m:mo>:</m:mo><m:mtext> </m:mtext><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>3</m:mn><m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:mi>R</m:mi><m:mo stretchy="false">(</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>8</m:mn>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>m</m:mi><m:mo>=</m:mo><m:mn>2</m:mn><m:mo>:</m:mo><m:mtext> </m:mtext><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:mi>R</m:mi><m:mo stretchy="false">(</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>8</m:mn>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>m</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>1</m:mn><m:mo>:</m:mo><m:mtext> </m:mtext><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>+</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:mi>R</m:mi><m:mo stretchy="false">(</m:mo><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>9</m:mn>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>m</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>2</m:mn><m:mo>:</m:mo><m:mtext> </m:mtext><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>+</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:mi>R</m:mi><m:mo stretchy="false">(</m:mo><m:mo>−</m:mo><m:mn>2</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>1</m:mn>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>m</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mn>3</m:mn><m:mo>:</m:mo><m:mtext> </m:mtext><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>+</m:mo><m:mn>3</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:mi>R</m:mi><m:mo stretchy="false">(</m:mo><m:mo>−</m:mo><m:mn>3</m:mn><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mn>2</m:mn>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaaGzbVlaaywW7caaMf8UaaGjbVlaaysW7caWG4bGaaiikaiaad6gacaGGPaGaeyypa0JaaGOmaiaacYcacaaMe8UaaGynaiaacYcacaaMe8UaaGOmaiaacYcacaaMe8UaaGinaiaacYcaaeaaaeaacaWGTbGaeyypa0JaaGimaiaacQdacaaMf8UaamODaiaacIcacaWGUbGaaiykaiabg2da9iaaicdacaGGSaGaaGjbVlaaikdacaGGSaGaaGjbVlaaiodacaGGSaGaaGjbVlabgkHiTiaaigdacaaMf8UaeyO0H4TaaGzbVlaadkfacaGGOaGaaGimaiaacMcacqGH9aqpcaaI4aaabaaabaGaamyBaiabg2da9iaaigdacaGG6aGaaGzbVlaadAhacaGGOaGaamOBaiabgkHiTiaaigdacaGGPaGaeyypa0JaaGimaiaacYcacaaMe8UaaGimaiaacYcacaaMe8UaaGOmaiaacYcacaaMe8UaeyOeI0IaaG4maiaaywW7cqGHshI3caaMf8UaamOuaiaacIcacaaIXaGaaiykaiabg2da9iabgkHiTiaaiIdaaeaacaaMf8oabaGaamyBaiabg2da9iaaikdacaGG6aGaaGzbVlaadAhacaGGOaGaamOBaiabgkHiTiaaikdacaGGPaGaeyypa0JaaGimaiaacYcacaaMe8UaaGimaiaacYcacaaMe8UaaGimaiaacYcacaaMe8UaaGOmaiaaywW7cqGHshI3caaMf8UaamOuaiaacIcacaaIYaGaaiykaiabg2da9iaaiIdaaeaaaeaacaWGTbGaeyypa0JaeyOeI0IaaGymaiaacQdacaaMf8UaamODaiaacIcacaWGUbGaey4kaSIaaGymaiaacMcacqGH9aqpcaaIYaGaaiilaiaaysW7cqGHsislcaaIZaGaaiilaiaaysW7caaIXaGaaiilaiaaysW7caaIWaGaaGzbVlabgkDiElaaywW7caWGsbGaaiikaiabgkHiTiaaigdacaGGPaGaeyypa0JaeyOeI0IaaGyoaaqaaaqaaiaad2gacqGH9aqpcqGHsislcaaIYaGaaiOoaiaaywW7caWG2bGaaiikaiaad6gacqGHRaWkcaaIYaGaaiykaiabg2da9iabgkHiTiaaiodacaGGSaGaaGjbVlaaigdacaGGSaGaaGjbVlaaicdacaGGSaGaaGjbVlaaicdacaaMf8UaeyO0H4TaaGzbVlaadkfacaGGOaGaeyOeI0IaaGOmaiaacMcacqGH9aqpcqGHsislcaaIXaaabaaabaGaamyBaiabg2da9iabgkHiTiaaiodacaGG6aGaaGzbVlaadAhacaGGOaGaamOBaiabgUcaRiaaiodacaGGPaGaeyypa0JaaGymaiaacYcacaaMe8UaaGimaiaacYcacaaMe8UaaGimaiaacYcacaaMe8UaaGimaiaaywW7cqGHshI3caaMf8UaamOuaiaacIcacqGHsislcaaIZaGaaiykaiabg2da9iaaikdaaaaa@10BC@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      
+      
+      
+      
+      
+      
+      <para id="id4727184">Final result :</para>
+      <para id="id4727188"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>9</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>8</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>8</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>8</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadAhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaamWaaeaacaaIYaGaaiilaiaaysW7cqGHsislcaaIXaGaaiilaiaaysW7cqGHsislcaaI5aGaaiilaiaaysW7caaI4aGaaiilaiaaysW7cqGHsislcaaI4aGaaiilaiaaysW7caaI4aaacaGLBbGaayzxaaaaaa@509D@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <example id="element-992"><para id="element-413">Given two signals
+<m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msup>
+      <m:mi>a</m:mi>
+      <m:mi>n</m:mi>
+     </m:msup>
+     <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msup>
+      <m:mi>b</m:mi>
+      <m:mi>n</m:mi>
+     </m:msup>
+     <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaamiEaiaacIcacaWGUbGaaiykaiabg2da9iaadggadaahaaWcbeqaaiaad6gaaaGccaWG1bGaaiikaiaad6gacaGGPaaabaaabaGaamODaiaacIcacaWGUbGaaiykaiabg2da9iaadkgadaahaaWcbeqaaiaad6gaaaGccaWG1bGaaiikaiaad6gacaGGPaaaaaa@492E@</m:annotation>
+ </m:semantics>
+</m:math>
+Compute the cross-corelation.</para>
+</example>
+      
+      
+      
+      
+      <para id="id4727338"><term> Solution </term></para>
+      <para id="id4727342">The cross-correlation is </para>
+      <para id="id4727347"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>v</m:mi><m:mi>x</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:mrow><m:mo>[</m:mo> <m:mrow>
+        <m:msup>
+         <m:mi>a</m:mi>
+         <m:mi>n</m:mi>
+        </m:msup>
+        <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+       </m:mrow> <m:mo>]</m:mo></m:mrow>
+      </m:mrow>
+     </m:mstyle><m:mrow><m:mo>[</m:mo> <m:mrow>
+      <m:msup>
+       <m:mi>b</m:mi>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi>
+       </m:mrow>
+      </m:msup>
+      <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+     </m:mrow> <m:mo>]</m:mo></m:mrow>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:msup>
+        <m:mi>a</m:mi>
+        <m:mi>n</m:mi>
+       </m:msup>
+       <m:msup>
+        <m:mi>b</m:mi>
+        <m:mrow>
+         <m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi>
+        </m:mrow>
+       </m:msup>
+       <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaamOuamaaBaaaleaacaWG2bGaamiEaaqabaGccaGGOaGaamyBaiaacMcacqGH9aqpdaaeWbqaamaadmaabaGaamyyamaaCaaaleqabaGaamOBaaaakiaadwhacaGGOaGaamOBaiaacMcaaiaawUfacaGLDbaaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoakmaadmaabaGaamOyamaaCaaaleqabaGaamOBaiabgkHiTiaad2gaaaGccaWG1bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaGaay5waiaaw2faaaqaaaqaaiaaywW7caaMf8UaaGzbVlabg2da9maaqahabaGaamyyamaaCaaaleqabaGaamOBaaaakiaadkgadaahaaWcbeqaaiaad6gacqGHsislcaWGTbaaaOGaamyDaiaacIcacaWGUbGaaiykaiaadwhacaGGOaGaamOBaiabgkHiTiaad2gacaGGPaaaleaacaWGUbGaeyypa0JaeyOeI0IaeyOhIukabaGaeyOhIukaniabggHiLdaaaaa@72C3@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      
+      <para id="id4727715">The summation is divided into two ranges of of m depending on the shifting direction of v(n) with respect to x(n).</para>
+      <list id="id4724156" list-type="bulleted">
+        <item>For m &lt; 0, v(n) is shifted to the left of x(n), the summation lower limit is n = 0 :</item>
+      </list>
+      <para id="id4724218"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:msubsup>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mi>v</m:mi>
+      </m:mrow>
+      <m:mo>−</m:mo>
+     </m:msubsup>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:mrow><m:mo>[</m:mo> <m:mrow>
+        <m:msup>
+         <m:mi>a</m:mi>
+         <m:mi>n</m:mi>
+        </m:msup>
+        <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+       </m:mrow> <m:mo>]</m:mo></m:mrow><m:mrow><m:mo>[</m:mo> <m:mrow>
+        <m:msup>
+         <m:mi>b</m:mi>
+         <m:mrow>
+          <m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi>
+         </m:mrow>
+        </m:msup>
+        <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+       </m:mrow> <m:mo>]</m:mo></m:mrow>
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:msup>
+        <m:mi>a</m:mi>
+        <m:mi>n</m:mi>
+       </m:msup>
+       <m:msup>
+        <m:mi>b</m:mi>
+        <m:mrow>
+         <m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi>
+        </m:mrow>
+       </m:msup>
+       <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaamOuamaaDaaaleaacaWG4bGaamODaaqaaiabgkHiTaaakiaacIcacaWGTbGaaiykaiabg2da9maaqahabaWaamWaaeaacaWGHbWaaWbaaSqabeaacaWGUbaaaOGaamyDaiaacIcacaWGUbGaaiykaaGaay5waiaaw2faamaadmaabaGaamOyamaaCaaaleqabaGaamOBaiabgkHiTiaad2gaaaGccaWG1bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaGaay5waiaaw2faaaWcbaGaamOBaiabg2da9iabgkHiTiabg6HiLcqaaiabg6HiLcqdcqGHris5aaGcbaaabaGaaGzbVlaaywW7caaMf8Uaeyypa0ZaaabCaeaacaWGHbWaaWbaaSqabeaacaWGUbaaaOGaamOyamaaCaaaleqabaGaamOBaiabgkHiTiaad2gaaaGccaWG1bGaaiikaiaad6gacaGGPaGaamyDaiaacIcacaWGUbGaeyOeI0IaamyBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoaaaaa@73B1@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      
+      <para id="id4724610">Where the formula of infinite geometric serics (<link document="m10789" target-id="eq0011"> Equation </link>) has been used. Since m &lt; 0, we can write</para>
+      <para id="id4724628"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msubsup>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+    <m:mo>−</m:mo>
+   </m:msubsup>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mrow>
+     <m:mn>1</m:mn><m:mo>−</m:mo><m:mi>a</m:mi><m:mi>b</m:mi>
+    </m:mrow>
+   </m:mfrac>
+   <m:msup>
+    <m:mi>b</m:mi>
+    <m:mrow>
+     <m:mo>−</m:mo><m:mi>m</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaqhaaWcbaGaamiEaiaadAhaaeaacqGHsislaaGccaGGOaGaamyBaiaacMcacqGH9aqpdaWcaaqaaiaaigdaaeaacaaIXaGaeyOeI0IaamyyaiaadkgaaaGaamOyamaaCaaaleqabaGaeyOeI0IaamyBaaaakiaadwhacaGGOaGaamyBaiabgkHiTiaaigdacaGGPaaaaa@494B@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <list id="id4724779" list-type="bulleted"><item>For 
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>m</m:mi><m:mo>≥</m:mo><m:mn>0</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaad2gacqGHLjYScaaIWaaaaa@394F@</m:annotation>
+ </m:semantics>
+</m:math>
+, v(n) is shifted to the right, the summation lower limit is n = m : </item>
+      </list>
+      <para id="id4724860"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msubsup>
+                      <m:mi>R</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>xv</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msubsup>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>m</m:mi>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:msup>
+                            <m:mi>a</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:msup>
+                            <m:mi>b</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi>m</m:mi>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xv"} }  rSup { size 8{+{}} }  \( m \) = Sum cSub { size 8{n=m} }  cSup { size 8{ infinity } }  {a rSup { size 8{n} } b rSup { size 8{n - m} } } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id4725017">Let’s make a change of variable k = n – m to get</para>
+      <para id="id4725052"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:msubsup>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mi>v</m:mi>
+      </m:mrow>
+      <m:mo>+</m:mo>
+     </m:msubsup>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:msup>
+        <m:mi>a</m:mi>
+        <m:mrow>
+         <m:mi>k</m:mi><m:mo>+</m:mo><m:mi>m</m:mi>
+        </m:mrow>
+       </m:msup>
+       <m:msup>
+        <m:mi>b</m:mi>
+        <m:mi>k</m:mi>
+       </m:msup>
+       
+      </m:mrow>
+     </m:mstyle><m:mo>=</m:mo><m:msup>
+      <m:mi>a</m:mi>
+      <m:mi>m</m:mi>
+     </m:msup>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:msup>
+        <m:mrow>
+         <m:mo stretchy="false">(</m:mo><m:mi>a</m:mi><m:mi>b</m:mi><m:mo stretchy="false">)</m:mo>
+        </m:mrow>
+        <m:mi>k</m:mi>
+       </m:msup>
+       
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mrow>
+       <m:mn>1</m:mn><m:mo>−</m:mo><m:mi>a</m:mi><m:mi>b</m:mi>
+      </m:mrow>
+     </m:mfrac>
+     <m:mtext> </m:mtext><m:mo>,</m:mo><m:mtext> </m:mtext><m:mrow><m:mo>|</m:mo> <m:mrow>
+      <m:mi>a</m:mi><m:mi>b</m:mi>
+     </m:mrow> <m:mo>|</m:mo></m:mrow><m:mo>&lt;</m:mo><m:mn>0</m:mn>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaamOuamaaDaaaleaacaWG4bGaamODaaqaaiabgUcaRaaakiaacIcacaWGTbGaaiykaiabg2da9maaqahabaGaamyyamaaCaaaleqabaGaam4AaiabgUcaRiaad2gaaaGccaWGIbWaaWbaaSqabeaacaWGRbaaaaqaaiaadUgacqGH9aqpcaaIWaaabaGaeyOhIukaniabggHiLdGccqGH9aqpcaWGHbWaaWbaaSqabeaacaWGTbaaaOWaaabCaeaacaGGOaGaamyyaiaadkgacaGGPaWaaWbaaSqabeaacaWGRbaaaaqaaiaadUgacqGH9aqpcaaIWaaabaGaeyOhIukaniabggHiLdaakeaaaeaacaaMf8UaaGzbVlaaywW7caaMf8UaaGzbVlaaywW7caaMf8UaaGzbVlabg2da9maalaaabaGaaGymaaqaaiaaigdacqGHsislcaWGHbGaamOyaaaacaaMe8UaaiilaiaaywW7daabdaqaaiaadggacaWGIbaacaGLhWUaayjcSdGaeyipaWJaaGimaaaaaa@734D@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      
+      <para id="id4736850">Where the formula finite geometric serics (<link document="m10789" target-id="eq0013a"> Equation </link>) has been used. Since m 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mrow/></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &gt;= {}} {}</m:annotation></m:semantics></m:math> 0, we can write</para>
+      <para id="id4736918"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msubsup>
+                      <m:mi>R</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>xv</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msubsup>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mn>1</m:mn>
+                        <m:mrow>
+                          <m:mn>1</m:mn>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>ab</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:msup>
+                      <m:mi>a</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>m</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:mi>u</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xv"} }  rSup { size 8{+{}} }  \( m \) = {  {1}  over  {1 -  ital "ab"} } a rSup { size 8{m} } u \( m \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id4737054">On combining the two parts, the overall cross-correlation results</para>
+      <para id="id4737061"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>R</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>xv</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:msubsup>
+                        <m:mi>R</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>xv</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msubsup>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">+</m:mo>
+                      <m:msubsup>
+                        <m:mi>R</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>xv</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msubsup>
+                    </m:mrow>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mn>1</m:mn>
+                        <m:mrow>
+                          <m:mn>1</m:mn>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>ab</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:mo stretchy="false">[</m:mo>
+                    <m:msup>
+                      <m:mi>b</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mi>m</m:mi>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:mi>u</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>m</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:mn>1</m:mn>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">+</m:mo>
+                      <m:msup>
+                        <m:mi>a</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>m</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                    <m:mi>u</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mo stretchy="false">]</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xv"} }  \( m \) =R rSub { size 8{ ital "xv"} }  rSup { size 8{ - {}} }  \( m \) +R rSub { size 8{ ital "xv"} }  rSup { size 8{+{}} }  \( m \) = {  {1}  over  {1 -  ital "ab"} }  \[ b rSup { size 8{ - m} } u \( m - 1 \) +a rSup { size 8{m} } u \( m \)  \] } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+    </section>
+    <section id="id-0538219226822">
+      <title>Auto-correlation</title>
+      <para id="id4737335">Auto-correlation of a signal x(n) is the cross-correlation with itself :</para>
+      <para id="id4737359"><equation id="id00227a">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaabCaeaacaWG4bGaaiikaiaad6gacaGGPaGaamiEaiaacIcacaWGUbGaeyOeI0IaamyBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoaaaa@4CB0@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4737373">or equivalently</para>
+      <para id="id4737378"><equation id="id0027b">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>+</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaabCaeaacaWG4bGaaiikaiaad6gacqGHRaWkcaWGTbGaaiykaiaadIhacaGGOaGaamOBaiaacMcaaSqaaiaad6gacqGH9aqpcqGHsislcqGHEisPaeaacqGHEisPa0GaeyyeIuoaaaa@4CA5@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4737392">At m = 0 (no shifting yet) the auto-correlation is maximum because the signal superimposes completely with itself. The correlation decreases as m increases in both directions.</para>
+      <para id="id4737411">The auto-correlation is an even symmetric function of m :</para>
+      <para id="id4737419"><equation id="id00228">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0JaamOuamaaBaaaleaacaWG4bGaamiEaaqabaGccaGGOaGaeyOeI0IaamyBaiaacMcaaaa@4274@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <example id="element-323"><para id="element-648">Find the expression for the auto-correlation of the signal given in Example 2.8.2 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msup></m:mrow><m:mi>u</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( n \) =a rSup { size 8{n} } u \( n \) } {}</m:annotation></m:semantics></m:math>
+</para>
+</example>
+      
+      <para id="id4737535"><term> Solution </term></para>
+      <para id="id4737539">We have</para>
+      <para id="id4737544"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>R</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>xx</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mo stretchy="false">∞</m:mo>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mi>n</m:mi>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mi>x</m:mi>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mrow>
+                            <m:mi>n</m:mi>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mi>m</m:mi>
+                          </m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mo stretchy="false">=</m:mo>
+                            <m:mrow>
+                              <m:munderover>
+                                <m:mo stretchy="false">∑</m:mo>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mi>n</m:mi>
+                                      <m:mo stretchy="false">=</m:mo>
+                                      <m:mrow>
+                                        <m:mo stretchy="false">−</m:mo>
+                                        <m:mo stretchy="false">∞</m:mo>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mo stretchy="false">∞</m:mo>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:munderover>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mi>a</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mi>n</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:msup>
+                                  <m:mi>a</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mrow>
+                                        <m:mi>n</m:mi>
+                                        <m:mo stretchy="false">−</m:mo>
+                                        <m:mi>m</m:mi>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                    <m:mi>u</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>n</m:mi>
+                    <m:mo stretchy="false">)</m:mo>
+                    <m:mi>u</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mrow>
+                      <m:mi>n</m:mi>
+                      <m:mo stretchy="false">−</m:mo>
+                      <m:mi>m</m:mi>
+                    </m:mrow>
+                    <m:mo stretchy="false">)</m:mo>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  \( m \) = Sum cSub { size 8{n= -  infinity } }  cSup { size 8{ infinity } }  {x \( n \) x \( n - m \) = Sum cSub { size 8{n= -  infinity } }  cSup { size 8{ infinity } }  {a rSup { size 8{n} } a rSup { size 8{n - m} } } } u \( n \) u \( n - m \) } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id4737815">Since 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  \( m \) } {}</m:annotation></m:semantics></m:math> iseven symmetric we need to compute only the 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msubsup><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">+</m:mo><m:mrow/></m:mrow></m:mrow></m:mstyle></m:msubsup><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  rSup { size 8{+{}} }  \( m \) } {}</m:annotation></m:semantics></m:math> for m 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mrow/></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &gt;= {}} {}</m:annotation></m:semantics></m:math> 0 then generalize the result for the correlation.</para>
+      <para id="id4738044">For <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>m</m:mi><m:mo>≥</m:mo><m:mn>0</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaad2gacqGHLjYScaaIWaaaaa@394F@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <para id="id4738110"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msubsup>
+                      <m:mi>R</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>xx</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msubsup>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>m</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>m</m:mi>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:msup>
+                            <m:mi>a</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:msup>
+                            <m:mi>a</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mi>m</m:mi>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  rSup { size 8{+{}} }  \( m \) = Sum cSub { size 8{n=m} }  cSup { size 8{ infinity } }  {a rSup { size 8{n} } a rSup { size 8{n - m} } } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id4738267">Make a change of varible k = n – m as in previous example :</para>
+      <para id="id4738300"><m:math display="block"><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msubsup><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">+</m:mo><m:mrow/></m:mrow></m:mrow></m:mstyle></m:msubsup><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">+</m:mo><m:mi>m</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mrow><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">=</m:mo><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msup></m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2k</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">=</m:mo><m:mfrac><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msup><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">−</m:mo><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mfrac></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  rSup { size 8{+{}} }  \( m \) = Sum cSub { size 8{k=0} }  cSup { size 8{ infinity } }  {a rSup { size 8{k+m} } a rSup { size 8{k} } =a rSup { size 8{m} }  Sum cSub { size 8{k=0} }  cSup { size 8{ infinity } }  {a rSup { size 8{2k} } = {  {a rSup { size 8{m} } }  over  {1 - a rSup { size 8{2} } } } } } } {}</m:annotation></m:semantics></m:math>,
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msup><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>a</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">&lt;</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ lline a rline  rSup { size 8{2} } &lt;1} {}</m:annotation></m:semantics></m:math></para>
+      <para id="id4738626">Above result is for <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>m</m:mi><m:mo>≥</m:mo><m:mn>0</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaad2gacqGHLjYScaaIWaaaaa@394F@</m:annotation>
+ </m:semantics>
+</m:math>
+. Now for all m we just write 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>m</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ lline m rline } {}</m:annotation></m:semantics></m:math> for m because of the even symmetry of the auto-correlation. So </para>
+      <para id="id4738755"><m:math display="block"><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">∣</m:mo><m:mi>m</m:mi><m:mo stretchy="false">∣</m:mo></m:mrow></m:mrow></m:mstyle></m:msup><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">−</m:mo><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mfrac></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  \( m \) = {  {a rSup { size 8{ lline m rline } } }  over  {1 - a rSup { size 8{2} } } } } {}</m:annotation></m:semantics></m:math></para>
+    </section>
+    <section id="id-00213583612547">
+      <title>Correlation and data communication</title>
+      <para id="id4738897">Consider a digital signal x(n) transmitted to the far end of the communication channel. It reaches the receiver 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>n</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{n rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math> samples later, becoming x(n - n
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mrow/><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {} rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>), and it is also added with random noise z(n). Thus the total signal at the receiver is</para>
+      <para id="id4739019"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadMhacaGGOaGaamOBaiaacMcacqGH9aqpcaWG4bGaaiikaiaad6gacqGHsislcaaIXaGaaiykaiabgUcaRiaadQhacaGGOaGaamOBaiaacMcaaaa@434B@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <para id="id4739078">Now let’s look at the cross-correlation betwwen y(n) and x(n) :</para>
+      
+      
+      <para id="id4739135"><equation id="id00229">
+<m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>y</m:mi><m:mi>x</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mstyle displaystyle="true">
+        <m:munderover>
+         <m:mo>∑</m:mo>
+         <m:mrow>
+          <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+         </m:mrow>
+         <m:mi>∞</m:mi>
+        </m:munderover>
+        <m:mrow>
+         <m:mrow><m:mo>[</m:mo> <m:mrow>
+          <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+         </m:mrow> <m:mo>]</m:mo></m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+        </m:mrow>
+       </m:mstyle>
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mo>−</m:mo><m:mi>∞</m:mi>
+       </m:mrow>
+       <m:mi>∞</m:mi>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle><m:mo>+</m:mo><m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow/>
+       <m:mrow/>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mi>x</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>z</m:mi><m:mi>x</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaamOuamaaBaaaleaacaWG5bGaamiEaaqabaGccaGGOaGaamyBaiaacMcacqGH9aqpdaaeWbqaaiaadMhacaGGOaGaamOBaiaacMcacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaiabg2da9maaqahabaWaamWaaeaacaWG4bGaaiikaiaad6gacqGHsislcaaIXaGaaiykaiabgUcaRiaadQhacaGGOaGaamOBaiaacMcaaiaawUfacaGLDbaacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaWcbaGaamOBaiabg2da9iabgkHiTiabg6HiLcqaaiabg6HiLcqdcqGHris5aaWcbaGaamOBaiabg2da9iabgkHiTiabg6HiLcqaaiabg6HiLcqdcqGHris5aaGcbaaabaGaaGzbVlaaywW7caaMf8Uaeyypa0ZaaabCaeaacaWG4bGaaiikaiaad6gacqGHsislcaaIXaGaaiykaiaadIhacaGGOaGaamOBaiabgkHiTiaad2gacaGGPaaaleaacaWGUbGaeyypa0JaeyOeI0IaeyOhIukabaGaeyOhIukaniabggHiLdGccqGHRaWkdaaeWbqaaiaadQhacaGGOaGaamOBaiaacMcacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaWcbaaabaaaniabggHiLdaakeaaaeaacaaMf8UaaGzbVlaaywW7cqGH9aqpcaWGsbWaaSbaaSqaaiaadIhacaWG4baabeaakiaacIcacaWGTbGaeyOeI0IaaGymaiaacMcacqGHRaWkcaWGsbWaaSbaaSqaaiaadQhacaWG4baabeaakiaacIcacaWGTbGaaiykaaaaaa@9C6C@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4739151">The result shows that the cross-correlation consists of two compoments : The auto-correlation
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mrow><m:mi>m</m:mi><m:mo stretchy="false">−</m:mo><m:msub><m:mi>m</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  \( m - m rSub { size 8{0} }  \) } {}</m:annotation></m:semantics></m:math>of the transmitted signal but shifted in time, and the cross-correlation 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>R</m:mi><m:mmultiscripts><m:mtext/><m:mprescripts/><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xz</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:none/></m:mmultiscripts><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R"" lSub { size 8{ ital "xz"} }  \( m \) } {}</m:annotation></m:semantics></m:math> between the transmitted signal x(n) and corrupting noise z(n). The meaning is that 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mrow><m:mi>m</m:mi><m:mo stretchy="false">−</m:mo><m:msub><m:mi>m</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} }  \( m - m rSub { size 8{0} }  \) } {}</m:annotation></m:semantics></m:math> is usually larger than 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>R</m:mi><m:mmultiscripts><m:mtext/><m:mprescripts/><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xz</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:none/></m:mmultiscripts><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R"" lSub { size 8{ ital "xz"} }  \( m \) } {}</m:annotation></m:semantics></m:math> and has peak at m = n
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mrow/><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {} rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>, whereas 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>R</m:mi><m:mmultiscripts><m:mtext/><m:mprescripts/><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xz</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:none/></m:mmultiscripts><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R"" lSub { size 8{ ital "xz"} }  \( m \) } {}</m:annotation></m:semantics></m:math> is usually smaller due to the random nature of noise and the independence of the signal and noise. Thus by examining 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>yx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "yx"} }  \( m \) } {}</m:annotation></m:semantics></m:math>we know the delay 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>n</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{n rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math>of receiving signal.</para>
+      <example id="element-300"><para id="element-192">Consider the transmitted signal and corrupting noise as follows
+
+	<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mn>4</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>7</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadIhacaGGOaGaamOBaiaacMcacqGH9aqpdaWadaqaaiaaisdacaGGSaGaaGjbVlaaiodacaGGSaGaaGjbVlaaigdacaGGSaGaaGjbVlaaikdacaGGSaGaaGjbVlaaiEdaaiaawUfacaGLDbaaaaa@48C5@</m:annotation>
+ </m:semantics>
+</m:math>
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mn>0.7</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>0.5</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>0.8</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>0.6</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>0.4</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadIhacaGGOaGaamOBaiaacMcacqGH9aqpdaWadaqaaiaaicdacaGGUaGaaG4naiaacYcacaaMe8UaeyOeI0IaaGimaiaac6cacaaI1aGaaiilaiaaysW7caaIWaGaaiilaiaaysW7cqGHsislcaaIWaGaaiOlaiaaiIdacaGGSaGaaGjbVlabgkHiTiaaicdacaGGUaGaaGOnaiaacYcacaaMe8UaeyOeI0IaaGimaiaac6cacaaI0aaacaGLBbGaayzxaaaaaa@5699@</m:annotation>
+ </m:semantics>
+</m:math>
+The noise, generated by a random noise generator programme, has uniform destribution with amplitudes in the interval (-1, 1). The signal received at receiver is
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mn>1</m:mn><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadMhacaGGOaGaamOBaiaacMcacqGH9aqpcaWG4bGaaiikaiaad6gacqGHsislcaaIXaGaaiykaiabgUcaRiaadQhacaGGOaGaamOBaiaacMcacaaMf8UaaGzbVlaaywW7caWGUbGaeyypa0JaaGimaiaacYcacaaMe8UaaGymaiaacYcacaaMe8UaaGOmaiaacYcacaGGUaGaaiOlaiaac6caaaa@535F@</m:annotation>
+ </m:semantics>
+</m:math>
+Find the cross-correlation 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>yx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "yx"} }  \( m \) } {}</m:annotation></m:semantics></m:math>.</para>
+</example>
+      
+      
+      
+      
+      
+      
+      <para id="id4740051"><term> Solution </term></para>
+      <para id="id4740056">Without going details of evalution, only the results are mentioned : </para>
+      <list id="id4740061" list-type="bulleted"><item>Auto-correlation of x(m) : <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mn>12</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>17</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>13</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>39</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>23</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>13</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>17</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>12</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaamWaaeaacaaIXaGaaGOmaiaacYcacaaMe8UaaGymaiaaiEdacaGGSaGaaGjbVlaaigdacaaIZaGaaiilaiaaysW7caaIZaGaaGyoaiaacYcacaaMe8UaaGOmaiaaiodacaGGSaGaaGjbVlaaigdacaaIZaGaaiilaiaaysW7caaIXaGaaG4naiaacYcacaaMe8UaaGymaiaaikdaaiaawUfacaGLDbaaaaa@59A1@</m:annotation>
+ </m:semantics>
+</m:math>
+</item>
+        <item>Cross-correlation beween x(n) and z(n) : <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>z</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mo>−</m:mo><m:mn>16</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1.2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>1.8</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>2.6</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>2.8</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1.7</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>0.8</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>0.1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2.1</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamOEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaamWaaeaacqGHsislcaaIXaGaaGOnaiaacYcacaaMe8UaaGymaiaac6cacaaIYaGaaiilaiaaysW7cqGHsislcaaIXaGaaiOlaiaaiIdacaGGSaGaaGjbVlabgkHiTiaaikdacaGGUaGaaGOnaiaacYcacaaMe8UaeyOeI0IaaGOmaiaac6cacaaI4aGaaiilaiaaysW7caaIXaGaaiOlaiaaiEdacaGGSaGaaGjbVlabgkHiTiaaicdacaGGUaGaaGioaiaacYcacaaMe8UaeyOeI0IaaGimaiaac6cacaaIXaGaaiilaiaaysW7caaIYaGaaiOlaiaaigdaaiaawUfacaGLDbaaaaa@687C@</m:annotation>
+ </m:semantics>
+</m:math>
+</item>
+        <item>Cross-correlation beween y(n) and x(n) :  <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>y</m:mi><m:mi>y</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mrow><m:mo>[</m:mo> <m:mrow>
+    <m:mo>−</m:mo><m:mn>1.6</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1.2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>10.2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>14.4</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>10.2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>21.3</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>38.2</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>22.7</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>12.9</m:mn>
+   </m:mrow> <m:mo>]</m:mo></m:mrow>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamyEaiaadMhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaamWaaeaacqGHsislcaaIXaGaaiOlaiaaiAdacaGGSaGaaGjbVlaaigdacaGGUaGaaGOmaiaacYcacaaMe8UaaGymaiaaicdacaGGUaGaaGOmaiaacYcacaaMe8UaaGymaiaaisdacaGGUaGaaGinaiaacYcacaaMe8UaaGymaiaaicdacaGGUaGaaGOmaiaacYcacaaMe8UaaGOmaiaaigdacaGGUaGaaG4maiaacYcacaaMe8UaaG4maiaaiIdacaGGUaGaaGOmaiaacYcacaaMe8UaaGOmaiaaikdacaGGUaGaaG4naiaacYcacaaMe8UaaGymaiaaikdacaGGUaGaaGyoaaGaay5waiaaw2faaaaa@69AD@</m:annotation>
+ </m:semantics>
+</m:math>
+</item>
+      </list>
+      
+      <para id="id4740210">The highest value 38.2 of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>yy</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "yy"} } } {}</m:annotation></m:semantics></m:math> oceurs at index m = 1 as expected.</para>
+    </section>
+    <section id="id-267403451841">
+      <title>Correlation of periodic signals</title>
+      <para id="id4740290">For two period signals x(n) and v(n) having the same period of N indices (samples), the cross-correlation and auto-correlation are defined as</para>
+      <para id="id4740297"><equation id="id00230">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>v</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mi>N</m:mi>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mrow>
+      <m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>v</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadAhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaSaaaeaacaaIXaaabaGaamOtaaaadaaeWbqaaiaadIhacaGGOaGaamOBaiaacMcacaWG2bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaWcbaGaamOBaiabg2da9iaaicdaaeaacaWGobGaeyOeI0IaaGymaaqdcqGHris5aaaa@4DB0@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4740316"><equation id="id00231">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mi>x</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mi>N</m:mi>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>k</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mrow>
+      <m:mi>N</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamiEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaSaaaeaacaaIXaaabaGaamOtaaaadaaeWbqaaiaadIhacaGGOaGaamOBaiaacMcacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaWcbaGaam4Aaiabg2da9iaaicdaaeaacaWGobGaeyOeI0IaaGymaaqdcqGHris5aaaa@4DB1@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id4740330">The two correlations also have a period of N samples.</para>
+      <para id="id4740346">Now let’s look at an application. The signal y(n) arrving at the receiver consists of the transmitted signal x(n) and adding noise z(n) : </para>
+      <para id="id4740406"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadMhacaGGOaGaamOBaiaacMcacqGH9aqpcaWG4bGaaiikaiaad6gacaGGPaGaey4kaSIaamOEaiaacIcacaWGUbGaaiykaaaa@41A3@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <para id="id4740443">The auto-correlation of the received signal for a duration of M samples, M is much greater than N, is</para>
+      <para id="id4740449"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>R</m:mi>
+    <m:mrow>
+     <m:mi>y</m:mi><m:mi>y</m:mi>
+    </m:mrow>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mn>1</m:mn>
+    <m:mi>M</m:mi>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+     </m:mrow>
+     <m:mrow>
+      <m:mi>M</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>y</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOqaaiaadkfadaWgaaWcbaGaamyEaiaadMhaaeqaaOGaaiikaiaad2gacaGGPaGaeyypa0ZaaSaaaeaacaaIXaaabaGaamytaaaadaaeWbqaaiaadMhacaGGOaGaamOBaiaacMcacaWG5bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaWcbaGaamOBaiabg2da9iaaicdaaeaacaWGnbGaeyOeI0IaaGymaaqdcqGHris5aaaa@4DB6@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <para id="id4741863">On replacing the expression of y(n) into above auto-correlation, we obtain</para>
+      <para id="id4741869"><equation id="id00232">
+<m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>y</m:mi><m:mi>y</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mi>M</m:mi>
+     </m:mfrac>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mrow>
+        <m:mi>M</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+       </m:mrow>
+      </m:munderover>
+      <m:mrow>
+       <m:mrow><m:mo>[</m:mo> <m:mrow>
+        <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo>
+       </m:mrow> <m:mo>]</m:mo></m:mrow>
+      </m:mrow>
+     </m:mstyle><m:mrow><m:mo>[</m:mo> <m:mrow>
+      <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+     </m:mrow> <m:mo>]</m:mo></m:mrow>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mi>M</m:mi>
+     </m:mfrac>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mrow>
+        <m:mi>M</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+       </m:mrow>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle><m:mo>+</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mi>M</m:mi>
+     </m:mfrac>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mrow>
+        <m:mi>M</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+       </m:mrow>
+      </m:munderover>
+      <m:mrow>
+       <m:mrow><m:mo>[</m:mo> <m:mrow>
+        <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+       </m:mrow> <m:mo>]</m:mo></m:mrow>
+      </m:mrow>
+     </m:mstyle><m:mo>+</m:mo><m:mfrac>
+      <m:mn>1</m:mn>
+      <m:mi>M</m:mi>
+     </m:mfrac>
+     <m:mstyle displaystyle="true">
+      <m:munderover>
+       <m:mo>∑</m:mo>
+       <m:mrow>
+        <m:mi>n</m:mi><m:mo>=</m:mo><m:mn>0</m:mn>
+       </m:mrow>
+       <m:mrow>
+        <m:mi>M</m:mi><m:mo>−</m:mo><m:mn>1</m:mn>
+       </m:mrow>
+      </m:munderover>
+      <m:mrow>
+       <m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo stretchy="false">)</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mo>−</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+      </m:mrow>
+     </m:mstyle>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mrow/>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mi>x</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>x</m:mi><m:mi>z</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>z</m:mi><m:mi>x</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:msub>
+      <m:mi>R</m:mi>
+      <m:mrow>
+       <m:mi>z</m:mi><m:mi>z</m:mi>
+      </m:mrow>
+     </m:msub>
+     <m:mo stretchy="false">(</m:mo><m:mi>m</m:mi><m:mo stretchy="false">)</m:mo>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqaaeaabaGaaiaacaqaaeaadaqaaqaaaOabaeqabaGaamOuamaaBaaaleaacaWG5bGaamyEaaqabaGccaGGOaGaamyBaiaacMcacqGH9aqpdaWcaaqaaiaaigdaaeaacaWGnbaaamaaqahabaWaamWaaeaacaWG4bGaaiikaiaad6gacaGGPaGaey4kaSIaamOEaiaacIcacaWGUbGaaiykaaGaay5waiaaw2faaaWcbaGaamOBaiabg2da9iaaicdaaeaacaWGnbGaeyOeI0IaaGymaaqdcqGHris5aOWaamWaaeaacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaiabgUcaRiaadQhacaGGOaGaamOBaiabgkHiTiaad2gacaGGPaaacaGLBbGaayzxaaaabaaabaGaaGzbVlaaywW7caaMf8UaaGjbVlabg2da9maalaaabaGaaGymaaqaaiaad2eaaaWaaabCaeaacaWG4bGaaiikaiaad6gacaGGPaGaamiEaiaacIcacaWGUbGaeyOeI0IaamyBaiaacMcaaSqaaiaad6gacqGH9aqpcaaIWaaabaGaamytaiabgkHiTiaaigdaa0GaeyyeIuoakiabgUcaRmaalaaabaGaaGymaaqaaiaad2eaaaWaaabCaeaadaWadaqaaiaadIhacaGGOaGaamOBaiaacMcacaWG6bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaiabgUcaRiaadQhacaGGOaGaamOBaiaacMcacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaGaay5waiaaw2faaaWcbaGaamOBaiabg2da9iaaicdaaeaacaWGnbGaeyOeI0IaaGymaaqdcqGHris5aOGaey4kaSYaaSaaaeaacaaIXaaabaGaamytaaaadaaeWbqaaiaadQhacaGGOaGaamOBaiaacMcacaWG4bGaaiikaiaad6gacqGHsislcaWGTbGaaiykaaWcbaGaamOBaiabg2da9iaaicdaaeaacaWGnbGaeyOeI0IaaGymaaqdcqGHris5aaGcbaaabaGaaGzbVlaaywW7caaMf8UaaGjbVlabg2da9iaadkfadaWgaaWcbaGaamiEaiaadIhaaeqaaOGaaiikaiaad2gacaGGPaGaey4kaSIaamOuamaaBaaaleaacaWG4bGaamOEaaqabaGccaGGOaGaamyBaiaacMcacqGHRaWkcaWGsbWaaSbaaSqaaiaadQhacaWG4baabeaakiaacIcacaWGTbGaaiykaiabgUcaRiaadkfadaWgaaWcbaGaamOEaiaadQhaaeqaaOGaaiikaiaad2gacaGGPaaaaaa@C3F9@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      
+      
+      <para id="id4741893">Because the signal x(n) is periodic with period N, the auto-correlation 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} } } {}</m:annotation></m:semantics></m:math> is also periodic with peaks at m = 0, N, 2N ... The cross-correlation 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xz</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xz"} } } {}</m:annotation></m:semantics></m:math>(m) are Rzx(m) of the signal and noise are rather small because the signal and noise are uncorrelated. The last term Rzz(m) is the auto-correlation of noise, it has peak at m = 0 and decays fast to zero due to its random nature. Thus it remains 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xx</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{R rSub { size 8{ ital "xx"} } } {}</m:annotation></m:semantics></m:math> the largest. This feature allows us to detect the periodic signal x(n) even if the adding noise has amplitude comparable to that of the signal or even much higher. This method of correlation has been used to determine the <term> pitch (fundamental frequency) </term> of voice and music buried in noise.</para>
+    </section>
+  </content>
+</document>

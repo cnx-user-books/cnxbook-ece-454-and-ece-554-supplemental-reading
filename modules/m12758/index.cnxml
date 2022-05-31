@@ -1,0 +1,322 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Overview of IIR Filter Design</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>bbe05e51-1d9e-4fdb-89e9-4a16c1569521</md:uuid>
+</metadata>
+
+  <content>
+    <section id="intro">
+      <title>IIR Filter</title>
+      <para id="p1">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">y</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:minus/>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar>
+		    <m:ci>k</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:cn>1</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		      <m:cn>1</m:cn>
+		    </m:apply>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:ci><m:msub>
+			<m:mi>a</m:mi>
+			<m:mi>k</m:mi>
+		      </m:msub></m:ci>
+		    <m:apply>
+		      <m:ci type="fn">y</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar>
+		  <m:ci>k</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		  <m:cn>0</m:cn>
+		</m:lowlimit>
+		<m:uplimit>
+		  <m:apply>
+		    <m:minus/>
+		    <m:ci>M</m:ci>
+		    <m:cn>1</m:cn>
+		  </m:apply>
+		</m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mi>k</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:ci type="fn">x</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>n</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>z</m:ci>
+	    </m:apply>
+	    <m:apply>
+	      <m:divide/>
+	      <m:apply>
+		<m:plus/>
+		<m:ci><m:msub>
+		    <m:mi>b</m:mi>
+		    <m:mn>0</m:mn>
+		  </m:msub></m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-1</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>b</m:mi>
+		      <m:mi>M</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>1</m:cn>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>1</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-1</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mn>2</m:mn>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:cn>-2</m:cn>
+		  </m:apply>
+		</m:apply>
+		<m:ci>...</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:ci><m:msub>
+		      <m:mi>a</m:mi>
+		      <m:mi>M</m:mi>
+		    </m:msub></m:ci>
+		  <m:apply>
+		    <m:power/>
+		    <m:ci>z</m:ci>
+		    <m:apply>
+		      <m:minus/>
+		      <m:ci>M</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math></para>
+    </section>
+
+    <section id="prob">
+      <title>IIR Filter Design Problem</title>
+      <para id="p2">Choose
+	<m:math>
+	  <m:set>
+	    <m:ci><m:msub>
+		<m:mi>a</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub></m:ci>
+	  </m:set>
+	</m:math>, <m:math>
+	  <m:set>
+	    <m:ci><m:msub>
+		<m:mi>b</m:mi>
+		<m:mi>i</m:mi>
+	      </m:msub></m:ci>
+	  </m:set>
+	</m:math> to <emphasis>best</emphasis> approximate some
+	desired
+	<m:math>
+	  <m:apply>
+	    <m:abs/>
+	    <m:apply>
+	      <m:ci type="fn"><m:msub>
+		  <m:mi>H</m:mi>
+		  <m:mi>d</m:mi>
+		</m:msub></m:ci>
+	      <m:ci>w</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:math> or, (occasionally), 
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn"><m:msub>
+		<m:mi>H</m:mi>
+		<m:mi>d</m:mi>
+	      </m:msub></m:ci>
+	    <m:ci>w</m:ci>
+	  </m:apply>
+	</m:math>.</para>
+      <para id="p3">As before, different design techniques will be
+      developed for different approximation criteria.</para>
+    </section>
+
+    <section id="outline">
+      <title>Outline of IIR Filter Design Material</title>
+      <para id="p4"><list id="list1" list-type="labeled-item">
+	  <item><label>Bilinear Transform</label>
+	    Maps <m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:infinity/>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math> optimal (and other) <emphasis>analog</emphasis>
+	    filter designs to <m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:infinity/>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math> optimal digital IIR filter designs.</item>
+	  <item><label>Prony's Method</label>
+	    Quasi-<m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:cn>2</m:cn>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math> optimal method for time-domain fitting of a
+	    desired impulse response (<foreign>ad
+	    hoc</foreign>).</item>
+	  <item><label>Lp Optimal Design</label>
+	    <m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:ci>p</m:ci>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math> optimal filter design (<m:math><m:apply><m:lt/>
+		<m:cn>1</m:cn>
+		<m:ci>p</m:ci>
+		<m:infinity/>
+	      </m:apply>
+	    </m:math>) using non-linear optimization techniques.
+	  </item>
+	</list></para>
+    </section>
+
+    <section id="comments">
+      <title>Comments on IIR Filter Design Methods</title>
+      <para id="last">The bilinear transform method is used to design
+      "typical"
+	<m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:infinity/>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math> magnitude optimal filters. The <m:math>
+	   <m:apply>
+	       <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+       		<m:domainofapplication>
+	        <m:ci>p</m:ci>
+       		</m:domainofapplication>
+	       <m:ci>L</m:ci>
+     </m:apply>
+	</m:math> optimization procedures are used to design filters
+	for which classical analog prototype solutions don't
+	exist. The program by Deczky (<cite><cite-title>DSP Programs Book</cite-title></cite>,
+	IEEE Press) is widely used. Prony/Linear Prediction techniques
+	are used often to obtain initial guesses, and are almost
+	exclusively used in data modeling, system identification, and
+	most applications involving the fitting of real data (for
+	example, the impulse response of an unknown filter).</para>
+    </section>
+
+  </content>
+  
+</document>

@@ -1,0 +1,596 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Continuous-Time Fourier Transform</title>
+  <metadata>
+  <md:content-id>m19833</md:content-id><md:title>Continuous-Time Fourier Transform</md:title>
+  <md:abstract/>
+  <md:uuid>5dc5adc3-daad-4aa1-b33b-a172564e542f</md:uuid>
+</metadata>
+
+<content>
+    
+    
+    <para id="id11963746">In this lab, we learn how to compute the continuous-time Fourier transform (CTFT), normally referred to as Fourier transform, numerically and examine its properties. Also, we explore noise cancellation and amplitude modulation as applications of Fourier transform. </para>
+
+    <section id="id3595736"><title>Properties of CTFT</title><para id="id13573036">The continuous-time Fourier transform (CTFT) (commonly known as Fourier transform) of an aperiodic signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation></m:semantics></m:math> is given by </para>
+	<equation id="eip-740"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">jωt</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) = Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \) e rSup { size 8{ - jωt} }  ital "dt"} } {}</m:annotation></m:semantics></m:math>
+	</equation><para id="id3613937">The signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation></m:semantics></m:math> can be recovered from 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) } {}</m:annotation></m:semantics></m:math> via this inverse transform equation</para>
+	<equation id="eip-405"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:mn>2π</m:mn></m:mfrac></m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">jωt</m:mi></m:mrow></m:mstyle></m:msup><m:mi fontstyle="italic">dω</m:mi></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) = {  {1}  over  {2π} }  Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {X \( ω \) e rSup { size 8{jωt} } dω} } {}</m:annotation></m:semantics></m:math></equation><para id="id12417249">Some of the properties of CTFT are listed in <link target-id="id12103805"/>.</para>
+	<para id="id9548304"/>
+	
+<table id="id12103805" summary="This table shows properties of CTFT">
+		<tgroup cols="3">
+			<colspec colnum="1" colname="c1"/>
+			<colspec colnum="2" colname="c2"/>
+			<colspec colnum="3" colname="c3"/>
+			<tbody>
+				<row>
+					<entry>
+						<term>Properties</term>
+					</entry>
+					<entry>
+						<term>Time domain</term>
+					</entry>
+					<entry>
+						<term>Frequency domain</term>
+					</entry>
+				</row>
+				<row>
+					<entry>Time shift</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>x</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mrow>
+													<m:mi>t</m:mi>
+													<m:mo stretchy="false">−</m:mo>
+													<m:msub>
+														<m:mi>t</m:mi>
+														<m:mstyle fontsize="8pt">
+															<m:mrow>
+																<m:mn>0</m:mn>
+															</m:mrow>
+														</m:mstyle>
+													</m:msub>
+												</m:mrow>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{x \( t - t rSub { size 8{0} }  \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>X</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+												<m:msup>
+													<m:mi>e</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mrow>
+																<m:mo stretchy="false">−</m:mo>
+																<m:msub>
+																	<m:mi fontstyle="italic">jωt</m:mi>
+																	<m:mstyle fontsize="6pt">
+																		<m:mrow>
+																			<m:mn>0</m:mn>
+																		</m:mrow>
+																	</m:mstyle>
+																</m:msub>
+															</m:mrow>
+														</m:mrow>
+													</m:mstyle>
+												</m:msup>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) e rSup { size 8{ - jωt rSub { size 6{0} } } } } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+				</row>
+				<row>
+					<entry>Time scaling</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>x</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mstyle fontstyle="italic">
+													<m:mrow>
+														<m:mtext>at</m:mtext>
+													</m:mrow>
+												</m:mstyle>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{x \(  ital "at" \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mfrac>
+													<m:mn>1</m:mn>
+													<m:mrow>
+														<m:mo stretchy="false">∣</m:mo>
+														<m:mi>a</m:mi>
+														<m:mo stretchy="false">∣</m:mo>
+													</m:mrow>
+												</m:mfrac>
+												<m:mi>X</m:mi>
+												<m:mfenced open="(" close=")">
+													<m:mfrac>
+														<m:mi>ω</m:mi>
+														<m:mi>a</m:mi>
+													</m:mfrac>
+												</m:mfenced>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{ {  {1}  over  { lline a rline } } X left ( {  {ω}  over  {a} }  right )} {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+				</row>
+				<row>
+					<entry>Linearity</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:msub>
+													<m:mi>a</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mn>1</m:mn>
+														</m:mrow>
+													</m:mstyle>
+												</m:msub>
+												<m:msub>
+													<m:mi>x</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mn>1</m:mn>
+														</m:mrow>
+													</m:mstyle>
+												</m:msub>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>t</m:mi>
+												<m:mrow>
+													<m:mo stretchy="false">)</m:mo>
+													<m:mo stretchy="false">+</m:mo>
+													<m:msub>
+														<m:mi>a</m:mi>
+														<m:mstyle fontsize="8pt">
+															<m:mrow>
+																<m:mn>2</m:mn>
+															</m:mrow>
+														</m:mstyle>
+													</m:msub>
+												</m:mrow>
+												<m:msub>
+													<m:mi>x</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mn>2</m:mn>
+														</m:mrow>
+													</m:mstyle>
+												</m:msub>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>t</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{1} } x rSub { size 8{1} }  \( t \) +a rSub { size 8{2} } x rSub { size 8{2} }  \( t \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:msub>
+													<m:mi>a</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mn>1</m:mn>
+														</m:mrow>
+													</m:mstyle>
+												</m:msub>
+												<m:msub>
+													<m:mi>X</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mn>1</m:mn>
+														</m:mrow>
+													</m:mstyle>
+												</m:msub>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mrow>
+													<m:mo stretchy="false">)</m:mo>
+													<m:mo stretchy="false">+</m:mo>
+													<m:msub>
+														<m:mi>a</m:mi>
+														<m:mstyle fontsize="8pt">
+															<m:mrow>
+																<m:mn>2</m:mn>
+															</m:mrow>
+														</m:mstyle>
+													</m:msub>
+												</m:mrow>
+												<m:msub>
+													<m:mi>X</m:mi>
+													<m:mstyle fontsize="8pt">
+														<m:mrow>
+															<m:mn>2</m:mn>
+														</m:mrow>
+													</m:mstyle>
+												</m:msub>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{1} } X rSub { size 8{1} }  \( ω \) +a rSub { size 8{2} } X rSub { size 8{2} }  \( ω \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+				</row>
+				<row>
+					<entry>Time convolution</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>x</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>t</m:mi>
+												<m:mrow>
+													<m:mo stretchy="false">)</m:mo>
+													<m:mo stretchy="false">∗</m:mo>
+													<m:mi>h</m:mi>
+												</m:mrow>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>t</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{x \( t \)  * h \( t \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>X</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+												<m:mi>H</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) H \( ω \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+				</row>
+				<row>
+					<entry>Frequency convolution</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>x</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>t</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+												<m:mi>h</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>t</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{x \( t \) h \( t \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>X</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mrow>
+													<m:mo stretchy="false">)</m:mo>
+													<m:mo stretchy="false">∗</m:mo>
+													<m:mi>H</m:mi>
+												</m:mrow>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mi>ω</m:mi>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{X \( ω \)  * H \( ω \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+				</row>
+			</tbody>
+		</tgroup>
+  <caption> Properties of CTFT </caption>
+	</table>
+
+
+	
+	<para id="id3594796"/>
+	<para id="id12423740">Refer to signals and systems textbooks <link target-id="Ref6" document="m31521"/> - <link target-id="Ref13" document="m31521"/> for more theoretical details on this transform.</para>
+</section>
+
+ <section id="id3595737">
+    <title>Numerical Approximations to CTFT</title>
+    <para id="id11030358">Assuming that the signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation></m:semantics></m:math> is zero for 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>t</m:mi><m:mtext>&lt;0</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t"&lt;0"} {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">≥</m:mo><m:mi>T</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t &gt;= T} {}</m:annotation></m:semantics></m:math>, we can approximate the CTFT integration in Equation (1) as follows: </para>
+    
+    <equation id="eip-82"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">jωt</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">jωt</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow><m:mo stretchy="false">≈</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi fontstyle="italic">nτ</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">jωnτ</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mi>τ</m:mi></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Int cSub { size 8{ -  infinity } }  cSup { size 8{ infinity } }  {x \( t \) e rSup { size 8{ - jωt} }  ital "dt"} = Int cSub { size 8{0} }  cSup { size 8{T} }  {x \( t \) e rSup { size 8{ - jωt} }  ital "dt"}  approx  Sum cSub { size 8{n=0} }  cSup { size 8{N - 1} }  {x \( nτ \) e rSup { size 8{ - jωnτ} } τ} } {}</m:annotation></m:semantics></m:math></equation><para id="id13904758">where 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>T</m:mi><m:mo stretchy="false">=</m:mo><m:mi fontstyle="italic">Nτ</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T=Nτ} {}</m:annotation></m:semantics></m:math> and N is an integer. For sufficiently small 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>τ</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{τ} {}</m:annotation></m:semantics></m:math>, the above summation provides a close approximation to the CTFT integral. The summation 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi fontstyle="italic">nτ</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">jωnτ</m:mi></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Sum cSub { size 8{n=0} }  cSup { size 8{N - 1} }  {x \( nτ \) e rSup { size 8{ - jωnτ} } } } {}</m:annotation></m:semantics></m:math>is widely used in digital signal processing (DSP), and both LabVIEW MathScript and LabVIEW have a built-in function for it called <code display="inline">fft</code>. In a .m file, if N samples 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi fontstyle="italic">nτ</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( nτ \) } {}</m:annotation></m:semantics></m:math> are stored in a vector 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>x</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x} {}</m:annotation></m:semantics></m:math>, then the function call</para>
+    <para id="id12967446">
+      <code display="inline">&gt;&gt;xw=tau*fft</code>
+      <code display="inline">(x)</code>
+    </para>
+    <para id="id12850322">calculates </para>
+    
+    <equation id="eip-112"><m:math>
+		<m:semantics>
+			<m:mrow>
+				<m:mrow>
+					<m:mtable>
+						<m:mtr>
+							<m:mrow>
+								<m:mstyle fontsize="12pt">
+									<m:mrow>
+										<m:mrow>
+											<m:msub>
+												<m:mi>X</m:mi>
+												<m:mstyle fontsize="8pt">
+													<m:mrow>
+														<m:mi>ω</m:mi>
+													</m:mrow>
+												</m:mstyle>
+											</m:msub>
+											<m:mo stretchy="false">(</m:mo>
+											<m:mrow>
+												<m:mi>k</m:mi>
+												<m:mo stretchy="false">+</m:mo>
+												<m:mn>1</m:mn>
+											</m:mrow>
+											<m:mrow>
+												<m:mo stretchy="false">)</m:mo>
+												<m:mo stretchy="false">=</m:mo>
+												<m:mi>τ</m:mi>
+											</m:mrow>
+											<m:mrow>
+												<m:munderover>
+													<m:mo stretchy="false">∑</m:mo>
+													<m:mrow>
+														<m:mi>n</m:mi>
+														<m:mo stretchy="false">=</m:mo>
+														<m:mn>0</m:mn>
+													</m:mrow>
+													<m:mrow>
+														<m:mi>N</m:mi>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mn>1</m:mn>
+													</m:mrow>
+												</m:munderover>
+												<m:mrow>
+													<m:mi>x</m:mi>
+													<m:mo stretchy="false">(</m:mo>
+													<m:mi fontstyle="italic">nτ</m:mi>
+													<m:mo stretchy="false">)</m:mo>
+													<m:msup>
+														<m:mi>e</m:mi>
+														<m:mstyle fontsize="8pt">
+															<m:mrow>
+																<m:mrow>
+																	<m:mrow>
+																		<m:mo stretchy="false">−</m:mo>
+																		<m:msub>
+																			<m:mi fontstyle="italic">jω</m:mi>
+																			<m:mstyle fontsize="6pt">
+																				<m:mrow>
+																					<m:mi>k</m:mi>
+																				</m:mrow>
+																			</m:mstyle>
+																		</m:msub>
+																	</m:mrow>
+																	<m:mi fontstyle="italic">nτ</m:mi>
+																</m:mrow>
+															</m:mrow>
+														</m:mstyle>
+													</m:msup>
+												</m:mrow>
+											</m:mrow>
+											<m:mtable>
+												<m:mtr>
+													<m:mtd>
+														<m:mrow/>
+													</m:mtd>
+													<m:mtd>
+														<m:mrow>
+															<m:mstyle fontsize="12pt">
+																<m:mrow>
+																	<m:mrow>
+																		<m:mrow>
+																			<m:mn>0</m:mn>
+																			<m:mo stretchy="false">≤</m:mo>
+																			<m:mi>k</m:mi>
+																		</m:mrow>
+																		<m:mo stretchy="false">≤</m:mo>
+																		<m:mrow>
+																			<m:mi>N</m:mi>
+																			<m:mo stretchy="false">−</m:mo>
+																			<m:mn>1</m:mn>
+																		</m:mrow>
+																	</m:mrow>
+																</m:mrow>
+															</m:mstyle>
+															<m:mrow/>
+														</m:mrow>
+													</m:mtd>
+												</m:mtr>
+											</m:mtable>
+										</m:mrow>
+									</m:mrow>
+								</m:mstyle>
+								<m:mrow/>
+							</m:mrow>
+						</m:mtr>
+						<m:mtr>
+							<m:mrow>
+								<m:mstyle fontsize="12pt">
+									<m:mrow>
+										<m:mrow>
+											<m:mrow>
+												<m:mi/>
+												<m:mo stretchy="false">≈</m:mo>
+												<m:mi>X</m:mi>
+											</m:mrow>
+											<m:mo stretchy="false">(</m:mo>
+											<m:msub>
+												<m:mi>ω</m:mi>
+												<m:mstyle fontsize="8pt">
+													<m:mrow>
+														<m:mi>k</m:mi>
+													</m:mrow>
+												</m:mstyle>
+											</m:msub>
+											<m:mo stretchy="false">)</m:mo>
+										</m:mrow>
+									</m:mrow>
+								</m:mstyle>
+								<m:mrow/>
+							</m:mrow>
+						</m:mtr>
+					</m:mtable>
+					<m:mrow/>
+				</m:mrow>
+			</m:mrow>
+			<m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{X rSub { size 8{ω} }  \( k+1 \) =τ Sum cSub {n=0}  cSup {N - 1}  {x \( nτ \) e rSup { size 8{ - jω rSub { size 6{k} } nτ} } }  matrix {
+ {} #  size 12{0 &lt;= k &lt;= N - 1} {}
+} }  {} # 
+ size 12{~~~~ approx X \( ω rSub { size 8{k} }  \) }  {} 
+} } {}</m:annotation>
+		</m:semantics>
+	</m:math>
+</equation>
+    <para id="id11026544">where </para>
+    
+    <equation id="eip-410"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="true">{</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mfrac><m:mn>2πk</m:mn><m:mi fontstyle="italic">Nτ</m:mi></m:mfrac><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>k</m:mi></m:mrow><m:mo stretchy="false">≤</m:mo><m:mfrac><m:mi>N</m:mi><m:mn>2</m:mn></m:mfrac></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mrow><m:mfrac><m:mn>2πk</m:mn><m:mi fontstyle="italic">Nτ</m:mi></m:mfrac><m:mo stretchy="false">−</m:mo><m:mfrac><m:mn>2π</m:mn><m:mi>τ</m:mi></m:mfrac></m:mrow><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mrow><m:mfrac><m:mi>N</m:mi><m:mn>2</m:mn></m:mfrac><m:mo stretchy="false">+</m:mo><m:mn>1</m:mn></m:mrow><m:mo stretchy="false">≤</m:mo><m:mi>k</m:mi></m:mrow><m:mo stretchy="false">≤</m:mo><m:mrow><m:mi>N</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ω rSub { size 8{k} } = left lbrace  matrix {
+ {  {2πk}  over  {Nτ} }  {} # 0 &lt;= k &lt;=  {  {N}  over  {2} }  {} ##
+ {  {2πk}  over  {Nτ} }  -  {  {2π}  over  {τ} }  {} #  {  {N}  over  {2} } +1 &lt;= k &lt;= N - 1{}
+}  right none } {}</m:annotation></m:semantics></m:math></equation><para id="id9637323">with N assumed to be even. The <code display="inline">fft</code> function returns the positive frequency samples before the negative frequency samples. To place the frequency samples in the right order, use the function <code display="inline">fftshift</code> as indicated below:</para>
+    <para id="id13895687">
+      <code display="inline">&gt;&gt;xw=fftshift(tau*fft</code>
+      <code display="inline">(x</code>
+      <code display="inline">)</code>
+      <code display="inline">)</code>
+    </para>
+    <para id="id13526617"/>
+    <para id="id8071496">Note that 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) } {}</m:annotation></m:semantics></m:math> is a vector (actually, a complex vector) of dimension N. 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) } {}</m:annotation></m:semantics></m:math> is complex in general despite the fact that 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation></m:semantics></m:math> is real-valued. The magnitude of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) } {}</m:annotation></m:semantics></m:math> can be computed using the function <code display="inline">abs</code> and the phase of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) } {}</m:annotation></m:semantics></m:math> using the function <code display="inline">angle</code>.</para>
+    <para id="id14027253"/>
+    
+</section>
+  </content>
+
+
+
+</document>

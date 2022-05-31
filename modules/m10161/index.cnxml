@@ -1,0 +1,1386 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+
+  <title>DSP Notation</title>
+  
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>b17d34ed-d8fd-4d28-bdf1-079950b98586</md:uuid>
+</metadata>
+
+  <content>
+    <section id="s1">
+      <title>Introduction</title>
+
+      <para id="para1">
+	Within the <link url="http://cnx.rice.edu">Connexions
+	Project</link>, <link url="http://www.w3.org/Math">MathML</link> content has been
+	chosen to render mathematical expressions.  Although most
+	common expressions can be rendered using MathML, it is known
+	that not all expressions are supported.  New notations are
+	constantly being developed and various academic communities
+	often use specialized notations.  The evolution of MathML is
+	an understandably slow process.  Because of the diversity of
+	languages and academic cultures, it is impossible to encode
+	all of the possible notations or even the bulk of mathematical
+	notation in MathML content.  However, seeing the necessity for
+	extensibility, the MathML recommendation allows for extensions
+	to be written for MathML using the <code>csymbol</code> tag.
+	A list of extensions written by the Connexions Project can be
+	found on
+	<link url="http://mountainbunker.org/wikis/mathml/CSymbol">
+	  Mountainbunker</link>.
+      </para>
+
+    </section>
+
+    <section id="s2">
+      <title>XSL Transformations and Macros</title>
+
+      <para id="para2">
+	Although certain types of content may be supported by MathML, authors
+	may wish to a notational rendering different from the default without
+	altering the <emphasis>meaning</emphasis> of the mathematics. 
+	<link url="http://www.w3.org/Style/XSL">XSL transformations</link>
+	can be used to bind different notation to MathML content tags without
+	altering their semantics.<!-- In a similar fashion, macros can be written 
+	as abbreviations for commonly used mathematical expressions.  Until 
+	acceptable MathML content editors are available, such macros would
+	facilitate writing mathematical expressions by hand.  An XSLT
+	stylesheet could be written for extensions, macros, and presentation of
+	MathML content.-->
+      </para>
+    </section>
+
+    <section id="s3">
+      <title>Signal Processing Notation</title>
+
+      <para id="para3">
+	The Connexions project is not yet able to support author
+	written XSLT stylesheets, and the rendering of different
+	notations is not yet possible.  Therefore, a recommended notation is
+	presented which is to be used until on-the-fly rendering of author
+	stylesheets is supported by Connexions software.  Examples of
+	MathML code are included for each notation to help the use the
+	correct notation and MathML code.
+      </para>
+
+      <!-- Other possible canidates to be included:
+            - Mean
+            - Auto/Cross correlation
+            - Power Spectrum
+            - Expected Value
+      -->
+
+      <para id="para3a">
+	Below is a quick-reference table of the notation we recommend
+	for the content whose correct notation is often found written
+	with various variables and symbols.  Click on any of the
+	content names to be taking to a brief discussion of it and
+	<emphasis>example code</emphasis> of how to mark-up the MathML
+	correctly.
+      </para>
+      
+      <table frame="all" id="content" summary="">
+	<title>Recommended Notation</title>
+	<tgroup cols="3" align="left" colsep="1" rowsep="1">
+	  <thead valign="top">
+	    <row>
+	      <entry align="center">Content</entry>
+	      <entry align="center">Continuous-Time Notation</entry>
+	      <entry align="center">Discrete-Time Notation</entry>
+	    </row>
+	  </thead>
+	  <tbody valign="top">
+	    <row>
+	      <entry align="center"><link target-id="s3_1" strength="2">Time</link></entry>
+	      <entry align="center">
+		<m:math display="inline"><m:ci>t</m:ci></m:math>
+	      </entry>
+	      <entry align="center">
+		<m:math display="inline"><m:ci>n</m:ci></m:math>
+	      </entry>
+	    </row>
+	    <row>
+	      <entry align="center">
+		<link target-id="s3_2" strength="2">Frequency</link>
+	      </entry>
+	      <entry align="center">
+		<m:math><m:ci>f</m:ci></m:math> (HZ)
+	      </entry>
+	      <entry align="center">
+		<m:math><m:ci>v</m:ci></m:math> (cycles/sample)
+	      </entry>
+	    </row>
+	    <row>
+	      <entry align="center">
+		<link target-id="s3_2" strength="2">Angular Frequency</link>
+	      </entry>
+	      <entry align="center">
+		<m:math><m:ci>Ω </m:ci></m:math> (rad/sec)
+	      </entry>
+	      <entry align="center">
+		<m:math><m:ci>ω </m:ci></m:math> (rad/sample)
+	      </entry>
+	    </row>
+	    <row>
+	      <entry align="center">
+		<link target-id="s3_3" strength="2">Signal</link>
+	      </entry>
+	      <entry align="center">
+		<m:math>
+		  <m:apply>
+		    <m:ci type="function">x</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:math>
+	      </entry>
+	      <entry align="center">
+		<m:math>
+		  <m:apply>
+		    <m:ci type="function" class="discrete">x</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:math>
+	      </entry>
+	    </row>
+	    <row>
+	      <entry align="center">
+		<link target-id="s3_8" strength="2">Fourier Transform</link>
+	      </entry>
+	      <entry align="center">
+		<m:math display="inline">
+		  <m:apply>
+		    <m:ci type="function">X</m:ci>
+		    <m:ci>Ω</m:ci>
+		  </m:apply>
+		</m:math>
+	      </entry>
+	      <entry align="center">
+		<m:math display="inline">
+		  <m:apply>
+		    <m:ci type="function">X</m:ci>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:math>
+	      </entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+
+
+      <para id="para33a">
+	A listing of all notation presented in this module.
+	<list id="list2" list-type="enumerated">
+	  <item><link target-id="s3_1" strength="2">Time</link></item>
+	  <item><link target-id="s3_2" strength="2">Frequency</link></item>
+	  <item><link target-id="s3_3" strength="2">Signal</link></item>
+	  <item><link target-id="s3_4" strength="2">Special signals</link>
+	    <list id="list2a" list-type="enumerated">
+	      <item><link target-id="s3_4_1" strength="2">Impulse</link></item>
+	      <item><link target-id="s3_4_2" strength="2">Unit Step</link></item>
+<!--	      <item><cnxn target='s3_4_3' strength='6'>Ramp</cnxn></item>
+	      <item><cnxn target='s3_4_4' strength='6'>Sign</cnxn></item>
+-->	      <item><link target-id="s3_4_5" strength="2">Sinc</link></item>
+	    </list>
+	  </item>
+	  <item><link target-id="s3_5" strength="2">Norm</link></item>
+	  <item><link target-id="s3_6" strength="2">Convolution</link>
+	    <list id="list2cc" list-type="enumerated">
+	      <item><link target-id="circonv" strength="2">Circular Convolution</link></item>
+	    </list>
+	  </item>
+	  <item><link target-id="s3_7" strength="2">Twiddle Factor</link></item>
+	  <item><link target-id="s3_8" strength="2">Fourier Transform</link>
+	    <list id="list2b" list-type="enumerated">
+	      <item><link target-id="s3_8_1" strength="2">CTFT</link></item>
+	    </list>
+	  </item>
+	  <item><link target-id="s3_9" strength="2">Laplace Transform</link></item>
+	  <item><link target-id="s3_10" strength="2">Z-Transform</link></item>
+	  <item><link target-id="s3_11" strength="2">Complex Numbers</link></item>
+	  <item><link target-id="s3_12" strength="2">Inner Product</link></item>
+	</list>
+      </para>
+
+      <section id="s3_1">
+	<title>Time</title>
+
+	<para id="para4">
+	  It is suggested that <m:math><m:ci>t</m:ci></m:math> be used
+	  as the continuous variable of time and that
+	  <m:math><m:ci>n</m:ci></m:math> be used as the discrete
+	  variable of time.
+	</para>
+
+	<example id="s1_e1">
+	  <title>MathML Mark-Up</title>
+	  <code display="block" id="c1">
+	    
+	  &lt;m:math&gt;&lt;m:ci&gt;t&lt;/m:ci&gt;&lt;/m:math&gt;
+	    
+	  &lt;m:math&gt;&lt;m:ci&gt;n&lt;/m:ci&gt;&lt;/m:math&gt;
+	    
+	  </code>
+	</example>
+
+	<section id="s3_sub1">
+	  <title>Period</title>
+	  <para id="p1_prd">
+	    For discrete-time, periodic functions, we recommend that a
+	    capital T, <m:math><m:ci>T</m:ci> </m:math>, be used to
+	    denote the period, or sampling period, of a signal.
+	  </para>
+	</section>
+      </section>
+
+      <section id="s3_2">
+	<title>Frequency</title>
+
+	<para id="para5">
+	  Like time, frequency can be represented as a continuous or
+	  as a discrete variable.  It is recommended that <m:math display="inline"><m:ci>f</m:ci></m:math> Hz be used for the
+	  continuous variable of frequency and that <m:math display="inline"><m:ci>v</m:ci></m:math> cycles/sample be used
+	  as a discrete variable.  Further, frequency may be further
+	  limited in the discrete case to taking a limited number of
+	  values (as in the case of the discrete Fourier transform).
+	  In these cases, it is recommended that <m:math display="inline"><m:ci>k</m:ci></m:math> is used.
+	  Corresponding to the continuous variable, an appropriate
+	  radian measure would be
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:eq/>
+              <m:ci>Ω</m:ci>
+              <m:apply>
+                <m:times/>
+		<m:cn>2</m:cn>
+		<m:cn>π</m:cn>
+		<m:ci>f</m:ci>
+              </m:apply>
+	    </m:apply>
+	  </m:math> rad/sec
+	  and for the discrete case
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:eq/>
+              <m:ci>ω</m:ci>
+              <m:apply>
+                <m:times/>
+		<m:cn>2</m:cn>
+		<m:cn>π</m:cn>
+		<m:ci>v</m:ci>
+              </m:apply>
+	    </m:apply>
+	  </m:math> rad/sample.  These last two notations are extremely
+	  important as they are seen in most Fourier Transforms and
+	  other signal and processing equations.  See the code below for
+	  example MathML mark-up.
+	</para>
+
+	<example id="s2_e2">
+	  <title>MathML Mark-Up</title>
+
+	  <code display="block" id="c2">
+	    
+	  &lt;!-- Radian Freq in Continuous Time --&gt;
+	  &lt;m:math&gt;&lt;m:ci&gt;&amp;Omega;&lt;/m:ci&gt;&lt;/m:math&gt;
+	   
+          &lt;!-- Radian Freq in Discrete Time --&gt;
+	  &lt;m:math&gt;&lt;m:ci&gt;&amp;omega&lt;/m:ci&gt;&lt;/m:math&gt;
+	    
+	  </code>
+
+	</example>
+      </section>
+
+      <section id="s3_3">
+	<title>Signal</title>
+
+	<para id="para6">
+	  It is sometimes useful to describe an arbitrary signal, or an
+	  input/output relationship.  In such cases, it is recommended
+	  that
+	  <m:math display="inline">
+	    <m:ci type="vector">f</m:ci>
+	  </m:math>
+	  be used to represent a generic signal.  For an input/output
+	  relationship, use <m:math display="inline"> <m:ci type="vector">x</m:ci> </m:math> as an arbitrary input
+	  signal and <m:math display="inline"> <m:ci type="vector">y</m:ci> </m:math> as the arbitrary output
+	  signal.  When writing out the signal as a function of some
+	  variable, such as time, it can be represented as
+	  
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="function">x</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:math>
+
+	  for continuous-time signals and as
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="function" class="discrete">x</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math>
+	  for discrete-time signals.
+	</para>
+
+	<example id="s3_e1">
+	  <title>MathML Mark-Up</title>
+	  <para id="dummy_p"/>
+	  <para id="p1_e2">
+	    For a continuous-time signal,  <m:math>
+	    <m:apply>
+	      <m:ci type="function">x</m:ci>
+	      <m:ci>t</m:ci>
+	    </m:apply>
+	  </m:math>:
+	  </para>
+
+	  <code display="block" id="c3a">
+	    
+	  &lt;m:math&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci type="function"&gt;x&lt;/m:ci&gt;
+	      &lt;m:ci&gt;t&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;
+	     
+	  </code>
+
+	  <para id="p2_e2">
+	    For a discrete-time signal, <m:math>
+	    <m:apply>
+	      <m:ci type="fn" class="discrete">x</m:ci>
+	      <m:ci>n</m:ci>
+	    </m:apply>
+	  </m:math>:
+	  </para>
+	  
+	  <code display="block" id="c3b">
+	    
+	  &lt;m:math&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci type="fn" class="discrete"&gt;x&lt;/m:ci&gt;
+	      &lt;m:ci&gt;n&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;
+	    
+	  </code>
+
+	</example>
+      </section>
+
+      <section id="s3_4">
+	<title>Special Signals</title>
+	<para id="para7">
+	  There are several signals used often enough to merit special
+	  attention.  They are presented here.
+	</para>
+
+	<section id="s3_4_1">
+	  <title>Impulse</title>
+	  <para id="para7_1">
+	    The impulse, or <link document="m10059" strength="3">Dirac-Delta function</link>, should be
+	    presented as
+	    
+	    <m:math display="block">
+	      <m:apply>
+		<m:ci type="fn">δ</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math>
+	   
+	    in continuous-time and as
+
+	    <m:math display="block">
+	      <m:apply>
+		<m:ci type="fn" class="discrete">δ</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:math>
+	    in discrete-time.
+
+	    <note type="aside" id="idp8910496">The impulse is a signal which could be
+	      given a definitionURL, which in conjunction with
+	      <code>csymbol</code> would allow us to
+	      facilitate the coding of the mathematical
+	      expression.<!-- , probably given by
+	      <code>&lt;impulse/&gt;</code>-->
+	    </note>
+	  </para>
+
+	  <example id="s4_e1">
+	    <title>MathML Mark-Up</title>
+	    
+	    <code display="block" id="c4a">
+	      
+	    &lt;!-- Continuous Time --&gt;
+	    &lt;m:math&gt;
+	      &lt;m:apply&gt;
+	        &lt;m:ci type='fn'&gt;&amp;delta;&lt;/m:ci&gt;
+	        &lt;m:ci&gt;t&lt;/m:ci&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:math&gt;
+	      
+	    </code>
+
+	      <code display="block" id="c4b">
+	      
+	    &lt;!-- Discrete Time --&gt;
+	    &lt;m:math&gt;
+	      &lt;m:apply&gt;
+	        &lt;m:ci type='fn' class='discrete'&gt;&amp;delta;&lt;/m:ci&gt;
+	        &lt;m:ci&gt;n&lt;/m:ci&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:math&gt;
+	      
+	    </code>
+	  </example>
+
+	</section>
+
+	<section id="s3_4_2">
+	  <title>Unit Step</title>
+	  <para id="para7_2">
+	    The unit step should be presented as
+	    <m:math display="block">
+	      <m:apply>
+		<m:ci type="function">u</m:ci>
+		<m:ci>t</m:ci>
+	      </m:apply>
+	    </m:math>
+
+	    in continuous-time and as
+	    <m:math display="block">
+	      <m:apply>
+		<m:ci type="fn" class="discrete">u</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:math>
+
+	    in discrete-time.  These functions will be marked-up in
+	    MathML the same as the delta function above; however,
+	    rather than the <m:math><m:ci>δ</m:ci>
+	    </m:math> symbol you will use <m:math><m:ci>u</m:ci>
+	    </m:math>.
+
+	    <note type="aside" id="idp5574848">
+	      The unit step is a signal which could be given a
+	      definitionURL, which in conjunction with
+	      <code>csymbol</code> would allow us to
+	      facilitate the coding of the mathematical expression.
+	    </note>
+	  </para>
+	</section>
+
+<!-- 6/11/02 : Do not think these fuctions need to be included as are -->
+<!-- not really standard functions used in other situations.
+  
+
+	<section id="s3_4_3">
+	  <name>Ramp</name>
+	  <para id="para7_3">
+	    ???? 
+	    <-(Should this be included?) ???? -
+	  </para>
+	</section>
+
+	<section id="s3_4_4">
+	  <name>Sign</name>
+	  <para id="para7_4">
+	    ????
+	    <- What is a sign function? -
+	  </para>
+	</section>
+-->
+	<section id="s3_4_5">
+	  <title>Sinc</title>
+	  <para id="para7_5">
+	    The sinc function should be represented as
+	    <equation id="eq7_3">
+	      <m:math display="block">
+		<m:apply>
+		  <m:eq/>
+                  <m:apply>
+                    <m:ci type="function">sinc</m:ci>
+                    <m:ci>x</m:ci>
+                  </m:apply>
+                  <m:apply>
+                    <m:divide/>
+		    <m:apply>
+		      <m:sin/>
+		      <m:ci>x</m:ci>
+		    </m:apply>
+		    <m:ci>x</m:ci>
+                  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </equation>
+
+	    <note type="aside" id="idp5955440">
+	      The sinc function is a signal which could be given a
+	      definitionURL, which in conjunction with
+	      <code>csymbol</code> would allow us to
+	      facilitate the coding of the mathematical expression.
+	      This has not happened yet so, for now, we are using the
+	      following markup: <!--, probably given by
+	      <code>&lt;sinc/&gt;</code>.-->
+	    </note>
+	  </para>
+
+	  <example id="s5_e1">
+	    <title>MathML Mark-Up</title>
+	    
+	    <code display="block" id="c5a">
+	      
+	    &lt;m:math&gt;
+	      &lt;m:apply&gt;
+	        &lt;m:ci type='fn'&gt;sinc&lt;/m:ci&gt;
+	        &lt;m:ci&gt;x&lt;/m:ci&gt;
+	      &lt;/m:apply&gt;
+	    &lt;/m:math&gt;
+	      
+	    </code>
+
+	  </example>
+	</section>
+      </section>
+
+
+      <section id="s3_5">
+	<title>Norm</title>
+	<para id="para8">
+	  The norm of a vector or function should be represented as
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci type="vector">x</m:ci>
+	    </m:apply>
+	  </m:math>
+	   
+<!--
+	    <m:ci>
+	      <m:mrow>
+		<m:mo>&Verbar;</m:mo>
+		<m:mi fontweight="bold">x</m:mi>
+		<m:mo>&Verbar;</m:mo>
+	      </m:mrow>
+	    </m:ci>
+	  </m:math>.  -->
+
+	  For instance, the Euclidean norm (sometimes called the
+	  L2-norm) of a vector should be given by
+
+	<!-- HACK: requires lots of presentation to mark up norm, 
+	  see if there might be a better way. --> 
+
+      <equation id="eq8">
+	<m:math display="block">
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#norm"/>
+	      <m:ci>x</m:ci>
+	    </m:apply>
+	      <m:apply>
+                  <m:root/>
+		  <m:apply>
+		    <m:sum/>
+		    <m:bvar>
+		      <m:ci>i</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:cn>1</m:cn>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:ci>N</m:ci>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:power/>
+		      <m:apply>
+			<m:selector/>
+			<m:ci type="vector">x</m:ci>
+			<m:ci>i</m:ci>
+		      </m:apply>
+		      <m:cn>2</m:cn>
+		    </m:apply>
+		  </m:apply>
+                </m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+
+	  <note type="aside" id="idp8418496">The norm operator has been given a
+	    csymbol but are still working on the rendering of it.  The
+	    correct code can be seen below and was used to mark-up the
+	    first instance of the norm of <m:math><m:ci type="vector">x</m:ci></m:math> in the above paragraph.
+	  </note>
+	</para>
+	
+	<example id="s6_norme1">
+	  <title>MathML Mark-Up</title>
+	  
+	  <code display="block" id="c_norm">
+	    	    
+	  &lt;m:math&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#norm'/&gt;
+	      &lt;m:ci type='vector'&gt;x&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;	    
+	    
+	  </code>
+	</example>     
+      </section>
+
+      <section id="s3_6">
+	<title>Convolution</title>
+	<para id="para9">
+	  <link document="m10085" strength="3">Convolution</link> is
+	  given by and should be displayed as
+
+	  <equation id="eq9">
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+		  <m:ci>f</m:ci>
+		  <m:ci>g</m:ci>
+		</m:apply>
+                <m:apply>
+                  <m:int/>
+		  <m:bvar>
+		    <m:ci>τ</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="function">f</m:ci>
+		      <m:ci>τ</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="function">g</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>t</m:ci>
+			<m:ci>τ</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+                </m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+
+	  <note type="aside" id="idp9975856">The convolution operator is defined by a
+	    <code>csymbol</code> which can be used through the
+	    following CNXML/MathML code. 
+	  </note>
+	</para>
+	
+	<example id="s6_e1">
+	  <title>MathML Mark-Up</title>
+	  
+	  <code display="block" id="c6_conv">
+	    	    
+	  &lt;m:math&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:csymbol definitionURL='http://cnx.rice.edu/cd/cnxmath.ocd#convolve'/&gt;
+	      &lt;m:ci&gt;f&lt;/m:ci&gt;
+	      &lt;m:ci&gt;g&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;	    
+	    
+	  </code>
+	</example>     
+
+	<section id="circonv">
+	  <title>Circular Convolution</title>
+	  <para id="p1_circon">
+	    Standard notation for <link document="m12053">circular
+	    convolution</link>, or periodic convolution, uses a
+	    circled asterick, <m:math><m:ci>⊛</m:ci>
+	    </m:math>, between two variables or functions.  See the
+	    equation below as an example:
+	    
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>
+		<m:apply>
+		  <m:ci type="fn">y</m:ci>
+		  <m:ci>t</m:ci>
+		</m:apply>
+	    <m:apply>
+	      <m:ci><m:mo>⊛</m:mo></m:ci>
+		  <m:apply>
+		    <m:ci type="fn">f</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:ci type="fn">g</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:math>
+
+	    Although a <code>csymbol</code> for regular
+	    convolution exists, there is still not a proper
+	    mathematical way to mark-up circular convolution.  Until a
+	    csymbol or MathML tag is created, we advise using the
+	    following code:
+	  </para>
+
+	  <code display="block" id="c6a_circconv">
+	    	    
+	  &lt;m:math&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci&gt;&lt;m:mo&gt;&amp;circledast;&lt;/m:mo&gt;&lt;/m:ci&gt;
+	      &lt;m:ci&gt;f&lt;/m:ci&gt;
+	      &lt;m:ci&gt;g&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:math&gt;	    
+	    
+	  </code>
+
+	</section>
+      </section>
+      
+      <section id="s3_7">
+	<title>Twiddle Factor</title>
+	<para id="para10">
+	  The Twiddle factor should be displayed as
+	  <equation id="eq10">
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>
+                <m:ci>
+                  <m:msub>
+                    <m:mi>W</m:mi>
+                    <m:mi>N</m:mi>
+                  </m:msub>
+                </m:ci>
+                <m:apply>
+                  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:divide/>
+		      <m:apply>
+			<m:times/>
+			<m:imaginaryi/>
+			<m:cn>2</m:cn>
+			<m:pi/>
+		      </m:apply>
+		      <m:ci>N</m:ci>
+		    </m:apply>
+		  </m:apply>
+                </m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+
+	  <note type="aside" id="idp5787152">The twiddle factor could be given a
+	    definitionURL, which in conjunction with, probably given
+	    by <code>&lt;twiddle/&gt;</code>.
+	  </note>
+	</para>
+
+	<example id="s7_e1">
+	  <title>MathML Mark-Up</title>
+	  
+	  <code display="block" id="c7_twid">
+	    	    
+	  &lt;m:math&gt;
+	    &lt;m:ci&gt;
+	      &lt;m:msub&gt;
+	        &lt;m:mi&gt;W&lt;/m:mi&gt;
+	        &lt;m:mi&gt;N&lt;/m:mi&gt;
+	      &lt;/m:msub&gt;
+	    &lt;/m:ci&gt;
+	  &lt;/m:math&gt;	    
+	    
+	  </code>
+	</example> 	
+      </section>
+
+
+      <section id="s3_8">
+	<title>Fourier Transform</title>
+	<para id="para11">
+	  Although the concept of the <link document="m0046" strength="2">Fourier transform</link> is well-known, there are
+	  variations in the precise definition of the transform.  It
+	  is recommended that the following notation be used for the
+	  Fourier transform.  Which particular transform is used
+	  (discrete Fourier transform, continuous-time Fourier series,
+	  discrete-time Fourier transform, etc) should be apparent
+	  from context (these all assume that <m:math display="inline"><m:ci type="vector">x</m:ci></m:math> is the
+	  function to be transformed):
+	</para>	
+
+	<list id="list1">
+	  <item>
+	    CTFT:
+	    <m:math display="inline">
+	      <m:apply>
+		<m:ci type="function">X</m:ci>
+		<m:ci>Ω</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	</list>
+	
+	<code display="block" id="c8_FTa">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+  	    &lt;m:ci type='fn'&gt;X&lt;/m:ci&gt;
+	    &lt;m:ci&gt;&amp;Omega;&lt;/m:ci&gt;
+	  &lt;/m:apply
+	&lt;/m:math&gt;	    
+	  
+	</code>
+	
+	<list id="lista2">
+	  <item>
+	    DTFT:
+	    <m:math display="inline">
+	      <m:apply>
+		<m:ci type="function">X</m:ci>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	</list>
+
+	<code display="block" id="c8_FTb">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+  	    &lt;m:ci type='fn'&gt;X&lt;/m:ci&gt;
+	    &lt;m:ci&gt;&amp;omega;&lt;/m:ci&gt;
+	  &lt;/m:apply
+	&lt;/m:math&gt;	    
+	  
+	</code>
+
+	<list id="lista3">
+	  <item>
+	    DFT:
+	    <m:math display="inline">
+	      <m:apply>
+		<m:ci type="fn" class="discrete">X</m:ci>
+		<m:ci>n</m:ci>
+	      </m:apply>
+	    </m:math>
+	  </item>
+	</list>
+
+	<code display="block" id="c8_FTc">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+  	    &lt;m:ci type='fn' class='discrete'&gt;X&lt;/m:ci&gt;
+	    &lt;m:ci&gt;n&lt;/m:ci&gt;
+	  &lt;/m:apply
+	&lt;/m:math&gt;	    
+	  
+	</code>
+
+	<para id="p1_note">
+	  <note type="aside" id="idp6916848">
+	    The Fourier operator ℱ[·] could be given
+	    a definitionURL, which in conjunction with
+	    <code>csymbol</code> would allow us to facilitate
+	    the coding of the mathematical expression.<!--, probably
+	    given by <code>&lt;fourier/&gt;</code>.-->
+	  </note>
+	</para>
+
+	<section id="s3_8_1">
+	  <title>CTFT</title>
+	  <para id="para11_1">
+	    There are a few ways of describing the Fourier transform.  The 
+	    recommended notation for the transform is given as:
+	    <equation id="eq11">
+	      <m:math display="block">
+		<m:apply>
+		  <m:eq/>
+                  <m:apply>
+                    <m:ci type="function">X</m:ci>
+                    <m:ci>Ω</m:ci>
+                  </m:apply>
+                  <m:apply>
+                    <m:int/>
+		    <m:bvar>
+		      <m:ci>t</m:ci>
+		    </m:bvar>
+		    <m:lowlimit>
+		      <m:apply>
+			<m:minus/>
+			<m:infinity/>
+		      </m:apply>
+		    </m:lowlimit>
+		    <m:uplimit>
+		      <m:infinity/>
+		    </m:uplimit>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:ci type="function">x</m:ci>
+			<m:ci>t</m:ci>
+		      </m:apply>
+		      <m:apply>
+			<m:exp/>
+			<m:apply>
+			  <m:minus/>
+			  <m:apply>
+			    <m:times/>
+			    <m:imaginaryi/>
+			    <m:ci>Ω</m:ci>
+			    <m:ci>t</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+                  </m:apply>
+		</m:apply>
+	      </m:math>
+	    </equation>
+
+	  </para>
+	</section>
+      </section>
+
+      <section id="s3_9">
+	<title>Laplace Transform</title>
+	<para id="para12">
+	  The Laplace transform is defined as
+	  <equation id="eq12">
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>               
+                <m:apply>
+		  <m:ci type="fn" class="discrete">ℒ</m:ci>
+		  <m:apply>
+		    <m:ci type="fn">x</m:ci>
+		    <m:ci>t</m:ci>
+		  </m:apply>
+                </m:apply>
+		<m:apply>
+                  <m:ci type="function">X</m:ci>
+                  <m:ci>s</m:ci>
+                </m:apply>
+                <m:apply>
+                  <m:int/>
+		  <m:bvar>
+		    <m:ci>t</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="function">x</m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:ci>s</m:ci>
+			  <m:ci>t</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+                </m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  where 
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:eq/>
+              <m:ci>s</m:ci>
+              <m:apply>
+                <m:plus/>
+		<m:ci>σ</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>Ω</m:ci>
+		</m:apply>
+              </m:apply>
+	    </m:apply>
+	  </m:math>
+	  is the complex frequency.  The unilateral Laplace transform,
+	  or one-side Laplace, is defined exactly the same but the
+	  lowlimit of the integral is <m:math><m:cn>0</m:cn> </m:math>
+	  rather than <m:math><m:apply><m:minus/><m:infinity/>
+	    </m:apply>
+	  </m:math>.
+
+	  <note type="aside" id="idp9207648">The Laplace operator ℒ[·]
+	    could be given a definitionURL, which in conjunction with
+	    <code>csymbol</code> would allow us to facilitate
+	    the coding of the mathematical expression.
+	  </note>
+	</para>
+
+	<code display="block" id="c9_lap">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:ci type="fn" class="discrete"&gt;&amp;Lscr;&lt;/m:ci&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci type="fn"&gt;x&lt;/m:ci&gt;
+	      &lt;m:ci&gt;t&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;	    
+	  
+	</code>
+      </section>
+
+      <section id="s3_10">
+	<title>z-transform</title>
+	<para id="para13">
+	  The (unilateral) <link document="m10549" strength="3">z-transform</link> is given by
+
+	  <equation id="eq13">
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>
+                <m:apply>
+		  <m:ci type="fn" class="discrete">Z</m:ci>
+		  <m:apply>
+		    <m:ci type="function">f</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+                </m:apply>
+                <m:apply>
+		  <m:ci type="fn" class="discrete">F</m:ci>
+		  <m:ci>z</m:ci>
+		</m:apply>
+                <m:apply>
+                  <m:sum/>
+		  <m:bvar>
+		    <m:ci>n</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:cn>0</m:cn>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">f</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:power/>
+		      <m:ci>z</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+                </m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+	  where
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:eq/>
+              <m:ci>z</m:ci>
+              <m:apply>
+                <m:plus/>
+		<m:ci>σ</m:ci>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+              </m:apply>
+	    </m:apply>
+	  </m:math>
+	  is complex in general.
+
+	  <note type="aside" id="idm4855040">The z-transform operator Z[·]
+	    could be given a definitionURL, which in conjunction with
+	    <code>csymbol</code> would allow us to facilitate
+	    the coding of the mathematical expression.
+	  </note>
+	</para>
+
+	<code display="block" id="c9_ztrans">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:ci type="fn" class="discrete"&gt;Z&lt;/m:ci&gt;
+	    &lt;m:apply&gt;
+	      &lt;m:ci type="fn" class="discrete"&gt;f&lt;/m:ci&gt;
+	      &lt;m:ci&gt;n&lt;/m:ci&gt;
+	    &lt;/m:apply&gt;
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;	    
+	  
+	</code>
+      </section>
+
+      <section id="s3_11">
+	<title>Complex Numbers</title>
+	<para id="para14">
+	  As is common in electrical engineering, it is recommended
+	  that the <link document="m0081" strength="3">complex
+	  number</link> <m:math display="inline"><m:imaginaryi/></m:math>
+	  be used to denote
+	  <m:math display="inline">
+	    <m:apply>
+	      <m:root/>
+              <m:apply>
+                <m:minus/>
+		<m:cn>1</m:cn>
+              </m:apply>
+	    </m:apply>
+	  </m:math>.  Use <code>  &lt;m:imaginaryi/&gt;
+	    </code> to mark-up <emphasis>all</emphasis>
+	    instances of the imaginary number, <m:math><m:imaginaryi/>
+	    </m:math>.  Use the following notation and code for
+	    operations dealing with complex numbers.
+	</para>
+
+	<list id="list_c1">
+	  <item>The <term>modulus</term> of a complex number
+	    <m:math><m:ci>z</m:ci></m:math> will be represented as
+	    <m:math display="inline">
+	      <m:apply>
+		<m:abs/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math>.
+	  </item>
+	</list>
+
+	<code display="block" id="codea_cm">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:abs/&gt;
+	    &lt;m:ci&gt;z&lt;/m:ci&gt;
+	  &lt;/m:apply&gt;	
+	&lt;/m:math&gt;	    
+	  
+	</code>
+
+	<list id="list_c2">
+	  <item>The <term>argument</term> of complex number
+	    <m:math><m:ci>z</m:ci></m:math> will be rendered as
+	    <m:math>
+	      <m:apply>
+		<m:arg/><m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math> using the <code>arg</code> tag in
+	    MathML.  The standard notation in electrical engineering
+	    often denotes the argument simply as 
+	    <m:math display="inline">
+	      <m:ci>
+		<m:mrow>
+		  <m:mo>∠</m:mo>
+		  <m:mi>z</m:mi>
+		</m:mrow>
+	      </m:ci>
+	    </m:math>, but this does not utilize the
+	    <code>arg</code> tag.  See the codeblock below to
+	    see how both of these representations should be
+	    implemented:
+	  </item>
+	</list>
+
+	<code display="block" id="codeb_cm">
+	  	
+	&lt;!-- Using arg tag in MathML --&gt;
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:arg/&gt;
+	    &lt;m:ci&gt;z&lt;/m:ci&gt;
+	  &lt;/m:apply&gt;
+	&lt;/m:math
+	  
+	&lt;!-- Using presentation MathML to render standard EE notation --&gt;
+	&lt;m:math&gt;
+	  &lt;m:ci&gt;
+	    &lt;m:mrow&gt;
+	      &lt;m:mo&gt;&amp;ang;&lt;/m:mo&gt;
+	      &lt;m:mi&gt;z&lt;/m:mi&gt;
+	    &lt;/m:mrow&gt;
+	  &lt;/m:ci&gt;	 
+	&lt;/m:math&gt;	    
+	  
+	</code>
+
+
+	<list id="list_c3">
+	  <item> The <term>conjugate</term> of a complex number
+	    <m:math><m:ci>z</m:ci></m:math> will be represented as
+
+	    <m:math display="inline">
+	      <m:ci>
+		<m:msup>
+		  <m:mi>z</m:mi>
+		  <m:mo>*</m:mo>
+		</m:msup>
+	      </m:ci>
+	    </m:math>.  
+
+	    The default rendering for the
+	    <code>conjugate</code> tag in MathML is
+	    <m:math>
+	      <m:apply>
+		<m:conjugate/>
+		<m:ci>z</m:ci>
+	      </m:apply>
+	    </m:math>.  The first notation is more common to
+	    electrical engineers and can be rendered using the
+	    following MathML code:
+	  </item>
+	</list>
+
+	<code display="block" id="codec_cm">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:ci&gt;
+	    &lt;m:msup&gt;
+	      &lt;m:mi&gt;z&lt;/m:mi&gt;
+	      &lt;m:mo&gt;&amp;ast;&lt;/m:mo&gt;
+	    &lt;/m:msup&gt;
+	  &lt;/m:ci&gt;	  
+	&lt;/m:math&gt;	    
+	  
+	</code>
+
+	<para id="p2_cmplx">
+	  <note type="aside" id="idp7674672">
+	    The <code>abs</code> tag in MathML content can be used
+	    to display the modulus with the default rendering.  However, the 
+	    <code>arg</code> and the <code>conjugate</code>
+	    tags' default rendering is not the recommended rendering.  The
+	    correct rendering will be implemented using an XSL transformation. 
+	    The Connexions project has already implemented the use of j for
+	    the imaginary unit in its stylesheets.
+	  </note>
+	</para>
+      </section>
+
+      <section id="s3_12">
+	<title>Inner Product</title>
+	<para id="para15">
+	  The inner product (or scalar product) of two vectors is
+	  given by
+
+	  <equation id="eq15">
+	    <m:math display="block">
+	      <m:apply>
+		<m:eq/>
+                <m:apply>
+                  <m:scalarproduct/>
+                  <m:apply>
+                    <m:selector/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:cn>1</m:cn>
+                  </m:apply>
+                  <m:apply>
+                    <m:selector/>
+		    <m:ci type="vector">x</m:ci>
+		    <m:cn>2</m:cn>
+                  </m:apply>
+                </m:apply>
+                <m:apply>
+                  <m:int/>
+		  <m:bvar>
+		    <m:ci>t</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="function">
+			<m:msub>
+			  <m:mi fontweight="bold">x</m:mi>
+			  <m:mn>1</m:mn>
+			</m:msub>
+		      </m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="function">
+			<m:msubsup>
+			  <m:mi fontweight="bold">x</m:mi>
+			  <m:mn>2</m:mn>
+			  <m:mo>*</m:mo>
+			</m:msubsup>
+		      </m:ci>
+		      <m:ci>t</m:ci>
+		    </m:apply>
+		  </m:apply>
+                </m:apply>
+	      </m:apply>
+	    </m:math>
+	  </equation>
+
+	 The MathML code used to denote an inner product follows.
+	 Note that this code is for a more simplified expression, only
+	 dealing with <m:math><m:ci type="vector">x</m:ci>
+	 </m:math> and <m:math><m:ci type="vector">y</m:ci>
+	 </m:math> rather than a subscripted variable as seen in the
+	 equation above.
+	</para>
+
+	<code display="block" id="code_innprod">
+	  	    
+	&lt;m:math&gt;
+	  &lt;m:apply&gt;
+	    &lt;m:scalarproduct/&gt;
+	    &lt;m:ci type="vector"&gt;x&lt;/m:ci&gt;
+	    &lt;m:ci type="vector"&gt;y&lt;/m:ci&gt;
+	  &lt;/m:apply&gt;
+	&lt;/m:math&gt;	    
+	  
+	</code>
+      </section>
+    </section>
+  </content>
+
+</document>

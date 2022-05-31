@@ -1,0 +1,2831 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  <title>m21 - Convolution of Discrete-Time Signals</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>537529e1-4b01-4077-a6d7-65cb2dc438aa</md:uuid>
+</metadata>
+  <content>
+<para id="id14792404">
+   
+   
+</para>
+<section id="id19512250">
+<title>Convolution</title>
+<para id="id13557522">
+   
+</para>
+<para id="id13648345">
+   The most basic and powerful operation for linear discrete-time system
+   analysis, control, and design is discrete-time convolution. We first define
+   the discrete-time unit impulse, also known as the Kronecker delta function,
+   as
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>δ</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">{</m:mo>
+         <m:mtable align="axis" columnalign="left left">
+           <m:mtr>
+             <m:mtd>
+               <m:mn>1</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> for </m:mtext>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">=</m:mo>
+                 <m:mn>0</m:mn>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mn>0</m:mn>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext mathcolor="black"> otherwise.</m:mtext>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true"/>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   If a system is linear and time-invariant, and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>δ</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">→</m:mo>
+       <m:mrow>
+         <m:mi>h</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   the output
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>y</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   can be calculated from its input
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   by the operation called convolution denoted and defined by
+   
+<equation id="md50051151ebf73123bdf862cf2aac17307">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>y</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>h</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">*</m:mo>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>m</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mrow>
+               <m:mo form="prefix">−</m:mo>
+               <m:mi>∞</m:mi>
+             </m:mrow>
+           </m:mrow>
+           <m:mi>∞</m:mi>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>h</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">−</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>m</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+   It is informative to methodically develop this equation from the basic
+   properties of a linear system.
+</para>
+<section id="id4672473">
+<title>Derivation of the Convolution Sum</title>
+<para id="id19408932">
+   We first define a complete set of orthogonal basis functions by
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>δ</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mrow>
+           <m:mi>n</m:mi>
+           <m:mo form="infix">−</m:mo>
+           <m:mi>m</m:mi>
+         </m:mrow>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   for
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>m</m:mi>
+         <m:mo form="infix">=</m:mo>
+         <m:mn>0</m:mn>
+       </m:mrow>
+       <m:mo form="infix">,</m:mo>
+       <m:mn>1</m:mn>
+       <m:mo form="infix">,</m:mo>
+       <m:mn>2</m:mn>
+       <m:mo form="infix">,</m:mo>
+       <m:mi>⋯</m:mi>
+       <m:mo form="infix">,</m:mo>
+       <m:mi>∞</m:mi>
+     </m:mrow>
+   </m:math>.
+   The input
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   is broken down into a set of inputs by taking an inner product of the input
+   with each of the basis functions. This produces a set of input components,
+   each of which is a single impulse weighted by a single value of the input
+   sequence
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo form="infix">,</m:mo>
+           <m:mrow>
+             <m:mi>δ</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">−</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>m</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mi>δ</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mrow>
+               <m:mi>n</m:mi>
+               <m:mo form="infix">−</m:mo>
+               <m:mi>m</m:mi>
+             </m:mrow>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   Using the time invariant property of the system,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>δ</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mi>m</m:mi>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">→</m:mo>
+       <m:mrow>
+         <m:mi>h</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mi>m</m:mi>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   and using the scaling property of a linear system, this gives an output of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>m</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mi>δ</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mrow>
+               <m:mi>n</m:mi>
+               <m:mo form="infix">−</m:mo>
+               <m:mi>M</m:mi>
+             </m:mrow>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">→</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>m</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mi>h</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mrow>
+               <m:mi>n</m:mi>
+               <m:mo form="infix">−</m:mo>
+               <m:mi>m</m:mi>
+             </m:mrow>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   We now calculate the output due to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   by adding outputs due to each of the resolved inputs using the superposition
+   property of linear systems. This is illustrated by the following diagram:
+</para>
+<para id="id14792265">
+   
+<equation id="md5b28631a99bfae5301e08441a82aa0b9b">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>x</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">{</m:mo>
+         <m:mtable align="axis" columnalign="left left left left left">
+           <m:mtr>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">=</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mn>0</m:mn>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">→</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mn>0</m:mn>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>h</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">=</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mn>1</m:mn>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">→</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mn>1</m:mn>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>h</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>2</m:mn>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">=</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mn>2</m:mn>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>2</m:mn>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">→</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mn>2</m:mn>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>h</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>2</m:mn>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mtext>⋮</m:mtext>
+             </m:mtd>
+             <m:mtd>
+             </m:mtd>
+             <m:mtd>
+             </m:mtd>
+             <m:mtd>
+             </m:mtd>
+             <m:mtd>
+               <m:mtext>⋮</m:mtext>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>n</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mi>m</m:mi>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">=</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>m</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>δ</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mi>m</m:mi>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+             <m:mtd>
+               <m:mo form="infix">→</m:mo>
+             </m:mtd>
+             <m:mtd>
+               <m:mrow>
+                 <m:mi>x</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mi>m</m:mi>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+               <m:mo/>
+               <m:mrow>
+                 <m:mi>h</m:mi>
+                 <m:mo/>
+                 <m:mrow>
+                   <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                   <m:mrow>
+                     <m:mi>n</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mi>m</m:mi>
+                   </m:mrow>
+                   <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                 </m:mrow>
+               </m:mrow>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">}</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi>y</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id19369502">
+   If the system is linear but time varying, we denote the response to an impulse
+   at
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mi>m</m:mi>
+     </m:mrow>
+   </m:math>
+   by
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>δ</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">−</m:mo>
+             <m:mi>m</m:mi>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">→</m:mo>
+       <m:mrow>
+         <m:mi>h</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mi>n</m:mi>
+             <m:mo form="infix">,</m:mo>
+             <m:mi>m</m:mi>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   In other words, each impulse response may be different depending on when the
+   impulse is applied. From the development above, it is easy to see where the
+   time-invariant property was used and to derive a convolution equation for a
+   time-varying system as
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>y</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>h</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">,</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo form="infix">*</m:mo>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:munderover>
+             <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+             <m:mrow>
+               <m:mi>m</m:mi>
+               <m:mo form="infix">=</m:mo>
+               <m:mrow>
+                 <m:mo form="prefix">−</m:mo>
+                 <m:mi>∞</m:mi>
+               </m:mrow>
+             </m:mrow>
+             <m:mi>∞</m:mi>
+           </m:munderover>
+           <m:mrow>
+             <m:mrow>
+               <m:mi>h</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mrow>
+                   <m:mi>n</m:mi>
+                   <m:mo form="infix">,</m:mo>
+                   <m:mi>m</m:mi>
+                 </m:mrow>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+             <m:mo/>
+             <m:mrow>
+               <m:mi>x</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mi>m</m:mi>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mtext>.</m:mtext>
+     </m:mrow>
+   </m:math>
+   Unfortunately, relaxing the linear constraint destroys the basic structure of
+   the convolution sum and does not result in anything of this form that is
+   useful.
+</para>
+<para id="id11202756">
+   By a change of variables, one can easily show that the convolution sum can
+   also be written
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>y</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>h</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo form="infix">*</m:mo>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:munderover>
+             <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+             <m:mrow>
+               <m:mi>m</m:mi>
+               <m:mo form="infix">=</m:mo>
+               <m:mrow>
+                 <m:mo form="prefix">−</m:mo>
+                 <m:mi>∞</m:mi>
+               </m:mrow>
+             </m:mrow>
+             <m:mi>∞</m:mi>
+           </m:munderover>
+           <m:mrow>
+             <m:mrow>
+               <m:mi>h</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mi>m</m:mi>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+             <m:mo/>
+             <m:mrow>
+               <m:mi>x</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mrow>
+                   <m:mi>n</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mi>m</m:mi>
+                 </m:mrow>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mtext>.</m:mtext>
+     </m:mrow>
+   </m:math>
+   If the system is causal,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>h</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>0</m:mn>
+     </m:mrow>
+   </m:math>
+   for
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+       <m:mo form="infix">&lt;</m:mo>
+       <m:mn>0</m:mn>
+     </m:mrow>
+   </m:math>
+   and the upper limit on the summation in (2.2) becomes
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>m</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mi>n</m:mi>
+     </m:mrow>
+   </m:math>.
+   If the input signal is causal, the lower limit on the summation becomes zero.
+   The form of the convolution sum for a linear, time-invariant, causal
+   discrete-time system with a causal input is
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>y</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>h</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">*</m:mo>
+         <m:mrow>
+           <m:mi>x</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:munderover>
+           <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+           <m:mrow>
+             <m:mi>m</m:mi>
+             <m:mo form="infix">=</m:mo>
+             <m:mn>0</m:mn>
+           </m:mrow>
+           <m:mi>n</m:mi>
+         </m:munderover>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>h</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mrow>
+                 <m:mi>n</m:mi>
+                 <m:mo form="infix">−</m:mo>
+                 <m:mi>m</m:mi>
+               </m:mrow>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo/>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>m</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   or, showing the operations commute
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>y</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>n</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:mrow>
+             <m:mi>h</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+           <m:mo form="infix">*</m:mo>
+           <m:mrow>
+             <m:mi>x</m:mi>
+             <m:mo/>
+             <m:mrow>
+               <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+               <m:mi>n</m:mi>
+               <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:munderover>
+             <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+             <m:mrow>
+               <m:mi>m</m:mi>
+               <m:mo form="infix">=</m:mo>
+               <m:mn>0</m:mn>
+             </m:mrow>
+             <m:mi>n</m:mi>
+           </m:munderover>
+           <m:mrow>
+             <m:mrow>
+               <m:mi>h</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mi>m</m:mi>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+             <m:mo/>
+             <m:mrow>
+               <m:mi>x</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mrow>
+                   <m:mi>n</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mi>m</m:mi>
+                 </m:mrow>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mtext>.</m:mtext>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id19292499">
+   Convolution is used analytically analyze linear systems and it can also be
+   used to calculate the output of a system by only knowing its impulse response.
+   This is a very powerful tool because it does not require any detailed
+   knowledge of the system itself. It only uses one experimentally obtainable
+   response. However, this summation cannot only be used to analyze or calculate
+   the response of a given system, it can be an
+   implementation of the system. This summation can be implemented in hardware or
+   programmed on a computer and become the signal processor.
+</para>
+</section>
+<section id="id19292520">
+<title>The Matrix Formulation of Convolution</title>
+<para id="id19292529">
+   Some of the properties and characteristics of convolution and of the systems
+   it represents can be better described by a matrix formulation than by the
+   summation notation. The first
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>L</m:mi>
+     </m:mrow>
+   </m:math>
+   values of the discrete-time convolution defined above can be written as a
+   matrix operator on a vector of inputs to give a vector of the output values.
+   
+<equation id="md5d45ecad2c23446ac8ba60210cca6edbc">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+         <m:mtable align="axis">
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>0</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>1</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>2</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mtext>⋮</m:mtext>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mrow>
+                   <m:mi>L</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mn>1</m:mn>
+                 </m:mrow>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id19293233">
+   If the input sequence
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+     </m:mrow>
+   </m:math>
+   is of length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   and the operator signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+     </m:mrow>
+   </m:math>
+   is of length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>M</m:mi>
+     </m:mrow>
+   </m:math>,
+   the output is of length
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>L</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi>N</m:mi>
+         <m:mo form="infix">+</m:mo>
+         <m:mi>M</m:mi>
+         <m:mo form="infix">−</m:mo>
+         <m:mn>1</m:mn>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   This is shown for
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>4</m:mn>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>3</m:mn>
+     </m:mrow>
+   </m:math>
+   by the rectangular matrix operation
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+         <m:mtable align="axis">
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>0</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>1</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>2</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>3</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>4</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>5</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>3</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   It is clear that if the system is causal
+   (<m:math display="inline">
+     <m:mrow>
+       <m:mrow>
+         <m:mi>h</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>n</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>0</m:mn>
+     </m:mrow>
+   </m:math>
+   for
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>n</m:mi>
+       <m:mo form="infix">&lt;</m:mo>
+       <m:mn>0</m:mn>
+     </m:mrow>
+   </m:math>),
+   the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>H</m:mi>
+     </m:mrow>
+   </m:math>
+   matrix is lower triangular. It is also easy to see that the system being
+   time-invariant is equivalent to the matrix being Toeplitz
+   <cite target-id="md521b72c0b7adc5c7b4a50ffcb90d92dd6"/>. This
+   formulation makes it obvious that if a certain output were desired from a
+   length 4 input, only 4 of the 6 values could be specified and the other 2
+   would be controlled by them.
+</para>
+<para id="id19370334">
+   Although the formulation of constructing the matrix from the impulse response
+   of the system and having it operate on the input vector seems most natural,
+   the matrix could have been formulated from the input and the vector would have
+   been the impulse response. Indeed, this might the appropriate formulation if
+   one were specifying the input and output and designing the system.
+</para>
+<para id="id19370345">
+   The basic convolution defined in
+   (<link target-id="md50051151ebf73123bdf862cf2aac17307"/>), derived in
+   (<link target-id="md5b28631a99bfae5301e08441a82aa0b9b"/>), and given in
+   matrix form in (<link target-id="md5d45ecad2c23446ac8ba60210cca6edbc"/>)
+   relates the input to the output for linear systems. This is the form of
+   convolution that is related to multiplication of the DTFT and z-transform of
+   signals. However, it is cyclic convolution that is fundamentally related to
+   the DFT and that will be efficiently calculated by the fast Fourier transform
+   (FFT) developed in Part III of these notes. Matrix formulation of length-L
+   cyclic convolution is given by
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+         <m:mtable align="axis">
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>0</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>1</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>2</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:mtext>⋮</m:mtext>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mrow>
+                   <m:mi>L</m:mi>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mn>1</m:mn>
+                 </m:mrow>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>2</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>3</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:mi>⋯</m:mi>
+               </m:mtd>
+               <m:mtd>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mtext>⋮</m:mtext>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mrow>
+                     <m:mi>L</m:mi>
+                     <m:mo form="infix">−</m:mo>
+                     <m:mn>1</m:mn>
+                   </m:mrow>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id19371169">
+   This matrix description makes it clear that the matrix operator is always
+   square and the three signals,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>y</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   are necessarily of the same length.
+</para>
+<para id="id19371320">
+   There are several useful conclusions that can be drawn from linear algebra
+   <cite target-id="md521b72c0b7adc5c7b4a50ffcb90d92dd6"/>. The eigenvalues
+   of the non-cyclic are all the same since the eigenvalues of a lower triangular
+   matrix are simply the values on the diagonal.
+</para>
+<para id="id19371334">
+   Although it is less obvious, the eigenvalues of the cyclic convolution matrix
+   are the
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+     </m:mrow>
+   </m:math>
+   values of the DFT of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   and the eigenvectors are the basis functions of the DFT which are the column
+   vectors of the DFT matrix. The eigenvectors are completely controlled by the
+   structure of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>H</m:mi>
+     </m:mrow>
+   </m:math>
+   being a cyclic convolution matrix and are not at all a function of the values
+   of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   The DFT matrix equation from (3.10) is given by
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mtable align="axis">
+         <m:mtr>
+           <m:mtd>
+             <m:mstyle>
+               <m:mi mathvariant="bold">X</m:mi>
+               <m:mo form="infix" mathvariant="bold">=</m:mo>
+               <m:mrow>
+                 <m:mi mathvariant="bold">F</m:mi>
+                 <m:mo mathvariant="bold"/>
+                 <m:mi mathvariant="bold">x</m:mi>
+               </m:mrow>
+             </m:mstyle>
+           </m:mtd>
+           <m:mtd>
+             <m:mtext mathcolor="black">and</m:mtext>
+           </m:mtd>
+           <m:mtd>
+             <m:mstyle>
+               <m:mi mathvariant="bold">Y</m:mi>
+               <m:mo form="infix" mathvariant="bold">=</m:mo>
+               <m:mrow>
+                 <m:mi mathvariant="bold">F</m:mi>
+                 <m:mo mathvariant="bold"/>
+                 <m:mi mathvariant="bold">y</m:mi>
+               </m:mrow>
+             </m:mstyle>
+           </m:mtd>
+         </m:mtr>
+       </m:mtable>
+     </m:mrow>
+   </m:math>
+   where
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">X</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   is the length-N vector of the DFT values,
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">H</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   is the matrix operator for the DFT, and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">x</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   is the length-N vector of the signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   values. The same is true for the comparable terms in
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>y</m:mi>
+     </m:mrow>
+   </m:math>.
+</para>
+<para id="id19371721">
+   The matrix form of the length-N cyclic convolution in (3.10) is written
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">y</m:mi>
+         <m:mo form="infix" mathvariant="bold">=</m:mo>
+         <m:mrow>
+           <m:mi mathvariant="bold">H</m:mi>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">x</m:mi>
+         </m:mrow>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+</para>
+<para id="id19371774">
+   Taking the DFT both sides and using the IDFT on
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+     </m:mrow>
+   </m:math>
+   gives
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mstyle>
+         <m:mrow>
+           <m:mi mathvariant="bold">F</m:mi>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">y</m:mi>
+         </m:mrow>
+         <m:mo form="infix" mathvariant="bold">=</m:mo>
+         <m:mi mathvariant="bold">Y</m:mi>
+         <m:mo form="infix" mathvariant="bold">=</m:mo>
+         <m:mrow>
+           <m:mi mathvariant="bold">F</m:mi>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">H</m:mi>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">x</m:mi>
+         </m:mrow>
+         <m:mo form="infix" mathvariant="bold">=</m:mo>
+         <m:mrow>
+           <m:mi mathvariant="bold">F</m:mi>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">H</m:mi>
+           <m:mo mathvariant="bold"/>
+           <m:msup>
+             <m:mi mathvariant="bold">F</m:mi>
+             <m:mrow>
+               <m:mo form="prefix" mathvariant="bold">−</m:mo>
+               <m:mn mathvariant="bold">1</m:mn>
+             </m:mrow>
+           </m:msup>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">X</m:mi>
+         </m:mrow>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   If we define the diagonal matrix
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:msub>
+           <m:mi mathvariant="bold">H</m:mi>
+           <m:mi mathvariant="bold">d</m:mi>
+         </m:msub>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   as an
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>L</m:mi>
+     </m:mrow>
+   </m:math>
+   by
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>L</m:mi>
+     </m:mrow>
+   </m:math>
+   matrix with the values of the DFT of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   on its diagonal, the convolution property of the DFT becomes
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">Y</m:mi>
+         <m:mo form="infix" mathvariant="bold">=</m:mo>
+         <m:mrow>
+           <m:msub>
+             <m:mi mathvariant="bold">H</m:mi>
+             <m:mi mathvariant="bold">d</m:mi>
+           </m:msub>
+           <m:mo mathvariant="bold"/>
+           <m:mi mathvariant="bold">X</m:mi>
+         </m:mrow>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   This implies
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mtable align="axis">
+         <m:mtr>
+           <m:mtd>
+             <m:mstyle>
+               <m:msub>
+                 <m:mi mathvariant="bold">H</m:mi>
+                 <m:mi mathvariant="bold">d</m:mi>
+               </m:msub>
+               <m:mo form="infix" mathvariant="bold">=</m:mo>
+               <m:mrow>
+                 <m:mi mathvariant="bold">F</m:mi>
+                 <m:mo mathvariant="bold"/>
+                 <m:mi mathvariant="bold">H</m:mi>
+                 <m:mo mathvariant="bold"/>
+                 <m:msup>
+                   <m:mi mathvariant="bold">F</m:mi>
+                   <m:mrow>
+                     <m:mo form="prefix" mathvariant="bold">−</m:mo>
+                     <m:mn mathvariant="bold">1</m:mn>
+                   </m:mrow>
+                 </m:msup>
+               </m:mrow>
+             </m:mstyle>
+           </m:mtd>
+           <m:mtd>
+             <m:mtext mathcolor="black">and</m:mtext>
+           </m:mtd>
+           <m:mtd>
+             <m:mstyle>
+               <m:mi mathvariant="bold">H</m:mi>
+               <m:mo form="infix" mathvariant="bold">=</m:mo>
+               <m:mrow>
+                 <m:msup>
+                   <m:mi mathvariant="bold">F</m:mi>
+                   <m:mrow>
+                     <m:mo form="prefix" mathvariant="bold">−</m:mo>
+                     <m:mn mathvariant="bold">1</m:mn>
+                   </m:mrow>
+                 </m:msup>
+                 <m:mo mathvariant="bold"/>
+                 <m:msub>
+                   <m:mi mathvariant="bold">H</m:mi>
+                   <m:mi mathvariant="bold">d</m:mi>
+                 </m:msub>
+                 <m:mo mathvariant="bold"/>
+                 <m:mi mathvariant="bold">F</m:mi>
+               </m:mrow>
+             </m:mstyle>
+           </m:mtd>
+         </m:mtr>
+       </m:mtable>
+     </m:mrow>
+   </m:math>
+   which is the basis of the earlier statement that the eigenvalues of the cyclic
+   convolution matrix are the values of the DFT of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   and the eigenvectors are the orthogonal columns of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">F</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>.
+   The DFT matrix diagonalizes the cyclic convolution matrix. This is probably
+   the most concise statement of the relation of the DFT to convolution and to
+   linear systems.
+</para>
+<para id="id11339929">
+   An important practical question is how one calculates the non-cyclic
+   convolution needed by system analysis using the cyclic convolution of the DFT.
+   The answer is easy to see using the matrix description of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>H</m:mi>
+     </m:mrow>
+   </m:math>.
+   The length of the output of non-cyclic convolution is
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">+</m:mo>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>.
+   If
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>
+   zeros are appended to the end of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>
+   zeros are appended to the end of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   the cyclic convolution of these two augmented signals will produce exactly the
+   same
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">+</m:mo>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>
+   values as non-cyclic convolution would. This is illustrated for the example
+   considered before.
+   <m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+         <m:mtable align="axis">
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>0</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>1</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>2</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>3</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>4</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+           <m:mtr>
+             <m:mtd>
+               <m:msub>
+                 <m:mi>y</m:mi>
+                 <m:mn>5</m:mn>
+               </m:msub>
+             </m:mtd>
+           </m:mtr>
+         </m:mtable>
+         <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>h</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="true" symmetric="true">[</m:mo>
+           <m:mtable align="axis">
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>0</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>1</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>2</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:msub>
+                   <m:mi>x</m:mi>
+                   <m:mn>3</m:mn>
+                 </m:msub>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+             <m:mtr>
+               <m:mtd>
+                 <m:mn>0</m:mn>
+               </m:mtd>
+             </m:mtr>
+           </m:mtable>
+           <m:mo fence="true" form="postfix" stretchy="true" symmetric="true">]</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   Just enough zeros were appended so that the nonzero terms in the upper
+   right-hand corner of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">H</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   are multiplied by the zeros in the lower part of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">x</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>
+   and, therefore, do not contribute to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">y</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>.
+   This does require convolving longer signals but the output is exactly what we
+   want and we calculated it with the DFT-compatible cyclic convolution. Note
+   that more zeros could have been appended to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+     </m:mrow>
+   </m:math>
+   and the first
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo form="infix">+</m:mo>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">−</m:mo>
+       <m:mn>1</m:mn>
+     </m:mrow>
+   </m:math>
+   terms of the output would have been the same only more calculations would have
+   been necessary. This is sometimes done in order to use forms of the FFT that
+   require that the length be a power of two.
+</para>
+<para id="id11341183">
+   If fewer zeros or none had been appended to
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+     </m:mrow>
+   </m:math>
+   and
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>x</m:mi>
+     </m:mrow>
+   </m:math>,
+   the nonzero terms in the upper right-hand corner of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mstyle>
+         <m:mi mathvariant="bold">H</m:mi>
+       </m:mstyle>
+     </m:mrow>
+   </m:math>,
+   which are the ``tail" of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   would have added the values that would have been at the end of the non-cyclic
+   output of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>y</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   to the values at the beginning. This is a natural part of cyclic convolution
+   but is destructive if non-cyclic convolution is desired and is called aliasing
+   or folding for obvious reasons. Aliasing is a phenomenon that occurs in
+   several arenas of DSP and the matrix formulation makes it easy to understand.
+</para>
+<para id="id11341345">
+   
+   
+</para>
+</section>
+</section>
+</content>
+<bib:file><bib:entry id="md521b72c0b7adc5c7b4a50ffcb90d92dd6">
+<bib:book><bib:author>Thomas F. Coleman and Charles Van Loan</bib:author>
+<bib:title>Handbook for Matrix Computation</bib:title>
+<bib:publisher>SIAM</bib:publisher>
+<bib:year>1988</bib:year>
+<bib:address>Philadelphia, PA</bib:address>
+</bib:book>
+</bib:entry></bib:file></document>

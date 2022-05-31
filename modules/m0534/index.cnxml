@@ -1,0 +1,132 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+
+  <title>Discrete-Time Filtering Example</title>
+
+  <metadata>
+  <md:content-id>m0534</md:content-id><md:title>Discrete-Time Filtering Example</md:title>
+  <md:abstract>Average stock price as an example of discrete-time filtering.
+</md:abstract>
+  <md:uuid>b2d08d16-9025-4baa-9107-1a498c040f39</md:uuid>
+</metadata>
+
+<content>
+
+    <example id="exa2000">
+      <para id="para1">
+	Suppose we want to average daily stock prices taken over last
+	year to yield a running weekly average (average over five
+	trading sessions).  The filter we want is a length-5 averager
+	(as shown in the <link document="m0530" target-id="fig1002" strength="3">unit-sample response</link>), and the input's
+	duration is 253 (365 calendar days minus weekend days and
+	holidays). The output duration will be
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:minus/>
+	      <m:apply>
+		<m:plus/>
+		<m:cn>253</m:cn>
+		<m:cn>5</m:cn>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	    <m:cn>257</m:cn>
+	  </m:apply>
+	</m:math>
+	, and this determines the transform length we need to
+	use.  Because we want to use the FFT, we are restricted to
+	power-of-two transform lengths.  We need to choose any FFT
+	length that exceeds the required DFT length. As it turns out,
+	256 is a power of two (
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:power/>
+	      <m:cn>2</m:cn>
+	      <m:cn>8</m:cn>
+	    </m:apply>
+	    <m:cn>256</m:cn>
+	  </m:apply>
+	</m:math>
+	), and this length just undershoots our required length.  To
+	use frequency domain techniques, we must use length-512 fast
+	Fourier transforms.
+      </para>
+
+      <figure id="fig1002">
+	<media id="id38989348" alt="">
+          <image src="../../media/sig23.png" mime-type="image/png"/>
+          <image for="pdf" src="../../media/sig23.eps" mime-type="application/postscript"/>
+        </media>
+	<caption>
+	  The blue line shows the Dow Jones Industrial Average from
+	  1997, and the red one the length-5 boxcar-filtered result
+	  that provides a running weekly of this market index.  Note
+	  the "edge" effects in the filtered output.
+	</caption>
+      </figure>
+
+      <para id="para2">
+	<link target-id="fig1002" strength="3"/> shows the input and the
+	filtered output.  The MATLAB programs that compute the filtered
+	output in the time and frequency domains are
+      </para>
+
+      <code id="id42141611" display="block">
+	Time Domain 
+	h = [1 1 1 1 1]/5; 
+	y = filter(h,1,[djia zeros(1,4)]);
+
+	Frequency Domain
+	h = [1 1 1 1 1]/5; 
+	DJIA = fft(djia, 512);
+	H = fft(h, 512);
+	Y = H.*X;
+	y = ifft(Y);
+      </code>
+
+      <para id="para3">
+	<note id="id42141632" type="note">
+	  The <code>filter</code> program has the "feature"
+	  that the length of its output equals the length of its
+	  input.  To force it to produce a signal having the proper
+	  length, the program zero-pads the input
+	  appropriately.
+	</note>
+	MATLAB's <code>fft</code> function automatically
+	  zero-pads its input if the specified transform length (its
+	  second argument) exceeds the signal's length. The frequency
+	  domain result will have a small imaginary component —
+	  largest value is
+	<m:math>
+	  <m:cn type="e-notation">2.2<m:sep/>-11</m:cn>
+	</m:math>
+	— because of the inherent finite precision nature of
+	computer arithmetic.  Because of the unfortunate misfit between
+	signal lengths and favored FFT lengths, the number of
+	arithmetic operations in the time-domain implementation is far
+	less than those required by the frequency domain version: 514
+	versus 62,271.  If the input signal had been one sample
+	shorter, the frequency-domain computations would have been
+	more than a factor of two less (28,696), but far more than in
+	the time-domain implementation.
+      </para>
+
+      <para id="para4">
+	An interesting signal processing aspect of this example is
+	demonstrated at the beginning and end of the output. The
+	ramping up and down that occurs can be traced to assuming the
+	input is zero before it begins and after it ends. The filter
+	"sees" these initial and final values as the difference
+	equation passes over the input. These artifacts can be handled
+	in two ways: we can just ignore the edge effects or the data
+	from previous and succeeding years' last and first week,
+	respectively, can be placed at the ends.
+      </para>
+
+    </example>
+
+  </content>
+</document>

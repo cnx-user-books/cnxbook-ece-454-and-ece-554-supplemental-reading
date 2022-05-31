@@ -1,0 +1,599 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>DTFT and Convolution</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>5993b605-1eab-46c5-855e-99089049a03c</md:uuid>
+</metadata>
+
+  <content>
+    <para id="para1">
+      <figure id="fig1">
+	<media id="idp290736" alt=""><image src="../../media/fig1-83e4.png" mime-type="image/png"/></media>
+      </figure>
+      <note type="Given" id="idm1347440"><label>Given</label>
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">X</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math> and
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">H</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>, compute
+	<m:math>
+	  <m:apply>
+	    <m:ci type="fn">Y</m:ci>
+	    <m:apply>
+	      <m:exp/>
+	      <m:apply>
+		<m:times/>
+		<m:imaginaryi/>
+		<m:ci>ω</m:ci>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </note>
+      <equation id="eq1">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">Y</m:ci>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">y</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:minus/>
+		      <m:imaginaryi/>
+		    </m:apply>
+		    <m:ci>ω</m:ci>
+		    <m:ci>n</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>n</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar><m:ci>k</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">x</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:minus/>
+		    <m:apply>
+		      <m:times/>
+		      <m:imaginaryi/>
+		      <m:ci>ω</m:ci>
+		      <m:ci>n</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		<m:apply>
+		  <m:minus/>
+		  <m:infinity/>
+		</m:apply>
+	      </m:lowlimit>
+	      <m:uplimit>
+		<m:infinity/>
+	      </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar><m:ci>n</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:apply>
+			<m:minus/>
+			<m:ci>n</m:ci>
+			<m:ci>k</m:ci>
+		      </m:apply>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>ω</m:ci>
+			  <m:ci>n</m:ci>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation> Let
+      <m:math>
+	<m:apply>
+	  <m:tendsto/>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>m</m:ci>
+	    <m:apply> 
+	      <m:minus/>
+	      <m:ci>n</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	  </m:apply>
+	  <m:apply>
+	    <m:eq/>
+	    <m:ci>n</m:ci>
+	    <m:apply>
+	      <m:plus/>
+	      <m:ci>m</m:ci>
+	      <m:ci>k</m:ci>
+	    </m:apply>
+	  </m:apply>
+	</m:apply>
+      </m:math>
+      <equation id="eq2">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply/>
+	    <m:apply>
+	      <m:sum/>
+	      <m:bvar><m:ci>k</m:ci>
+	      </m:bvar>
+	      <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+	      <m:apply>
+		<m:times/>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">x</m:ci>
+		  <m:ci>k</m:ci>
+		</m:apply>
+		<m:apply>
+		  <m:sum/>
+		  <m:bvar><m:ci>m</m:ci>
+		  </m:bvar>
+		  <m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		  <m:apply>
+		    <m:times/>
+		    <m:apply>
+		      <m:ci type="fn" class="discrete">h</m:ci>
+		      <m:ci>m</m:ci>
+		    </m:apply>
+		    <m:apply>
+		      <m:exp/>
+		      <m:apply>
+			<m:minus/>
+			<m:apply>
+			  <m:times/>
+			  <m:imaginaryi/>
+			  <m:ci>ω</m:ci>
+			  <m:apply>
+			    <m:plus/>
+			    <m:ci>m</m:ci>
+			    <m:ci>k</m:ci>
+			  </m:apply>
+			</m:apply>
+		      </m:apply>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar><m:ci>k</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">x</m:ci>
+		    <m:ci>k</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:minus/>
+			<m:imaginaryi/>
+		      </m:apply>
+		      <m:ci>ω</m:ci>
+		      <m:ci>k</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:sum/>
+		<m:bvar><m:ci>m</m:ci>
+		</m:bvar>
+		<m:lowlimit>
+		    <m:apply>
+		      <m:minus/>
+		      <m:infinity/>
+		    </m:apply>
+		  </m:lowlimit>
+		  <m:uplimit>
+		    <m:infinity/>
+		  </m:uplimit>
+		<m:apply>
+		  <m:times/>
+		  <m:apply>
+		    <m:ci type="fn" class="discrete">h</m:ci>
+		    <m:ci>m</m:ci>
+		  </m:apply>
+		  <m:apply>
+		    <m:exp/>
+		    <m:apply>
+		      <m:times/>
+		      <m:apply>
+			<m:minus/>
+			<m:imaginaryi/>
+		      </m:apply>
+		      <m:ci>ω</m:ci>
+		      <m:ci>m</m:ci>
+		    </m:apply>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      <equation id="eq3">
+	<m:math>
+	  <m:apply>
+	    <m:eq/>
+	    <m:apply>
+	      <m:ci type="fn">Y</m:ci>
+	      <m:apply>
+		<m:exp/>
+		<m:apply>
+		  <m:times/>
+		  <m:imaginaryi/>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	    <m:apply>
+	      <m:times/>
+	      <m:apply>
+		<m:ci type="fn">X</m:ci>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	      <m:apply>
+		<m:ci type="fn">H</m:ci>
+		<m:apply>
+		  <m:exp/>
+		  <m:apply>
+		    <m:times/>
+		    <m:imaginaryi/>
+		    <m:ci>ω</m:ci>
+		  </m:apply>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:apply>
+	</m:math>
+      </equation>
+      <figure id="fig2">
+	<media id="idm560240" alt=""><image src="../../media/fig2-b5d3.png" mime-type="image/png"/></media>
+      </figure>
+      <equation id="eq4">
+	<m:math>
+	  <m:apply>
+	    <m:csymbol definitionURL="http://cnx.rice.edu/cd/cnxmath.ocd#convolve"/>
+	    <m:ci>x</m:ci> <m:ci>h</m:ci>
+	  </m:apply>
+	  <m:mover>
+	    <m:mo>↔</m:mo>
+	    <m:mtext>DTFT</m:mtext>
+	  </m:mover>
+	  <m:apply>
+	    <m:times/>
+	    <m:ci>X</m:ci>
+	    <m:ci>H</m:ci>
+	  </m:apply>
+	</m:math>
+      </equation>
+    </para>   
+    <example id="ex1">
+      <title>Lowpass Filtering of an ECG Signal to Suppress Noise</title>      
+      <para id="ex1p1">
+	<figure id="fig3">
+	  <media id="idp1651616" alt=""><image src="../../media/fig3-828d.png" mime-type="image/png"/></media>
+	</figure>
+	<term target-id="ecg">ecg</term>
+	<list id="list1">
+	  <item>voltages are <emphasis>very small</emphasis> (
+	    <m:math>
+	      <m:apply>
+		<m:times/>
+		<m:ci>μ</m:ci>
+		<m:ci>V</m:ci>
+	      </m:apply>
+	    </m:math>!) therefore there is plenty of measurement
+	  noise</item> <item>use DSP to reduce noise</item>
+	  <item>simple processing: low pass filtering</item> </list>
+	  Measurement process takes the <emphasis>TRUE
+	  SIGNAL</emphasis>
+	<figure id="fig4">
+	  <media id="idm8732544" alt=""><image src="../../media/fig4.png" mime-type="image/png"/></media> </figure> and
+	corrupts it with additive <emphasis>NOISE</emphasis>
+	<figure id="fig5">
+	  <media id="idp1231184" alt=""><image src="../../media/fig5.png" mime-type="image/png"/></media> </figure> so that
+	the actual received signal is
+	<emphasis>SIGNAL+NOISE</emphasis>
+	<figure id="fig6">
+	  <media id="idm7270592" alt=""><image src="../../media/fig6.png" mime-type="image/png"/></media> </figure> This is
+	the signal we actually measure.  It is "noisy".
+
+	<note type="Key Point" id="idp1561488"><label>Key Point</label>Signal is in low frequencies and noise
+	is spread over all frequencies</note> We need a lowpass filter to
+	suppress noise.
+      </para>
+      <para id="ex1p2">Try a <emphasis>simple averaging
+      filter</emphasis>
+	<figure id="fig7">
+	  <media id="idm57968" alt=""><image src="../../media/fig7.png" mime-type="image/png"/></media>
+	</figure>
+      </para>
+      <section id="ex1sec1">
+	<title>Averaging Filter h Physical Interpretation</title>
+	<para id="ex1p3">
+	  <m:math>
+	    <m:apply>
+	      <m:ci>h[n]</m:ci>
+	    </m:apply>
+	  </m:math> is a moving average
+	  <list id="list2">
+	    <item>smooths the data</item>
+	    <item>
+	      <m:math>
+		<m:apply>
+		  <m:ci>h[n]</m:ci>
+		</m:apply>
+	      </m:math> is a <emphasis>LOWPASS FILTER</emphasis>
+	    </item>
+	  </list> We see this behavior in 
+	  <m:math>
+	    <m:apply>
+	      <m:ci type="fn">H</m:ci>
+	      <m:ci>ω</m:ci>
+	    </m:apply>
+	  </m:math>.  Also as 
+	  <m:math>
+	    <m:apply>
+	      <m:plus/>
+	      <m:apply>
+		<m:times/>
+		<m:cn>2</m:cn>
+		<m:ci>M</m:ci>
+	      </m:apply>
+	      <m:cn>1</m:cn>
+	    </m:apply>
+	  </m:math> increases, the cutoff frequency
+	  <m:math>
+	    <m:apply>
+	      <m:eq/>
+	      <m:ci>
+		<m:msub>
+		  <m:mi>ω</m:mi>
+		  <m:mn>1</m:mn>
+		</m:msub>
+	      </m:ci>
+	      <m:apply>
+		<m:divide/>
+		<m:pi/>
+		<m:apply>
+		  <m:plus/>
+		  <m:apply>
+		    <m:times/>
+		    <m:cn>2</m:cn>
+		    <m:ci>M</m:ci>
+		  </m:apply>
+		  <m:cn>1</m:cn>
+		</m:apply>
+	      </m:apply>
+	    </m:apply>
+	  </m:math> decreases which leads to more smoothing.
+	  <figure id="fig8">
+	    <media id="idp972480" alt=""><image src="../../media/fig8.png" mime-type="image/png"/></media>
+	  </figure>
+	  LOWPASS FILTERING = SMOOTHING = AVERAGING
+	</para>
+      </section>
+      <section id="sec2">
+	<title>Result</title>
+	<para id="sec2p1">
+	  <figure id="fig9">
+	    <media id="idm1930928" alt=""><image src="../../media/fig9.png" mime-type="image/png"/></media> </figure> Bottom
+	  Line: <link target-id="fig9"/> 
+	    looks much better than <link target-id="fig6"/>
+	  <list id="list3" list-type="enumerated">
+	    <title>At home:</title>
+	    <item>Interpret the filtering action in terms of 
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn" class="discrete">h</m:ci>
+		  <m:ci>n</m:ci>
+		</m:apply>
+	      </m:math> (time/sample domain) and
+	      <m:math>
+		<m:apply>
+		  <m:ci type="fn">H</m:ci>
+		  <m:ci>ω</m:ci>
+		</m:apply>
+	      </m:math> (frequency domain)
+	    </item>
+	    <item>What price did we pay?</item>
+	  </list>
+	  <figure id="fig10">
+	    <title>SUMMARY</title>
+	    <media id="idm8914416" alt=""><image src="../../media/fig10.png" mime-type="image/png"/></media>
+	  </figure>
+	</para>
+      </section>
+    </example>
+    <para id="para2"><title>Extension 1:</title>
+       Can we improve on the frequency
+      response of the moving average filter?
+    </para>
+    <para id="para3"><title>Extension 2:</title>
+       ECG also picks up plenty of 60Hz
+      interference
+      <figure id="fig11">
+	<media id="idp990016" alt=""><image src="../../media/fig12.png" mime-type="image/png"/></media>
+      </figure>
+      How would you combat this interference using an LTI filter?
+    </para>
+  </content>
+  <glossary>
+    <definition id="ecg">
+      <term>electrocardiogram</term> <meaning id="idm379680"> measure electrical
+      signal given off by the heart.</meaning>
+    </definition>
+  </glossary>
+  
+</document>

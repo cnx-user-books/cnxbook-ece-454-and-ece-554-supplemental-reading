@@ -1,0 +1,1144 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>SIGNAL SAMPLING</title>
+  <metadata>
+  <md:content-id>m28684</md:content-id><md:title>SIGNAL SAMPLING</md:title>
+  <md:abstract/>
+  <md:uuid>5cb29d47-d9c5-4073-999e-9834ebd3c047</md:uuid>
+</metadata>
+
+<content>
+    <para id="id36414272">Analog signals, in general, are continuous in time. In digital signal processing, we do not use the whole analog signal but replace it by its amplitudes taken at regular intervals. This is <term> sampling </term>. The problem is we must sample the signal so that the samples represent correctly the signal, i.e. from the samples we can reconstruct the original analog signal perfectly. </para>
+    <section id="id-706203166814">
+      <title>Sampling of continuous-time signals</title>
+      <para id="id36789609">Sampling a continuous-time signal turns it into a correspond discrete-time signal so that it can be processed on digital systems. Actually, the sampling is followed by two other operations, <term> quantization </term> and <term> binary encoding </term>. In reality, the <term> analog-to-digital converters </term>(abbreviated ADC or A/D) do all the three steps.</para>
+      <figure id="element-854"><media id="id7084046" alt=""><image src="../../media/hv14.jpg" mime-type="image/jpeg" height="181" width="385"/></media>
+<caption> Sampling of signal at sampling interval (period)<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadsfadaWgaaWcbaGaam4Caaqabaaaaa@37E3@</m:annotation>
+ </m:semantics>
+</m:math>
+ </caption>
+</figure><para id="id36927924"><link target-id="element-854" strength="3"/> depicts the sampling of a signal at regular interval 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">=</m:mo><m:mi>n</m:mi></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t=n} {}</m:annotation></m:semantics></m:math><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> where n is an integer, positive and negative. This is <term> uniform sampling </term> that we use routinely. Rarely, nonuniform sampling is mentioned. We denote the samples of the signal x(t) as 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { {x}} \( t \) } {}</m:annotation></m:semantics></m:math> or 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>nT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \(  ital "nT" rSub { size 8{s} }  \) } {}</m:annotation></m:semantics></m:math>. <link target-id="element-529" strength="3"/> shows the sampling process. It turns out that <term> sampling is just a multiplication of the analog signal x(t) with a sampling signal (or function) s(t):</term></para>
+      <para id="id37338439"><equation id="id00127">
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>x</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>nT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>x</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>s</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ { {x}} \( t \) =x \(  ital "nT" rSub { size 8{s} }  \) =x \( t \) s \( t \) } {}</m:annotation></m:semantics></m:math>
+</equation></para>
+      <figure id="element-529"><media id="id8376563" alt=""><image src="../../media/hv15.jpg" mime-type="image/jpeg" height="190" width="297"/></media>
+<caption> The principle of sampling (a) Multiplying ; (b) Switching </caption>
+</figure><para id="id34999732">The sampling signal s(t) is a regular sequence of narrow pulses <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>δ</m:mi><m:mi>t</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiabes7aKjaadshaaaa@3884@</m:annotation>
+ </m:semantics>
+</m:math>
+ of amplitude 1 (<link target-id="element-590" strength="3"/>) when multiplying s(t) with the signal x(t) we obtain the instantaneous values of x(t) which are the samples. An electric switch (<link target-id="element-529" strength="3"/>b) is a way to implement the sampling: When the contact closes in a short time, the signal passes; and when the contact opens, no output signal appears.</para>
+      <figure id="element-590"><media id="id1165943596197" alt=""><image src="../../media/hv16.jpg" mime-type="image/jpeg" height="331" width="389"/></media>
+<caption>  sampling by a sequence of narrow pulses <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>δ</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiabes7aKjaacIcacaWG0bGaaiykaaaa@39DD@</m:annotation>
+ </m:semantics>
+</m:math>
+ </caption>
+</figure><para id="id33998807">The time distance <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadsfadaWgaaWcbaGaam4Caaqabaaaaa@37E3@</m:annotation>
+ </m:semantics>
+</m:math>
+ is called <term> sampling interval</term> or <term> sampling period </term>, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">/</m:mo><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } =1/T rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> is <term> sampling frequency </term> (Hz or samples/sec), also called sampling rate. The samples were written as 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>nT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \(  ital "nT" rSub { size 8{s} }  \) } {}</m:annotation></m:semantics></m:math>but 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> is usually taken as 1, hence the samples will be denoted universally, unless otherwise specified, as x(n). The integer n can represent sample, time, space, but we will often call it <term> time index </term>, or just index, or sample.</para>
+      <para id="id28556368">When looking at <link target-id="element-854" strength="3"/> and <link target-id="element-590" strength="3"/> we may ask if the sampling is appropriate, that is the samples are too close or too far away or just right. This is really a big question and will be answered soon. For the time being, let’s examine the sampling of a sinewave (<link target-id="element-624" strength="3"/>) x(t) having period <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadsfadaWgaaWcbaGaamiEaaqabaaaaa@37E8@</m:annotation>
+ </m:semantics>
+</m:math>
+ and frequency <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>1</m:mn><m:mo>/</m:mo><m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAeadaWgaaWcbaGaamiEaaqabaGccqGH9aqpcaaIXaGaai4laiaadsfadaWgaaWcbaGaamiEaaqabaaaaa@3C5A@</m:annotation>
+ </m:semantics>
+</m:math>
+ at the sampling rate 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> . Different authors use different symbols, this cause certain difficulty for readers. The figure shows the same sinewave but with 3 different sampling frequency <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4Caaqabaaaaa@37F5@</m:annotation>
+ </m:semantics>
+</m:math>
+. In the first case <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>8</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaI4aGaamOramaaBaaaleaacaWG4baabeaaaaa@3BBB@</m:annotation>
+ </m:semantics>
+</m:math>
+, the samples are quite close and represent very well the signal (from the samples we can reconstruct the signal). In the second case <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>4</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaI0aGaamOramaaBaaaleaacaWG4baabeaaaaa@3BB7@</m:annotation>
+ </m:semantics>
+</m:math>
+ , still the samples can represent the signal (imagine that we connect the successive sample values to get a triangular wave </para>
+      <figure id="element-624"><media id="id1165940353872" alt=""><image src="../../media/hv17.jpg" mime-type="image/jpeg" height="146" width="623"/></media>
+<caption> Sampling a sinewave of frequence f <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>1</m:mn><m:mo>/</m:mo><m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   <m:mi>F</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAeadaWgaaWcbaGaamiEaaqabaGccqGH9aqpcaaIXaGaai4laiaadsfadaWgaaWcbaGaamiEaaqabaGccaWGgbaaaa@3D2F@</m:annotation>
+ </m:semantics>
+</m:math> at different sampling rates <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4Caaqabaaaaa@37F5@</m:annotation>
+ </m:semantics>
+</m:math>
+
+ </caption>
+</figure><para id="id39317679">which is then passed through an analog lowpass filter to smooth out the wave form). In the last case <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>2</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>x</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaIYaGaamOramaaBaaaleaacaWG4baabeaaaaa@3BB5@</m:annotation>
+ </m:semantics>
+</m:math>
+ , the sampling rate is equal twice the signal frequency. This is the critical case: The samples may or may not represent the signal depending on positions of sampling points. </para>
+    </section>
+    <section id="id-677767276145">
+      <title>The sampling theorem</title>
+      <para id="id36793315">Let’s consider a certain continuous-time signal x(t) rpresenting certain information such as voice. Its magnitude frequency spectrum is assumed to be as in <link target-id="element-549" strength="3"/>a where FM is its maximum frequency. </para>
+      <figure id="element-549"><media id="id7969896" alt=""><image src="../../media/hv18.jpg" mime-type="image/jpeg" height="519" width="600"/></media>
+<caption> Two - side frequency spectrum of (a) the analog signal , (b) the samples when  <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>&gt;</m:mo><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>M</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH+aGpcaWGgbWaaSbaaSqaaiaad2eaaeqaaaaa@3AD0@</m:annotation>
+ </m:semantics>
+</m:math> , (c) the samples when <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>2</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>M</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaIYaGaamOramaaBaaaleaacaWGnbaabeaaaaa@3B8A@</m:annotation>
+ </m:semantics>
+</m:math> , (d) the samples when <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>&lt;</m:mo><m:mn>2</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>M</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH8aapcaaIYaGaamOramaaBaaaleaacaWGnbaabeaaaaa@3B88@</m:annotation>
+ </m:semantics>
+</m:math>
+
+
+ </caption>
+</figure><para id="id39048178">The signal is sampled by a sequence of narrow pulses <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>δ</m:mi><m:mi>t</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiabes7aKjaadshaaaa@3884@</m:annotation>
+ </m:semantics>
+</m:math>
+ of amplitude 1 as before. The Fourier series expansion (see <link document="m10837"> section </link>) of this sampling function is</para>
+      <para id="id37065386"><equation id="id00128">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mi>s</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mi>δ</m:mi><m:mi>t</m:mi>
+    </m:mrow>
+    <m:mi>T</m:mi>
+   </m:mfrac>
+   <m:mo>+</m:mo><m:mn>2</m:mn><m:mfrac>
+    <m:mrow>
+     <m:mi>δ</m:mi><m:mi>t</m:mi>
+    </m:mrow>
+    <m:mi>T</m:mi>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>m</m:mi><m:mo>=</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>cos</m:mi><m:mo>⁡</m:mo><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>m</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mi>t</m:mi>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadohacaGGOaGaamiDaiaacMcacqGH9aqpdaWcaaqaaiabes7aKjaadshaaeaacaWGubaaaiabgUcaRiaaikdadaWcaaqaaiabes7aKjaadshaaeaacaWGubaaamaaqahabaGaci4yaiaac+gacaGGZbGaaGOmaiabec8aWjaad2gacaWGMbWaaSbaaSqaaiaadohaaeqaaOGaamiDaaWcbaGaamyBaiabg2da9iaaigdaaeaacqGHEisPa0GaeyyeIuoaaaa@5298@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id38560762">Hence the samples are</para>
+      <para id="id28949205"><equation id="id00129">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:mover accent="true">
+    <m:mi>x</m:mi>
+    <m:mo stretchy="true">^</m:mo>
+   </m:mover>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>s</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:mfrac>
+    <m:mrow>
+     <m:mi>δ</m:mi><m:mi>t</m:mi>
+    </m:mrow>
+    <m:mi>T</m:mi>
+   </m:mfrac>
+   <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>+</m:mo><m:mn>2</m:mn><m:mfrac>
+    <m:mrow>
+     <m:mi>δ</m:mi><m:mi>t</m:mi>
+    </m:mrow>
+    <m:mi>T</m:mi>
+   </m:mfrac>
+   <m:mstyle displaystyle="true">
+    <m:munderover>
+     <m:mo>∑</m:mo>
+     <m:mrow>
+      <m:mi>m</m:mi><m:mo>=</m:mo><m:mn>1</m:mn>
+     </m:mrow>
+     <m:mi>∞</m:mi>
+    </m:munderover>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>cos</m:mi><m:mo>⁡</m:mo><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>m</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mi>t</m:mi>
+    </m:mrow>
+   </m:mstyle>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaamaaHaaabaGaamiEaaGaayPadaGaaiikaiaadshacaGGPaGaeyypa0JaamiEaiaacIcacaWG0bGaaiykaiaadohacaGGOaGaamiDaiaacMcacqGH9aqpdaWcaaqaaiabes7aKjaadshaaeaacaWGubaaaiaadIhacaGGOaGaamiDaiaacMcacqGHRaWkcaaIYaWaaSaaaeaacqaH0oazcaWG0baabaGaamivaaaadaaeWbqaaiaadIhacaGGOaGaamiDaiaacMcaciGGJbGaai4BaiaacohacaaIYaGaeqiWdaNaamyBaiaadAgadaWgaaWcbaGaam4CaaqabaGccaWG0baaleaacaWGTbGaeyypa0JaaGymaaqaaiabg6HiLcqdcqGHris5aaaa@619C@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id36592428">Where 
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mover accent="true">
+    <m:mi>x</m:mi>
+    <m:mo stretchy="true">^</m:mo>
+   </m:mover>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaamaaHaaabaGaamiEaaGaayPadaGaaiikaiaadshacaGGPaaaaa@39F7@</m:annotation>
+ </m:semantics>
+</m:math>
+ denotes the samples, its Fourier frequency spectrum is 
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mover accent="true">
+    <m:mi>X</m:mi>
+    <m:mo stretchy="true">^</m:mo>
+   </m:mover>
+   <m:mo stretchy="false">(</m:mo><m:mi>F</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaamaaHaaabaGaamiwaaGaayPadaGaaiikaiaadAeacaGGPaaaaa@39A9@</m:annotation>
+ </m:semantics>
+</m:math>.
+ Thus the spectrum of the sampled signal consists of that of the analog signal (with a multiplying factor <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>δ</m:mi><m:mi>t</m:mi><m:mo>/</m:mo><m:mi>T</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiabes7aKjaadshacaGGVaGaamivaaaa@3A10@</m:annotation>
+ </m:semantics>
+</m:math>
+) and its shifted versions to <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mo>±</m:mo><m:mn>2</m:mn><m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>±</m:mo><m:mn>3</m:mn><m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiabgglaXkaaikdacaWGMbWaaSbaaSqaaiaadohaaeqaaOGaaiilaiaaywW7cqGHXcqScaaIZaGaamOzamaaBaaaleaacaWGZbaabeaakiaac6cacaGGUaGaaiOlaaaa@43C1@</m:annotation>
+ </m:semantics>
+</m:math>
+ This spectrum can also obtain using the Fourier transform (see <link document="m10838"> section </link>) instead of the Fourier series.</para>
+      <para id="id37136466">In <link target-id="element-549" strength="3"/>b the spectrum bands do not overlap so we can recover the analog signal by lowpass filtering the central band, or bandpass filtering any other bands. <term> All the bands contain the same information but at different frequencies </term>. In <link target-id="element-549" strength="3"/>c we still can recover the signal but with a precise filter. In <link target-id="element-549" strength="3"/>d the bands overlap and we are in no way to recover the analog signal. So the limiting case is <link target-id="element-549" strength="3"/>c. From this observation, the sampling theoren states as follows.</para>
+      <para id="id36620461"><term> In order the samples represent correctly the analog signal, the sampling frequency must be greater than twice the maximum frequency of the analog signal:</term></para>
+      <para id="id39162220"><equation id="id00130">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>&gt;</m:mo><m:mn>2</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>M</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH+aGpcaaIYaGaamOramaaBaaaleaacaWGnbaabeaaaaa@3B8C@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id38544144">The limiting frequency 2<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>M</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAeadaWgaaWcbaGaamytaaqabaaaaa@37AF@</m:annotation>
+ </m:semantics>
+</m:math>
+ is called <term> Nyquist rate </term>, and the central frequency interval (-<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4Caaqabaaaaa@37F5@</m:annotation>
+ </m:semantics>
+</m:math>
+/2, <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4Caaqabaaaaa@37F5@</m:annotation>
+ </m:semantics>
+</m:math>
+/2) is called the <term> Nyquist interval </term>.</para>
+      <para id="id37105304">For example if a waveform contains the fundamental frequency of 1 kHz and a second harmonic 2 kHz, then the sampling rate must be greater than 2 x 2 kHz = 4 kHz, say 5 kHz or more. Another example is for the voice in the telephone system. The voice is limited by a high quality analog filter at <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>F</m:mi>
+    <m:mi>M</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAeadaWgaaWcbaGaamytaaqabaaaaa@37AF@</m:annotation>
+ </m:semantics>
+</m:math>
+ = 3.4 kHz, then the sampling frequency must be greater than 2 x 3.4 = 6.8 kHz, say 8 kHz or more.</para>
+      <para id="id33373753">In the case of <link target-id="element-549" strength="3"/>d there is a phenomenon called <term> aliasing </term> that will be discussed next.</para>
+    </section>
+    <section id="id-434379661542">
+      <title>Aliasing</title>
+      <para id="id37161418">We would like to know what happens when the signal is sampled below the Nyquist rate, i.e. the sampling theorem is not satisfied. Look at <link target-id="element-600" strength="3"/>. The low-frequency signal    <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGymaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A26@</m:annotation>
+ </m:semantics>
+</m:math>
+is sampled 4 times at <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>3</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadofadaWgaaWcbaGaaGymaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaGOmaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaG4maaqabaaaaa@3FB4@</m:annotation>
+ </m:semantics>
+</m:math>
+ and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>4</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadofadaWgaaWcbaGaaGinaaqabaaaaa@37A8@</m:annotation>
+ </m:semantics>
+</m:math>
+ in a period of the signal, i.e <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>4</m:mn><m:msub>
+    <m:mi>F</m:mi>
+    <m:mrow>
+     <m:mi>x</m:mi><m:mn>1</m:mn>
+    </m:mrow>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaI0aGaamOramaaBaaaleaacaWG4bGaaGymaaqabaaaaa@3C72@</m:annotation>
+ </m:semantics>
+</m:math>
+. From these samples we would be able to recover <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGymaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A26@</m:annotation>
+ </m:semantics>
+</m:math>
+. For the high-frequency signal <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGOmaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A27@</m:annotation>
+ </m:semantics>
+</m:math>
+ there are the same 4 samples <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>3</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadofadaWgaaWcbaGaaGymaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaGOmaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaG4maaqabaaaaa@3FB4@</m:annotation>
+ </m:semantics>
+</m:math>
+ and <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>4</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadofadaWgaaWcbaGaaGinaaqabaaaaa@37A8@</m:annotation>
+ </m:semantics>
+</m:math>
+ in its 9 cycles, so the sampling frequency is just (4/9)
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>F</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">x2</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{F rSub { size 8{x2} } } {}</m:annotation></m:semantics></m:math> i.e. under the Nyquist rate. From these sample points of <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGOmaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A27@</m:annotation>
+ </m:semantics>
+</m:math>
+ we will recover <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGymaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A26@</m:annotation>
+ </m:semantics>
+</m:math>
+ and not the correct <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGOmaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A27@</m:annotation>
+ </m:semantics>
+</m:math>
+. Thus the high frequency signal when undersampled will be recovered as a low-frequency signal. This phenomenon is called <term> aliasing </term> , and the recovered low frequency, which is false, is called the <term> alias </term> of the original high-frequency signal.</para>
+      <figure id="element-600"><media id="id7892507" alt=""><image src="../../media/hv19.jpg" mime-type="image/jpeg" height="148" width="612"/></media>
+<caption> The low-frequency signal <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGymaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A26@</m:annotation>
+ </m:semantics>
+</m:math> and the high - frequency signal <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaaGOmaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A27@</m:annotation>
+ </m:semantics>
+</m:math> are sampled at the same points <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>1</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>2</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>3</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>4</m:mn>
+   </m:msub>
+   <m:mo>,</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>S</m:mi>
+    <m:mn>5</m:mn>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadofadaWgaaWcbaGaaGymaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaGOmaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaG4maaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaGinaaqabaGccaGGSaGaaGjbVlaadofadaWgaaWcbaGaaGynaaqabaaaaa@47C7@</m:annotation>
+ </m:semantics>
+</m:math>
+
+
+ </caption>
+</figure><para id="id36869368">To avoid the aliasing there are two approaches: One is to raise the sampling frequency to satisfy the sampling theorem, the other is to filter off the unecessary high-frequency component from the continuous-time signal. We limit the signal frequency by an effective lowpass filter, called <term> antialiasing prefilter </term>, so that the remained highest frequency is less than half of the intended sampling rate. If the filter is not perfect we must give some allowance. For example in voice processing, if the lowpass filter still allows frequencies above 3,4kHz go through even at small amplitude, the sampling frequency should be 10 kHz or more instead of 8 kHz.</para>
+      <para id="id28959371">The aliasing phenomenon can be shown mathematically. Let’s consider a complex exponential signal at frequency F which is sampled at interwal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> to yield the samples x(nT
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mrow/><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {} rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math>):</para>
+      <para id="id37855146"><m:math display="block">
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>x</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>t</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:msup>
+                        <m:mi>e</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi fontstyle="italic">j2π</m:mi>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Ft</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{x \( t \) =e rSup { size 8{j2π ital "Ft"} } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mo stretchy="false">⇒</m:mo>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{ drarrow } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mi>x</m:mi>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mstyle fontstyle="italic">
+                      <m:mrow>
+                        <m:msub>
+                          <m:mtext>nT</m:mtext>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>s</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:msup>
+                        <m:mi>e</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi fontstyle="italic">j2π</m:mi>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msub>
+                                    <m:mtext>FnT</m:mtext>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mi>s</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{x \(  ital "nT" rSub { size 8{s} }  \) =e rSup { size 8{j2π ital "FnT" rSub { size 6{s} } } } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </para>
+      <para id="id39057611">Now consider other signals at frequency <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>F</m:mi><m:mo>±</m:mo><m:mi>m</m:mi><m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAeacqGHXcqScaWGTbGaamOzamaaBaaaleaacaWGZbaabeaaaaa@3BA0@</m:annotation>
+ </m:semantics>
+</m:math>
+, m = 0, 1, 2 … sampled to give <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mi>m</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mi>T</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaamyBaaqabaGccaGGOaGaamOBaiaadsfacaGGPaaaaa@3B30@</m:annotation>
+ </m:semantics>
+</m:math>
+:</para>
+      <para id="id38287908"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mi>m</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mo stretchy="false">(</m:mo><m:mi>F</m:mi><m:mo>±</m:mo><m:mi>m</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:msup>
+   <m:mtext> </m:mtext><m:mo>⇒</m:mo><m:mtext> </m:mtext><m:msub>
+    <m:mi>x</m:mi>
+    <m:mi>m</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mi>T</m:mi><m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mo stretchy="false">(</m:mo><m:mi>F</m:mi><m:mo>±</m:mo><m:mi>m</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mo stretchy="false">)</m:mo><m:mi>n</m:mi><m:mi>T</m:mi>
+    </m:mrow>
+   </m:msup>
+   
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaamyBaaqabaGccaGGOaGaamiDaiaacMcacqGH9aqpcaWGLbWaaWbaaSqabeaacaWGQbGaaGOmaiabec8aWjaacIcacaWGgbGaeyySaeRaamyBaiaadAgadaWgaaadbaGaam4CaaqabaWccaGGPaaaaOGaaGjbVlabgkDiElaaysW7caWG4bWaaSbaaSqaaiaad2gaaeqaaOGaaiikaiaad6gacaWGubGaaiykaiabg2da9iaadwgadaahaaWcbeqaaiaadQgacaaIYaGaeqiWdaNaaiikaiaadAeacqGHXcqScaWGTbGaamOzamaaBaaameaacaWGZbaabeaaliaacMcacaWGUbGaamivaaaaaaa@603C@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <para id="id38488606">Because </para>
+      <para id="id39240062"><m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>1</m:mn><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>a</m:mi><m:mi>n</m:mi><m:mi>d</m:mi><m:mtext> </m:mtext><m:mtext> </m:mtext><m:mtext> </m:mtext><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>m</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mi>n</m:mi><m:msub>
+      <m:mi>T</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     
+    </m:mrow>
+   </m:msup>
+   <m:mo>=</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>m</m:mi><m:mi>n</m:mi>
+    </m:mrow>
+   </m:msup>
+   <m:mo>=</m:mo><m:mn>1</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccaWGubWaaSbaaSqaaiaadohaaeqaaOGaeyypa0JaaGymaiaaywW7caaMf8UaaGzbVlaadggacaWGUbGaamizaiaaywW7caaMf8UaaGzbVlaadwgadaahaaWcbeqaaiaadQgacaaIYaGaeqiWdaNaamyBaiaadAgadaWgaaadbaGaam4CaaqabaWccaWGUbGaamivamaaBaaameaacaWGZbaabeaaaaGccqGH9aqpcaWGLbWaaWbaaSqabeaacaWGQbGaaGOmaiabec8aWjaad2gacaWGUbaaaOGaeyypa0JaaGymaaaa@5B99@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      <para id="id37855057">then</para>
+      <para id="id38394947"><equation id="id00131">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>X</m:mi>
+    <m:mi>m</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:msub>
+    <m:mi>T</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">)</m:mo><m:mo>=</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mo stretchy="false">(</m:mo><m:mi>F</m:mi><m:mo>+</m:mo><m:mi>m</m:mi><m:msub>
+      <m:mi>f</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mo stretchy="false">)</m:mo>
+    </m:mrow>
+   </m:msup>
+   <m:mo>=</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>f</m:mi><m:mi>n</m:mi><m:msub>
+      <m:mi>T</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     
+    </m:mrow>
+   </m:msup>
+   <m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>m</m:mi><m:msub>
+      <m:mi>F</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     <m:mi>n</m:mi><m:msub>
+      <m:mi>T</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     
+    </m:mrow>
+   </m:msup>
+   <m:mo>=</m:mo><m:msup>
+    <m:mi>e</m:mi>
+    <m:mrow>
+     <m:mi>j</m:mi><m:mn>2</m:mn><m:mi>π</m:mi><m:mi>F</m:mi><m:mi>n</m:mi><m:msub>
+      <m:mi>T</m:mi>
+      <m:mi>s</m:mi>
+     </m:msub>
+     
+    </m:mrow>
+   </m:msup>
+   <m:mo>=</m:mo><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>n</m:mi><m:mi>T</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIfadaWgaaWcbaGaamyBaaqabaGccaGGOaGaamOBaiaadsfadaWgaaWcbaGaam4CaaqabaGccaGGPaGaeyypa0JaamyzamaaCaaaleqabaGaamOAaiaaikdacqaHapaCcaGGOaGaamOraiabgUcaRiaad2gacaWGMbWaaSbaaWqaaiaadohaaeqaaSGaaiykaaaakiabg2da9iaadwgadaahaaWcbeqaaiaadQgacaaIYaGaeqiWdaNaamOzaiaad6gacaWGubWaaSbaaWqaaiaadohaaeqaaaaakiaadwgadaahaaWcbeqaaiaadQgacaaIYaGaeqiWdaNaamyBaiaadAeadaWgaaadbaGaam4CaaqabaWccaWGUbGaamivamaaBaaameaacaWGZbaabeaaaaGccqGH9aqpcaWGLbWaaWbaaSqabeaacaWGQbGaaGOmaiabec8aWjaadAeacaWGUbGaamivamaaBaaameaacaWGZbaabeaaaaGccqGH9aqpcaWGybGaaiikaiaad6gacaWGubGaaiykaaaa@6A05@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id39239818">This result means that two signals <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>x</m:mi>
+    <m:mi>m</m:mi>
+   </m:msub>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadIhadaWgaaWcbaGaamyBaaqabaGccaGGOaGaamiDaiaacMcaaaa@3A5D@</m:annotation>
+ </m:semantics>
+</m:math>
+ and x(t) at different frequencies have the same samples. When we recover the signals from these samples then those signals lie within the Nyquist interval [-fs/2, fs/2] (<link target-id="element-549" strength="3"/>b) are recovered correctly, whereas the signals having frequencies outside the Nyquist interval may be aliased into this interval. In general, for an analog signal of frequency F sampled at the sampling rate fs , first we add and subltract frequencies as follows:</para>
+      <para id="id34354394"><equation id="id00132">
+<m:math display="block">
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mn>0</m:mn>
+   </m:msub>
+   <m:mo>=</m:mo><m:mi>F</m:mi><m:mo>±</m:mo><m:mi>m</m:mi><m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2</m:mn><m:mo>,</m:mo><m:mn>...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaaGimaaqabaGccqGH9aqpcaWGgbGaeyySaeRaamyBaiaadAgadaWgaaWcbaGaam4CaaqabaGccaaMf8UaaGzbVlaad2gacqGH9aqpcaaIWaGaaiilaiaaysW7caaIXaGaaiilaiaaysW7caaIYaGaaiilaiaac6cacaGGUaGaaiOlaaaa@4D10@</m:annotation>
+ </m:semantics>
+</m:math>
+</equation></para>
+      <para id="id38560593">and then look for the frequencies lying within the Nyquist interval, they are the reconstructed frequencies.</para>
+      <example id="element-351"><para id="element-698">A signal at frequency 50Hz is sampled at 80Hz. What frequency will be recovered ? Repeat when it is sampled at 120Hz.
+</para>
+</example>
+      
+      <para id="id34286861"><term> Solution </term></para>
+      <para id="id38216212">With F = 50Hz, <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>80</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaI4aGaaGimaaaa@3A81@</m:annotation>
+ </m:semantics>
+</m:math>
+Hz, the signal is undersampled (not satisfied the sampling theorem). The Nyquist interval is [-40Hz, 40Hz]. The samples do not only represent the frequency F = 50Hz but all frequencies <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mi>F</m:mi><m:mo>±</m:mo><m:mi>m</m:mi><m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>100</m:mn><m:mo>±</m:mo><m:mi>m</m:mi><m:mn>80</m:mn><m:mtext> </m:mtext><m:mo>,</m:mo><m:mtext> </m:mtext><m:mi>m</m:mi><m:mo>=</m:mo><m:mn>0</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>1</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>2...</m:mn><m:mo>,</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAeacqGHXcqScaWGTbGaamOzamaaBaaaleaacaWGZbaabeaakiabg2da9iaaigdacaaIWaGaaGimaiabgglaXkaad2gacaaI4aGaaGimaiaaysW7caGGSaGaaGjbVlaad2gacqGH9aqpcaaIWaGaaiilaiaaysW7caaIXaGaaiilaiaaysW7caaIYaGaaiOlaiaac6cacaGGUaGaaiilaaaa@526E@</m:annotation>
+ </m:semantics>
+</m:math>
+ i.e. the frequencies</para>
+      <para id="id39060218"><m:math display="block">
+ <m:semantics>
+  <m:mtable columnalign="left">
+   <m:mtr>
+    <m:mtd>
+     <m:msub>
+      <m:mi>f</m:mi>
+      <m:mn>0</m:mn>
+     </m:msub>
+     <m:mo>=</m:mo><m:mn>50</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>50</m:mn><m:mo>±</m:mo><m:mn>80</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>50</m:mn><m:mo>±</m:mo><m:mn>160</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>50</m:mn><m:mo>±</m:mo><m:mn>240...</m:mn>
+    </m:mtd>
+   </m:mtr>
+   <m:mtr>
+    <m:mtd>
+     <m:mtext> </m:mtext><m:mtext> </m:mtext><m:mo>=</m:mo><m:mn>50</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>130</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>30</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>210</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>110</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>290</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>190...</m:mn>
+    </m:mtd>
+   </m:mtr>
+  </m:mtable>
+  
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOabaeqabaGaamOzamaaBaaaleaacaaIWaaabeaakiabg2da9iaaiwdacaaIWaGaaiilaiaaysW7caaI1aGaaGimaiabgglaXkaaiIdacaaIWaGaaiilaiaaysW7caaI1aGaaGimaiabgglaXkaaigdacaaI2aGaaGimaiaacYcacaaMe8UaaGynaiaaicdacqGHXcqScaaIYaGaaGinaiaaicdacaGGUaGaaiOlaiaac6caaeaacaaMf8UaaGjbVlabg2da9iaaiwdacaaIWaGaaiilaiaaysW7caaIXaGaaG4maiaaicdacaGGSaGaaGjbVlabgkHiTiaaiodacaaIWaGaaiilaiaaysW7caaIYaGaaGymaiaaicdacaGGSaGaaGjbVlabgkHiTiaaigdacaaIXaGaaGimaiaacYcacaaMe8UaaGOmaiaaiMdacaaIWaGaaiilaiaaysW7cqGHsislcaaIXaGaaGyoaiaaicdacaGGUaGaaiOlaiaac6caaaaa@778E@</m:annotation>
+ </m:semantics>
+</m:math>
+</para>
+      
+      <para id="id35607779">Only the frequency -30Hz lies within the Nyquist interval, then the recovered signal will be -30Hz (30Hz and phase reversal). This signal is the alias of the original signal at 50Hz. Notice that 30Hz is just the difference 80Hz – 50Hz</para>
+      <para id="id36805910">Now, the sampling frequency is 120Hz, the sampling theorem is statisfied, then the original frequency of 50Hz will be recovered. None of other frequencies <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mn>0</m:mn>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>50</m:mn><m:mo>±</m:mo><m:mi>m</m:mi><m:mn>120</m:mn><m:mo>=</m:mo><m:mn>50</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>170</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>70</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mn>290</m:mn><m:mo>,</m:mo><m:mtext> </m:mtext><m:mo>−</m:mo><m:mn>190...</m:mn>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaaGimaaqabaGccqGH9aqpcaaI1aGaaGimaiabgglaXkaad2gacaaIXaGaaGOmaiaaicdacqGH9aqpcaaI1aGaaGimaiaacYcacaaMe8UaaGymaiaaiEdacaaIWaGaaiilaiaaysW7cqGHsislcaaI3aGaaGimaiaacYcacaaMe8UaaGOmaiaaiMdacaaIWaGaaiilaiaaysW7cqGHsislcaaIXaGaaGyoaiaaicdacaGGUaGaaiOlaiaac6caaaa@56D6@</m:annotation>
+ </m:semantics>
+</m:math>
+ … lie in the Nyquist interval [-60hZ, 60Hz], except the original frequency of 50Hz as already known.</para>
+      <example id="element-390"><para id="element-443">A DSP system uses the sampling frequency <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>20</m:mn><m:mi>k</m:mi><m:mi>H</m:mi><m:mi>z</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaIYaGaaGimaiaadUgacaWGibGaamOEaaaa@3D37@</m:annotation>
+ </m:semantics>
+</m:math>
+ to process audio signal frequency-limited at 10 kHz, but the lowpass filter still alows frequencies up to 30 khz pass through even at small amplitudes. What signal will we get back from the samples?
+</para>
+</example>
+      
+      <para id="id39234775"><term> Solution </term></para>
+      <para id="id38585121">For sampling rate <m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:msub>
+    <m:mi>f</m:mi>
+    <m:mi>s</m:mi>
+   </m:msub>
+   <m:mo>=</m:mo><m:mn>20</m:mn><m:mi>k</m:mi><m:mi>H</m:mi><m:mi>z</m:mi>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaaiaadAgadaWgaaWcbaGaam4CaaqabaGccqGH9aqpcaaIYaGaaGimaiaadUgacaWGibGaamOEaaaa@3D37@</m:annotation>
+ </m:semantics>
+</m:math>
+, the Nyquist interval is [-10kHz, 10kHz]. Thus the audio frequency 0 – 10kHz will be recovered as is. The audio frequency from 10 – 20kHz will be aliased into the frequency range 10 – 0kHz, and the audio the audio frequency from 20 – 30kHz will be aliased into the frequency range 0 – 10kHz. The resulting audio will be distorted due to the superposition of the 3 frequency bands.</para>
+      <para id="id30677792">We end up this section with the block diagram of the general complete DSP system (Fig.1.20). The digital signal output y(n) from the DSP unit is converted by the digital-to-analog converter (DAC or D/A) back to a coarse analog signal which is then lowpass filtered in the <term> postfilter </term>. The finally reconstructed analog signal 
+<m:math>
+ <m:semantics>
+  <m:mrow>
+   <m:mover accent="true">
+    <m:mi>x</m:mi>
+    <m:mo stretchy="true">^</m:mo>
+   </m:mover>
+   <m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo>
+  </m:mrow>
+ <m:annotation encoding="MathType-MTEF">
+ MathType@MTEF@5@5@+=feaagaart1ev2aaatCvAUfeBSjuyZL2yd9gzLbvyNv2CaerbuLwBLnhiov2DGi1BTfMBaeXatLxBI9gBaerbd9wDYLwzYbItLDharqqtubsr4rNCHbGeaGqiVCI8FfYJH8YrFfeuY=Hhbbf9v8qqaqFr0xc9pk0xbba9q8WqFfeaY=biLkVcLq=JHqpepeea0=as0Fb9pgeaYRXxe9vr0=vr0=vqpWqadeqabiGaciaacaqabeaadaqaaqaaaOqaamaaHaaabaGaamiEaaGaayPadaGaaiikaiaadshacaGGPaaaaa@39F7@</m:annotation>
+ </m:semantics>
+</m:math>
+ is, ideally, the same as the original input x(t).</para><figure id="element-847"><media id="id1165946894280" alt=""><image src="../../media/hv20.jpg" mime-type="image/jpeg" height="279" width="541"/></media>
+<caption> Block diagram of general complete DSP system </caption>
+</figure>
+    </section>
+  </content>
+</document>

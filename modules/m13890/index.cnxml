@@ -1,0 +1,650 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+  <title>m19 - Wavlet-Based Signal Analysis</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>ad8678f6-e754-4224-838c-fc710115d9b3</md:uuid>
+</metadata>
+  <content>
+<para id="id11342723">
+   
+   
+</para>
+<section id="id16705984">
+<title>Wavelet-Based Signal Analysis</title>
+<para id="id8163685">
+   
+</para>
+<para id="id19082649">
+   There are wavelet systems and transforms analogous to the DFT, Fourier series,
+   discrete-time Fourier transform, and the Fourier integral. We will start with
+   the discrete wavelet transform (DWT) which is analogous to the Fourier series
+   and probably should be called the wavelet series
+   <cite target-id="md5c058d94e0f59018ace29a809a2f50747"/>. Wavelet
+   analysis can be a form of time-frequency analysis which locates energy or
+   events in time and frequency (or scale) simultaneously. It is somewhat similar
+   to what is called a short-time Fourier transform or a Gabor transform or a
+   windowed Fourier transform.
+</para>
+<para id="id11332453">
+   The history of wavelets and wavelet based signal processing is fairly recent.
+   Its roots in signal expansion go back to early geophysical and image
+   processing methods and in DSP to filter bank theory and subband coding. The
+   current high interest probably started in the late 1980's with the work of
+   Mallat, Daubechies, and others. Since then, the amount of research,
+   publication, and application has exploded. Two excellent descriptions of the
+   history of wavelet research and development are by Hubbard
+   <cite target-id="md51d902a2e0a226b6ab2d4e91cabf89d94"/> and by
+   Daubechies <cite target-id="md56ff71831d81673b5acfa6368212cc84f"/> and a
+   projection into the future by Sweldens
+   <cite target-id="md546c8cab69cdb6b30a5bdf73a34f2b46f"/> and Burrus
+   <cite target-id="md512018ac0cee9b84edcc0d8b481413087"/>.
+</para>
+<section id="id19205034">
+<title>The Basic Wavelet Theory</title>
+<para id="id11284220">
+   The ideas and foundations of the basic dyadic, multiresolution wavelet systems
+   are now pretty well developed, understood, and available
+   <cite target-id="md5c058d94e0f59018ace29a809a2f50747"/><cite target-id="md5fafe1b60c24107ccd8f4562213e44849"/><cite target-id="md5153b1a4ba93f1facb16facdf8c9fcc93"/><cite target-id="md5390eae1af4170f7ddfb1e5010a6ff7dd"/>.
+   The first basic requirement is that a set of expansion
+   functions (usually a basis) are generated from a single ``mother'' function by
+   translation and scaling. For the discrete wavelet expansion system, this is
+</para>
+<para id="id15510721">
+   
+<equation id="md5ed0cf16857940e43771275d92b70bc37">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:msub>
+           <m:mi>φ</m:mi>
+           <m:mrow>
+             <m:mi>j</m:mi>
+             <m:mo form="infix">,</m:mo>
+             <m:mi>k</m:mi>
+           </m:mrow>
+         </m:msub>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>t</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">=</m:mo>
+       <m:mrow>
+         <m:mi>φ</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mrow>
+             <m:mrow>
+               <m:msup>
+                 <m:mn>2</m:mn>
+                 <m:mi>j</m:mi>
+               </m:msup>
+               <m:mo/>
+               <m:mi>t</m:mi>
+             </m:mrow>
+             <m:mo form="infix">−</m:mo>
+             <m:mi>k</m:mi>
+           </m:mrow>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id19177806">
+   where
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>j</m:mi>
+       <m:mo form="infix">,</m:mo>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>
+   are integer indices for the series expansion of the form
+</para>
+<para id="id19510522">
+   
+<equation id="md5b9a17ac10cf9a88069dcf378f23c02dd">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>f</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>t</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:munder>
+             <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+             <m:mrow>
+               <m:mi>j</m:mi>
+               <m:mo form="infix">,</m:mo>
+               <m:mi>k</m:mi>
+             </m:mrow>
+           </m:munder>
+           <m:mrow>
+             <m:msub>
+               <m:mi>c</m:mi>
+               <m:mrow>
+                 <m:mi>j</m:mi>
+                 <m:mo form="infix">,</m:mo>
+                 <m:mi>k</m:mi>
+               </m:mrow>
+             </m:msub>
+             <m:mo/>
+             <m:mrow>
+               <m:msub>
+                 <m:mi>φ</m:mi>
+                 <m:mrow>
+                   <m:mi>j</m:mi>
+                   <m:mo form="infix">,</m:mo>
+                   <m:mi>k</m:mi>
+                 </m:mrow>
+               </m:msub>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mi>t</m:mi>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">.</m:mo>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id11203311">
+   The coefficients
+   <m:math display="inline">
+     <m:mrow>
+       <m:msub>
+         <m:mi>c</m:mi>
+         <m:mrow>
+           <m:mi>j</m:mi>
+           <m:mo form="infix">,</m:mo>
+           <m:mi>k</m:mi>
+         </m:mrow>
+       </m:msub>
+     </m:mrow>
+   </m:math>
+   are called the discrete wavelet transform of the signal
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>f</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>t</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   This use of translation and scale to create an expansion system is the
+   foundation of all so-called first generation wavelets
+   <cite target-id="md546c8cab69cdb6b30a5bdf73a34f2b46f"/>.
+</para>
+<para id="id7838380">
+   The system is somewhat similar to the Fourier series described in
+   (<link target-id="md58a8bb7cd343aa2ad99b7d762030857a2"/>) with
+   frequencies being related by powers of two rather than an integer multiple and
+   the translation by
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>k</m:mi>
+     </m:mrow>
+   </m:math>
+   giving only the two results of cosine and sine for the Fourier series.
+</para>
+<para id="id11342525">
+   The second almost universal requirement is that the
+   wavelet system generates a multiresolution analysis (MRA). This means that a
+   low resolution function (low scale
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>j</m:mi>
+     </m:mrow>
+   </m:math>)
+   can be expanded in terms of the same function at a higher resolution (higher
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>j</m:mi>
+     </m:mrow>
+   </m:math>).
+   This is stated by requiring that the generator of a MRA wavelet system, called
+   a scaling function
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>φ</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>t</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>,
+   satisfies
+</para>
+<para id="id11328225">
+   
+<equation id="md599c91b979d234058c005ea53bf19594d">
+<m:math display="block" mode="display">
+     <m:mrow>
+       <m:mrow>
+         <m:mrow>
+           <m:mi>φ</m:mi>
+           <m:mo/>
+           <m:mrow>
+             <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+             <m:mi>t</m:mi>
+             <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+           </m:mrow>
+         </m:mrow>
+         <m:mo form="infix">=</m:mo>
+         <m:mrow>
+           <m:munder>
+             <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+             <m:mi>n</m:mi>
+           </m:munder>
+           <m:mrow>
+             <m:mrow>
+               <m:mi>h</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mi>n</m:mi>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+             <m:mo/>
+             <m:mrow>
+               <m:mi>φ</m:mi>
+               <m:mo/>
+               <m:mrow>
+                 <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                 <m:mrow>
+                   <m:mrow>
+                     <m:mn>2</m:mn>
+                     <m:mo/>
+                     <m:mi>t</m:mi>
+                   </m:mrow>
+                   <m:mo form="infix">−</m:mo>
+                   <m:mi>n</m:mi>
+                 </m:mrow>
+                 <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+               </m:mrow>
+             </m:mrow>
+           </m:mrow>
+         </m:mrow>
+       </m:mrow>
+       <m:mo form="infix">.</m:mo>
+     </m:mrow>
+   </m:math>
+</equation>
+</para>
+<para id="id8958206">
+   This equation, called the refinement equation or the
+   MRA equation or basic recursion
+   equation, is similar to a differential equation in that its solution is
+   what defines the basic scaling function and wavelet
+   <cite target-id="md56459e395c667de8d34b686aa78ec7663"/><cite target-id="md5c058d94e0f59018ace29a809a2f50747"/>.
+</para>
+<para id="id18420002">
+   The current state of the art is that most of the necessary and sufficient
+   conditions on the coefficients
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>h</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>n</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   are known for the existence, uniqueness, orthogonality, and other properties
+   of
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>φ</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+         <m:mi>t</m:mi>
+         <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+       </m:mrow>
+     </m:mrow>
+   </m:math>.
+   Some of the theory parallels Fourier theory and some does not.
+</para>
+<para id="id11287859">
+   A third important feature of a MRA wavelet system is a
+   discrete wavelet transform (DWT) can be calculated by a digital filter bank
+   using what is now called Mallat's algorithm. Indeed, this connection with
+   digital signal processing (DSP) has been a rich source of ideas and methods.
+   With this filter bank, one can calculate the DWT of a length-N digital signal
+   with order N operations. This means the number of multiplications and
+   additions grows only linearly with the length of the signal. This compares
+   with
+   <m:math display="inline">
+     <m:mrow>
+       <m:mi>N</m:mi>
+       <m:mo/>
+       <m:mrow>
+         <m:mi mathcolor="gray">log</m:mi>
+         <m:mo/>
+         <m:mrow>
+           <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+           <m:mi>N</m:mi>
+           <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+         </m:mrow>
+       </m:mrow>
+     </m:mrow>
+   </m:math>
+   for an FFT and
+   <m:math display="inline">
+     <m:mrow>
+       <m:msup>
+         <m:mi>N</m:mi>
+         <m:mn>2</m:mn>
+       </m:msup>
+     </m:mrow>
+   </m:math>
+   for most methods and worse than that for some others.
+</para>
+<para id="id10696459">
+   These basic ideas came from the work of Meyer, Daubechies, Mallat, and others
+   but for a time looked like a solution looking for a problem. Then a second
+   phase of research showed there are many problems to which the wavelet is an
+   excellent solution. In particular, the results of Donoho, Johnstone, Coifman,
+   Beylkin, and others opened another set of doors.
+</para>
+</section>
+<section id="id10696463">
+<title>Generalization of the Basic Wavelet System</title>
+<para id="id19240252">
+   After (in some cases during) much of the development of the above basic ideas,
+   a number of generalizations
+   <cite target-id="md5c058d94e0f59018ace29a809a2f50747"/> were made. They
+   are listed below:
+</para>
+<list list-type="enumerated" id="list0001">
+   <item>
+      
+         A larger integer scale factor than
+         <m:math display="inline">
+     <m:mrow>
+       <m:mi>M</m:mi>
+       <m:mo form="infix">=</m:mo>
+       <m:mn>2</m:mn>
+     </m:mrow>
+   </m:math>
+         can be used to give a more general M-band refinement
+         equation <cite target-id="md57e81edc9c9857c84e30f1e99ac2a50cc"/>
+      
+      
+         
+<equation id="md554f7e155c209a17bef41dba19da53dc2">
+<m:math display="block" mode="display">
+        <m:mrow>
+          <m:mrow>
+            <m:mi>φ</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+              <m:mi>t</m:mi>
+              <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+            </m:mrow>
+          </m:mrow>
+          <m:mo form="infix">=</m:mo>
+          <m:mrow>
+            <m:munder>
+              <m:mo form="prefix" largeop="true" movablelimits="true">∑</m:mo>
+              <m:mi>n</m:mi>
+            </m:munder>
+            <m:mrow>
+              <m:mrow>
+                <m:mi>h</m:mi>
+                <m:mo/>
+                <m:mrow>
+                  <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                  <m:mi>n</m:mi>
+                  <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                </m:mrow>
+              </m:mrow>
+              <m:mo/>
+              <m:mrow>
+                <m:mi>φ</m:mi>
+                <m:mo/>
+                <m:mrow>
+                  <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>M</m:mi>
+                      <m:mo/>
+                      <m:mi>t</m:mi>
+                    </m:mrow>
+                    <m:mo form="infix">−</m:mo>
+                    <m:mi>n</m:mi>
+                  </m:mrow>
+                  <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+                </m:mrow>
+              </m:mrow>
+            </m:mrow>
+          </m:mrow>
+        </m:mrow>
+      </m:math>
+</equation>
+      
+      
+         than the ``dyadic" or octave based equation
+         (<link target-id="md599c91b979d234058c005ea53bf19594d"/>). This also
+         gives more than two channels in the accompanying filter bank. It allows a
+         uniform frequency resolution rather than the resulting logarithmic one for
+         <m:math display="inline">
+        <m:mrow>
+          <m:mi>M</m:mi>
+          <m:mo form="infix">=</m:mo>
+          <m:mn>2</m:mn>
+        </m:mrow>
+      </m:math>.
+      
+   </item>
+   <item>
+      
+         The wavelet system called a wavelet packet is
+         generated by ``iterating" the wavelet branches of the filter bank to give a
+         finer resolution to the wavelet decomposition. This was suggested by Coifman
+         and it too allows a mixture of uniform and logarithmic frequency resolution.
+         It also allows a relatively simple adaptive system to be developed which has
+         an automatically adjustable frequency resolution based on the properties of
+         the signal.
+      
+   </item>
+   <item>
+      
+         The usual requirement of translation orthogonality of the scaling function and
+         wavelets can be relaxed to give what is called a biorthogonal
+         system <cite target-id="md50211cc06bd0a0be87efa1e9621f66e1c"/>.
+         If the expansion basis is not orthogonal, a dual basis can be created that
+         will allow the usual expansion and coefficient calculations to be made. The
+         main disadvantage is the loss of a Parseval's theorem which maintains energy
+         partitioning. Nevertheless, the greater flexibility of the biorthogonal system
+         allows superior performance in many compression and denoising applications.
+      
+   </item>
+   <item>
+      
+         The basic refinement equation
+         (<link target-id="md599c91b979d234058c005ea53bf19594d"/>) gives the
+         scaling function in terms of a compressed version of itself (self-similar). If
+         we allow two (or more) scaling functions, each being a weighted sum of a
+         compress version of both, a more general set of basis functions results. This
+         can be viewed as a vector of scaling functions with the coefficients being a
+         matrix now. Once again, this generalization allows more flexibility in the
+         characteristics of the individual scaling functions and their related
+         multi-wavelets. These are called multi-wavelet systems
+         and are still being developed.
+      
+   </item>
+   <item>
+      
+         One of the very few disadvantages of the discrete wavelet transform is the
+         fact it is not shift invariant. In other words, if you shift a signal in time,
+         its wavelet transform not only shifts, it changes character! For many
+         applications in denoising and compression, this is not desirable although it
+         may be tolerable. The DWT can be made shift-invariant
+         by calculating the DWT of a signal for all possible shifts and adding (or
+         averaging) the results. That turns out to be equivalent to removing all of the
+         down-samplers in the associated filter bank (an undecimated
+         filter bank), which is also equivalent to building an overdetermined or
+         redundant DWT from a traditional wavelet basis. This
+         overcomplete system is similar to a ``tight frame" and maintains most of the
+         features of an orthogonal basis yet is shift invariant. It does, however,
+         require
+         <m:math display="inline">
+        <m:mrow>
+          <m:mi>N</m:mi>
+          <m:mo/>
+          <m:mrow>
+            <m:mi mathcolor="gray">log</m:mi>
+            <m:mo/>
+            <m:mrow>
+              <m:mo fence="true" form="prefix" stretchy="false">(</m:mo>
+              <m:mi>N</m:mi>
+              <m:mo fence="true" form="postfix" stretchy="false">)</m:mo>
+            </m:mrow>
+          </m:mrow>
+        </m:mrow>
+      </m:math>
+         operations.
+      
+   </item>
+   <item>
+      
+         Wavelet systems are easily modified to being an adaptive system where the
+         basis adjusts itself to the properties of the signal or the signal class. This
+         is often done by starting with a large collection or library of expansion
+         systems and bases. A subset is adaptively selected based on the efficiency of
+         the representation using a process sometimes called
+         pursuit. In other words, a set is chosen that will
+         result in the smallest number of significant expansion coefficients. Clearly,
+         this is signal dependent, which is both its strength and its limitation. It is
+         nonlinear.
+      
+   </item>
+   <item>
+      
+         One of the most powerful structures yet suggested for using wavelets for
+         signal processing is to first take the DWT, then do a point-wise linear or
+         nonlinear processing of the DWT, finally followed by an inverse DWT. Simply
+         setting some of the wavelet domain expansion terms to zero results in linear
+         wavelet domain filtering, similar to what would happen if the same were done
+         with Fourier transforms. Donoho
+         <cite target-id="md5ca5e2a3b14af4e67277a6eec428d91cb"/><cite target-id="md5f852ab73ffbab8b963b7121553fa5f53"/>
+         and others have shown by using some form of nonlinear thresholding of the DWT,
+         one can achieve near optimal denoising or compression of a signal. The
+         concentrating or localizing character of the DWT allows this nonlinear
+         thresholding to be very effective.
+      
+   </item>
+</list>
+<para id="id10769173">
+   The present state of activity in wavelet research and application shows great
+   promise based on the above generalizations and extensions of the basic theory
+   and structure <cite target-id="md512018ac0cee9b84edcc0d8b481413087"/>.
+   We now have conferences, workshops, articles, newsletters, books, and email
+   groups that are moving the state of the art forward. More details, examples,
+   and software are given in
+   <cite target-id="md5c058d94e0f59018ace29a809a2f50747"/><cite target-id="md550baa6dfe74c3029e0d7f1f95162bb51"/><cite target-id="md55bd4be43483beee5419ee81fe358002a"/>.
+</para>
+<para id="id11284200">
+   
+   
+</para>
+</section>
+</section>
+</content>
+<bib:file><bib:entry id="md5c058d94e0f59018ace29a809a2f50747">
+<bib:book><bib:author>C. Sidney Burrus, Ramesh A. Gopinath and Haitao Guo</bib:author>
+<bib:title>Introduction to Wavelets and the Wavelet Transform</bib:title>
+<bib:publisher>Prentice Hall</bib:publisher>
+<bib:year>1998</bib:year>
+<bib:address>Upper Saddle River, NJ</bib:address>
+<!--bibtex:support = u'AFOSR-DARPA,NSF,BNR,TI,Aware'
+-->
+</bib:book>
+</bib:entry><bib:entry id="md51d902a2e0a226b6ab2d4e91cabf89d94">
+<bib:book><bib:author>Barbara Burke Hubbard</bib:author>
+<bib:title>The World According to Wavelets</bib:title>
+<bib:publisher>A K Peters</bib:publisher>
+<bib:year>1996</bib:year>
+<bib:address>Wellesley, MA</bib:address>
+<bib:note>Second Edition 1998</bib:note>
+</bib:book>
+</bib:entry><bib:entry id="md512018ac0cee9b84edcc0d8b481413087">
+<bib:inproceedings><bib:author>C. Sidney Burrus</bib:author>
+<bib:title>Wavelet Based Signal Processing: Where are We and Where are We Going?, Plenary Talk</bib:title>
+<bib:booktitle>Proceedings of the International Conference on Digital Signal Processing</bib:booktitle>
+<bib:year>1997</bib:year>
+<bib:volume>I</bib:volume>
+<bib:pages>3-5</bib:pages>
+<bib:address>Santorini, Greece</bib:address>
+<bib:month>July</bib:month>
+<!--bibtex:support = u'AFOSR-DARPA, NSF, TI'
+-->
+</bib:inproceedings>
+</bib:entry><bib:entry id="md5fafe1b60c24107ccd8f4562213e44849">
+<bib:book><bib:author>Ingrid Daubechies</bib:author>
+<bib:title>Ten Lectures on Wavelets</bib:title>
+<bib:publisher>SIAM</bib:publisher>
+<bib:year>1992</bib:year>
+<bib:address>Philadelphia, PA</bib:address>
+<bib:note>Notes from the 1990 CBMS-NSF Conference on Wavelets and Applications at Lowell, MA</bib:note>
+</bib:book>
+</bib:entry><bib:entry id="md5153b1a4ba93f1facb16facdf8c9fcc93">
+<bib:book><bib:author>Martin Vetterli and Jelena Kova\vcević</bib:author>
+<bib:title>Wavelets and Subband Coding</bib:title>
+<bib:publisher>Prentice-Hall</bib:publisher>
+<bib:year>1995</bib:year>
+<bib:address>Upper Saddle River, NJ</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md5390eae1af4170f7ddfb1e5010a6ff7dd">
+<bib:book><bib:author>Gilbert Strang and T. Nguyen</bib:author>
+<bib:title>Wavelets and Filter Banks</bib:title>
+<bib:publisher>Wellesley-Cambridge Press</bib:publisher>
+<bib:year>1996</bib:year>
+<bib:address>Wellesley, MA</bib:address>
+</bib:book>
+</bib:entry><bib:entry id="md57e81edc9c9857c84e30f1e99ac2a50cc">
+<bib:article><bib:author>P. Steffen, P. N. Heller, R. A. Gopinath and C. S. Burrus</bib:author>
+<bib:title>Theory of Regular $M$-Band Wavelet Bases</bib:title>
+<bib:journal>IEEE Transactions on Signal Processing</bib:journal>
+<bib:year>1993</bib:year>
+<bib:volume>41</bib:volume>
+<bib:number>12</bib:number>
+<bib:pages>3497-3511</bib:pages>
+<bib:month>December</bib:month>
+<bib:note>Special Transaction issue on wavelets; Rice contribution also in Tech. Report No. CML TR-91-22, Nov. 1991.</bib:note>
+<!--bibtex:support = u'AFOSR-DARPA'
+-->
+</bib:article>
+</bib:entry><bib:entry id="md55bd4be43483beee5419ee81fe358002a">
+<bib:book><bib:author>Michel Misiti, Yves Misiti, Georges Oppenheim and Jean-Michel Poggi</bib:author>
+<bib:title>Wavelet Toolbox User's Guide</bib:title>
+<bib:publisher>The MathWorks, Inc.</bib:publisher>
+<bib:year>1996</bib:year>
+<bib:address>Natick, MA</bib:address>
+</bib:book>
+</bib:entry></bib:file></document>
