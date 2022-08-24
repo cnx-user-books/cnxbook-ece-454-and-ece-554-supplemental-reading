@@ -1,12 +1,13 @@
-<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en">
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" authors="Thad Welch">
   <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
     <md:content-id>col11416</md:content-id>
     <md:title>ECE 454 and ECE 554 Supplemental reading</md:title>
     <md:language>en</md:language>
     <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</md:license>
     <md:uuid>868380c3-3230-4a76-91f9-2d942b479385</md:uuid>
-<md:slug>ece-454-and-ece-554-supplemental-reading</md:slug>
-</metadata>
+    <md:slug>ece-454-and-ece-554-supplemental-reading</md:slug>
+  </metadata>
   <col:content>
     <col:subcollection>
       <md:title>ECE 454/ECE 554 Supplemental Reading for Chapter 1</md:title>
