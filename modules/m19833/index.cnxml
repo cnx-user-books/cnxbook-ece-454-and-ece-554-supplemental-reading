@@ -428,7 +428,7 @@
 				<m:mrow>
 					<m:mtable>
 						<m:mtr>
-							<m:mrow>
+							<m:mtd>
 								<m:mstyle fontsize="12pt">
 									<m:mrow>
 										<m:mrow>
@@ -526,10 +526,10 @@
 									</m:mrow>
 								</m:mstyle>
 								<m:mrow/>
-							</m:mrow>
+							</m:mtd>
 						</m:mtr>
 						<m:mtr>
-							<m:mrow>
+							<m:mtd>
 								<m:mstyle fontsize="12pt">
 									<m:mrow>
 										<m:mrow>
@@ -552,7 +552,7 @@
 									</m:mrow>
 								</m:mstyle>
 								<m:mrow/>
-							</m:mrow>
+							</m:mtd>
 						</m:mtr>
 					</m:mtable>
 					<m:mrow/>

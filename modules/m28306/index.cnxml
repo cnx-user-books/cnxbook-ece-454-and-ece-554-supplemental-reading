@@ -977,7 +977,7 @@
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -1029,10 +1029,10 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mtable>
                           <m:mtr>
@@ -1118,7 +1118,7 @@
                       <m:mtext>sin</m:mtext>
                       <m:mi fontstyle="italic">ωn</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -1733,7 +1733,7 @@
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -1828,10 +1828,10 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -1933,7 +1933,7 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -2149,7 +2149,7 @@
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -2216,10 +2216,10 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mtable>
                           <m:mtr>
@@ -2342,10 +2342,10 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -2444,10 +2444,10 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -2502,7 +2502,7 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -2856,16 +2856,16 @@
           <m:semantics>
             <m:mtable>
               <m:mtr>
-                <m:mrow/>
+                <m:mtd/>
               </m:mtr>
               <m:mtr>
-                <m:mrow/>
+                <m:mtd/>
               </m:mtr>
               <m:mtr>
-                <m:mrow/>
+                <m:mtd/>
               </m:mtr>
               <m:mtr>
-                <m:mrow>
+                <m:mtd>
                   <m:mrow>
                     <m:msub>
                       <m:mi>a</m:mi>
@@ -3126,10 +3126,10 @@
                       </m:mtd>
                     </m:mtr>
                   </m:mtable>
-                </m:mrow>
+                </m:mtd>
               </m:mtr>
               <m:mtr>
-                <m:mrow/>
+                <m:mtd/>
               </m:mtr>
               <m:mtr>
                 <m:mtable>
@@ -3143,9 +3143,9 @@
                 </m:mtable>
               </m:mtr>
               <m:mtr>
-                <m:mrow>
+                <m:mtd>
                   <m:mrow/>
-                </m:mrow>
+                </m:mtd>
               </m:mtr>
             </m:mtable>
             <m:annotation encoding="StarMath 5.0">alignl { stack {
@@ -3182,7 +3182,7 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -3260,10 +3260,10 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -3339,10 +3339,10 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -3391,7 +3391,7 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -3416,7 +3416,7 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -3475,10 +3475,10 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mtable>
                           <m:mtr>
@@ -3528,10 +3528,10 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                       <m:mtext>14</m:mtext>
                       <m:mi>ω</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mtable>
                           <m:mtr>
@@ -3564,7 +3564,7 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                       <m:mtext>18</m:mtext>
                       <m:mi>ω</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -3588,7 +3588,7 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -3650,10 +3650,10 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mtable>
                           <m:mtr>
@@ -3703,10 +3703,10 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                       <m:mtext>14</m:mtext>
                       <m:mi>ω</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mtable>
                           <m:mtr>
@@ -3739,7 +3739,7 @@ a rSub { size 8{"12"} } = - 0 "." "11", matrix {
                       <m:mtext>18</m:mtext>
                       <m:mi>ω</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
